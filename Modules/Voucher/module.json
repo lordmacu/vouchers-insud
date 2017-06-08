@@ -1,0 +1,15 @@
+{
+    "name": "Voucher",
+    "alias": "voucher",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Voucher\\Providers\\VoucherServiceProvider",
+        "Modules\\Voucher\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": [],
+    "files": [],
+    "requires": []
+}

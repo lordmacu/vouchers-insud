@@ -1,0 +1,68 @@
+<?php
+
+return [
+    'list resource' => 'List registrations',
+    'create resource' => 'Create registrations',
+    'edit resource' => 'Edit registrations',
+    'destroy resource' => 'Destroy registrations',
+    'title' => [
+        'registrations' => 'Registration',
+        'create registration' => 'Create a registration',
+        'edit registration' => 'Edit a registration',
+    ],
+    'button' => [
+        'create registration' => 'Create a registration',
+    ],
+    'table' => [
+        'REGIST_ID'=>'Codigo Interfaz',
+        'REGIST_USERIID'=>'Usuario Alta Registro',
+        'REGIST_FECALT'=>'Fecha Alta Registro',
+        'REGIST_TIMALT'=>'Hora de Alta',
+        'REGIST_USERUID'=>'Usuario Modifico Registro',
+        'REGIST_FECMOD'=>'Fecha Modificacion Registro',
+        'REGIST_TIMMOD'=>'Hora de Modificacion Registro',
+        'REGIST_TRANSF'=>'Transferido',
+        'REGIST_CABITM'=>'Cabezera/Item',
+        'REGIST_NROITM'=>'Numero de Item',
+        'PVMPRH_NROCTA'=>'Código del Proveedor',
+        'REGIST_FECMOV'=>'Fecha del Ticket/Factura',
+        'GRCFOR_MODFOR'=>'Tipo de comprobante',
+        'GRCFOR_CODFOR'=>'Código de Comprobante',
+        'REGIST_NROFOR'=>'Número de Comprobante',
+        'CGMSBC_CODDIM'=>'Código de dimensión',
+        'CGMSBC_SUBCUE'=>'Código',
+        'STMPDH_TIPPRO'=>'Tipo de producto',
+        'STMPDH_ARTCOD'=>'Código de producto',
+        'REGIST_CANTID'=>'Cantidad',
+        'REGIST_IMPORT'=>'Precio',
+        'REGIST_IMPIVA'=>'IVA'
+    ],
+    'form' => [
+        'REGIST_ID'=>'Codigo Interfaz',
+        'REGIST_USERIID'=>'Usuario Alta Registro',
+        'REGIST_FECALT'=>'Fecha Alta Registro',
+        'REGIST_TIMALT'=>'Hora de Alta',
+        'REGIST_USERUID'=>'Usuario Modifico Registro',
+        'REGIST_FECMOD'=>'Fecha Modificacion Registro',
+        'REGIST_TIMMOD'=>'Hora de Modificacion Registro',
+        'REGIST_TRANSF'=>'Transferido',
+        'REGIST_CABITM'=>'Cabezera/Item',
+        'REGIST_NROITM'=>'Numero de Item',
+        'PVMPRH_NROCTA'=>'Código del Proveedor',
+        'REGIST_FECMOV'=>'Fecha del Ticket/Factura',
+        'GRCFOR_MODFOR'=>'Tipo de comprobante',
+        'GRCFOR_CODFOR'=>'Código de Comprobante',
+        'REGIST_NROFOR'=>'Número de Comprobante',
+        'CGMSBC_CODDIM'=>'Código de dimensión',
+        'CGMSBC_SUBCUE'=>'Código',
+        'STMPDH_TIPPRO'=>'Tipo de producto',
+        'STMPDH_ARTCOD'=>'Código de producto',
+        'REGIST_CANTID'=>'Cantidad',
+        'REGIST_IMPORT'=>'Precio',
+        'REGIST_IMPIVA'=>'IVA'
+    ],
+    'messages' => [
+    ],
+    'validation' => [
+    ],
+];
