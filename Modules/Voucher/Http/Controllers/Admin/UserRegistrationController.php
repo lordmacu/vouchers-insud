@@ -47,9 +47,14 @@ class UserRegistrationController extends AdminBaseController
             $userArray[$key]["id"]=$value->id;
             $userArray[$key]["first_name"]=$value->first_name;
 
+            $getRegistrationUser=$usersUregistration->getRegistrationUser($value->id);
 
-            
-            $userArray[$key]["USERIID"]=$usersUregistration->getRegistrationUser($value->id)[0]->USERIID;
+            if($getRegistrationUser->count()){
+                $userArray[$key]["USERIID"]=$usersUregistration->getRegistrationUser($value->id)[0]->USERIID;
+            }else{
+                $userArray[$key]["USERIID"]="";
+            }
+
          }
 
  
