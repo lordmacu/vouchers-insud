@@ -44,8 +44,12 @@ class UserRegistrationController extends AdminBaseController
         foreach ($users as $key => $value) {
             # code...
             $usersUregistration= new UserRegistration();
-           $userArray[$key]=$value;
-            $userArray[$key]->USERIID=$usersUregistration->getRegistrationUser($value->id)[0]->USERIID;
+            $userArray[$key]["id"]=$value->id;
+            $userArray[$key]["first_name"]=$value->first_name;
+
+
+            
+            $userArray[$key]["USERIID"]=$usersUregistration->getRegistrationUser($value->id)[0]->USERIID;
          }
 
  

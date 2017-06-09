@@ -39,20 +39,20 @@
                             <?php foreach ($users as $user): ?>
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.voucher.userregistration.edit', [$user->id]) }}">
-                                        {{ $user->first_name }}
+                                    <a href="{{ route('admin.voucher.userregistration.edit', [$user['id']]) }}">
+                                        {{ $user["first_name"] }}
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.voucher.userregistration.edit', [$user->id]) }}">
-                                        {{ $user->USERIID }}
+                                    <a href="{{ route('admin.voucher.userregistration.edit', [$user['id']]) }}">
+                                        {{ $user["USERIID"]  }}
                                     </a>
                                 </td>
 
 
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.voucher.userregistration.edit', [$user->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{ route('admin.voucher.userregistration.edit', [$user['id']]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                     
                                     </div>
                                 </td>
