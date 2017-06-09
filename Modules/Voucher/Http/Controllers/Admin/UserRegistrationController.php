@@ -36,7 +36,20 @@ class UserRegistrationController extends AdminBaseController
 
         $users=$this->user->all();
 
-        return view('voucher::admin.userregistrations.index')->with("users",$users);
+ 
+
+        $userArray= array();
+
+
+        foreach ($users as $key => $value) {
+            # code...
+            $usersUregistration= new UserRegistration();
+           $userArray[$key]=$value;
+            $userArray[$key]->USERIID=$usersUregistration->getRegistrationUser($value->id)[0]->USERIID;
+         }
+
+ 
+        return view('voucher::admin.userregistrations.index')->with("users",$userArray);
     }
 
     /**
