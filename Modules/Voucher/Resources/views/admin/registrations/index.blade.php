@@ -19,8 +19,7 @@
                         <i class="fa fa-pencil"></i> {{ trans('voucher::registrations.button.create registration') }}
                     </a>
                 </div>
-
-
+                
                    </div>
             <div class="box box-primary">
                 <div class="box-header">
