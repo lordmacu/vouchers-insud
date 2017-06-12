@@ -69,6 +69,16 @@
 
                         </tr>
                     </thead>
+                    <thead>
+                        <tr class="bg-warning">
+                            <th>  </th>
+                            <th></th>
+                            <th> Total </th>
+                            <th> {{ $total+$iva }} </th>
+                            <th>  </th>
+
+                        </tr>
+                    </thead>
                 </table>
             </div>
         </div>

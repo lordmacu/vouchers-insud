@@ -171,8 +171,6 @@
         }
 
 
-
-
         if(!$("#PVMPRH_NROCTA").val() ){
           $("#PVMPRH_NROCTA").parent().addClass("bg-danger")
           return false;
