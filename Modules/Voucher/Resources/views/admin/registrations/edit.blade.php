@@ -60,7 +60,7 @@
                     @endforeach
                     </tbody>
                     <thead>
-                        <tr>
+                        <tr class="bg-info">
                             <th> Subotal </th>
                             <th> {{ $cantidad }} </th>
                             <th> {{ $total }} </th>
