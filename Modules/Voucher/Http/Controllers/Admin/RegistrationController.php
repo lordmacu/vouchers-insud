@@ -84,7 +84,7 @@ class RegistrationController extends AdminBaseController
         $Pvmprh= new Pvmprh();
         $listPvmprh= array();
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
-        $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_TIPPRO');
+        $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
         $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
          $date=date('Ymd');
@@ -109,7 +109,6 @@ class RegistrationController extends AdminBaseController
     public function store(Request $request)
     {
 
-
         $headerId=$request->get("REGIST_CABITM");
         $arrayEs=array();
         $arrayEs["PVMPRH_NROCTA"]=$request->get("PVMPRH_NROCTA");
@@ -117,8 +116,7 @@ class RegistrationController extends AdminBaseController
         $arrayEs["CGMSBC_CODDIM"]=$request->get("CGMSBC_CODDIM");
         
         $stmpdh=$this->stmpdh->findByAttributes(array("STMPDH_ARTCOD"=>$request->get("STMPDH_ARTCOD")));
-        
-        $arrayEs["STMPDH_TIPPRO"]=$stmpdh->STMPDH_TIPPRO;
+         $arrayEs["STMPDH_TIPPRO"]=$stmpdh->STMPDH_TIPPRO;
         $arrayEs["STMPDH_ARTCOD"]=$request->get("STMPDH_ARTCOD");
         $arrayEs["REGIST_USERIID"]=$request->get("REGIST_USERIID");
         $arrayEs["REGIST_FECALT"]=date('Ymd');

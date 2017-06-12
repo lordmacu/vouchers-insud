@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'list resource' => 'List registrations',
-    'create resource' => 'Create registrations',
-    'edit resource' => 'Edit registrations',
+    'list resource' => 'List Vouchers',
+    'create resource' => 'Crear ovucher',
+    'edit resource' => 'Editar voucher',
     'destroy resource' => 'Destroy registrations',
     'title' => [
-        'registrations' => 'Registration',
-        'create registration' => 'Create a registration',
-        'edit registration' => 'Edit a registration',
+        'registrations' => 'Creación de Vouchers',
+        'create registration' => 'Crear un voucher',
+        'edit registration' => 'Editar voucher',
     ],
     'button' => [
-        'create registration' => 'Create a registration',
+        'create registration' => 'Crear un voucher',
     ],
     'table' => [
         'REGIST_ID'=>'Codigo Interfaz',
@@ -29,7 +29,7 @@ return [
         'GRCFOR_MODFOR'=>'Tipo de comprobante',
         'GRCFOR_CODFOR'=>'Código de Comprobante',
         'REGIST_NROFOR'=>'Número de Comprobante',
-        'CGMSBC_CODDIM'=>'Código de dimensión',
+        'CGMSBC_CODDIM'=>'Pelicula',
         'CGMSBC_SUBCUE'=>'Código',
         'STMPDH_TIPPRO'=>'Tipo de producto',
         'STMPDH_ARTCOD'=>'Código de producto',
@@ -53,7 +53,7 @@ return [
         'GRCFOR_MODFOR'=>'Tipo de comprobante',
         'GRCFOR_CODFOR'=>'Código de Comprobante',
         'REGIST_NROFOR'=>'Número de Comprobante',
-        'CGMSBC_CODDIM'=>'Código de dimensión',
+        'CGMSBC_CODDIM'=>'Pelicula',
         'CGMSBC_SUBCUE'=>'Código',
         'STMPDH_TIPPRO'=>'Tipo de producto',
         'STMPDH_ARTCOD'=>'Código de producto',
