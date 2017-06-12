@@ -61,7 +61,7 @@
                     </tbody>
                     <thead>
                         <tr>
-                            <th> Total </th>
+                            <th> Subotal </th>
                             <th> {{ $cantidad }} </th>
                             <th> {{ $total }} </th>
                             <th> {{ $iva }} </th>
