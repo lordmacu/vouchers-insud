@@ -279,15 +279,31 @@ class RegistrationController extends AdminBaseController
     public function destroy($id)
     {
 
-        $result=DB::table('voucher__registrations')
-        ->where('REGIST_CABITM', $id)
-        ->where('REGIST_TRANSF', 'N')
-        ->delete();
+
+
+        $registrations= HeadRegistration::find($id);
+
+        $contadorRegistros=0;
+        foreach ($registrations->registrations as $key ) {
+              if($key->REGIST_TRANSF=="S"){
+                $contadorRegistros++;
+             }
+        }
+
+
+          if($contadorRegistros==0){
+            $result=DB::table('voucher__registrations')
+            ->where('REGIST_CABITM', $id)
+            ->delete();
  
             DB::table('voucher__registrations__head')->where('id', $id)->delete();
 
             return redirect()->route('admin.voucher.registration.index')
             ->withSuccess("Se han eliminado los vouchers con éxito");
+        }
+        
+         return redirect()->route('admin.voucher.registration.index')
+            ->withError("Hay un problema eliminando los vouchers, por que ya fueron eliminados");
         
   
     }
