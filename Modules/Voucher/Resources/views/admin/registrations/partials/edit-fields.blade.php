@@ -85,10 +85,13 @@ $('form').on('submit', function() {
       $("#REGIST_FECMOV").parent().removeClass("bg-danger")
     }
  
-    if($("#GRCFOR_CODFOR").val()===""){
-          console.log("aqui");
+ 
+  
 
+    if(!$("#GRCFOR_CODFOR").val()){
       $("#GRCFOR_CODFOR").parent().addClass("bg-danger")
+
+      alert("Selecciona el tipo de comprobante");
       return false;
     }else{
       $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")

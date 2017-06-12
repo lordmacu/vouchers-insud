@@ -77,14 +77,16 @@ $('form').on('submit', function() {
     }else{
       $("#REGIST_FECMOV").parent().removeClass("bg-danger")
     }
- 
-    if($("#GRCFOR_CODFOR").val()===""){
-          console.log("aqui");
 
-      $("#GRCFOR_CODFOR").parent().addClass("bg-danger")
+
+    if($("#GRCFOR_CODFOR").val()===""){
+ 
+       alert("Selecciona el tipo de comprobante");
+
+      $("#GRCFOR_MODFOR").parent().addClass("bg-danger")
       return false;
     }else{
-      $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")
+      $("#GRCFOR_MODFOR").parent().removeClass("bg-danger")
     }
 
         if(!$("#REGIST_NROFOR").val()){

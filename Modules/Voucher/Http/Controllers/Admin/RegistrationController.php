@@ -115,6 +115,18 @@ class RegistrationController extends AdminBaseController
         $arrayEs["GRCFOR_CODFOR"]=$request->get("GRCFOR_CODFOR");
         $arrayEs["CGMSBC_CODDIM"]=$request->get("CGMSBC_CODDIM");
         
+
+        if(!$request->has("STMPDH_ARTCOD")){      
+                return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+            ->withError("Por favor ingrese todos los datos");
+        }
+
+
+        if(!$request->has("GRCFOR_CODFOR")){      
+                return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+            ->withError("Por favor ingrese todos los datos");
+        }
+
         $stmpdh=$this->stmpdh->findByAttributes(array("STMPDH_ARTCOD"=>$request->get("STMPDH_ARTCOD")));
          $arrayEs["STMPDH_TIPPRO"]=$stmpdh->STMPDH_TIPPRO;
         $arrayEs["STMPDH_ARTCOD"]=$request->get("STMPDH_ARTCOD");
