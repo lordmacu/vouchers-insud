@@ -54,7 +54,19 @@ class RegistrationController extends AdminBaseController
     {
         $registrations = HeadRegistration::all();
         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
-        return view('voucher::admin.registrations.index')->with("Cgmsbc",$CgmsbcTranslation)->with("registrations",$registrations) ;
+
+        $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
+
+         $date=date('Ymd');
+        $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
+
+        return view('voucher::admin.registrations.index')
+        ->with("Cgmsbc",$CgmsbcTranslation)
+                ->with("Pvmprh",$PvmprhTranslation)
+        ->with("date",$date)
+        ->with("Grcfor",$GrcforTranslation)
+
+        ->with("registrations",$registrations) ;
     }
 
     /**
@@ -65,9 +77,18 @@ class RegistrationController extends AdminBaseController
     public function create(Request $request)
     {
 
+
+
         $headRegistration= new HeadRegistration();
         $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
+        $headRegistration->PVMPRH_NROCTA=$request->get("PVMPRH_NROCTA");
+        $headRegistration->REGIST_FECMOV=$request->get("REGIST_FECMOV");
+        $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
+        $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
         $headRegistration->save();
+
+
+
         $headerId=$headRegistration->id;
 
         $user = $this->auth->user();
@@ -83,19 +104,19 @@ class RegistrationController extends AdminBaseController
 
         $Pvmprh= new Pvmprh();
         $listPvmprh= array();
-        $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
+//        $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
         $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
-        $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
-         $date=date('Ymd');
+        //$GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
+       //  $date=date('Ymd');
 
         return view('voucher::admin.registrations.create')
-        ->with("Pvmprh",$PvmprhTranslation)
+       // ->with("Pvmprh",$PvmprhTranslation)
         ->with("Stmpdh",$StmpdhTranslation)
         ->with("Cgmsbc",$CgmsbcTranslation) 
-        ->with("Grcfor",$GrcforTranslation)
+       // ->with("Grcfor",$GrcforTranslation)
         ->with("REGIST_CABITM",$headerId)
-        ->with("date",$date)
+        //->with("date",$date)
         ->with("CGMSBC_CODDIM",$request->get("CGMSBC_CODDIM"))
         ->with("registrationId",$registrationId);
     }
@@ -110,22 +131,14 @@ class RegistrationController extends AdminBaseController
     {
 
         $headerId=$request->get("REGIST_CABITM");
+
+
+        $HeadRegistration=HeadRegistration::find($headerId);
         $arrayEs=array();
-        $arrayEs["PVMPRH_NROCTA"]=$request->get("PVMPRH_NROCTA");
-        $arrayEs["GRCFOR_CODFOR"]=$request->get("GRCFOR_CODFOR");
-        $arrayEs["CGMSBC_CODDIM"]=$request->get("CGMSBC_CODDIM");
-        
-
-        if(!$request->has("STMPDH_ARTCOD")){      
-                return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
-            ->withError("Por favor ingrese todos los datos");
-        }
-
-
-        if(!$request->has("GRCFOR_CODFOR")){      
-                return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
-            ->withError("Por favor ingrese todos los datos");
-        }
+        $arrayEs["PVMPRH_NROCTA"]=$HeadRegistration->PVMPRH_NROCTA;
+        $arrayEs["GRCFOR_CODFOR"]=$HeadRegistration->GRCFOR_CODFOR;
+        $arrayEs["CGMSBC_CODDIM"]=$HeadRegistration->CGMSBC_CODDIM;
+              
 
         $stmpdh=$this->stmpdh->findByAttributes(array("STMPDH_ARTCOD"=>$request->get("STMPDH_ARTCOD")));
          $arrayEs["STMPDH_TIPPRO"]=$stmpdh->STMPDH_TIPPRO;
@@ -135,14 +148,14 @@ class RegistrationController extends AdminBaseController
         $arrayEs["REGIST_TIMALT"]=date('Gis');
         $arrayEs["REGIST_TRANSF"]="N";
         $arrayEs["REGIST_CABITM"]=$headerId;
-        $arrayEs["REGIST_NROFOR"]=$request->get("REGIST_NROFOR");
+        $arrayEs["REGIST_NROFOR"]=$HeadRegistration->REGIST_NROFOR;
         $arrayEs["REGIST_IMPIVA"]=$request->get("REGIST_IMPIVA");
         $arrayEs["REGIST_CANTID"]=$request->get("REGIST_CANTID");
         $arrayEs["REGIST_IMPORT"]=$request->get("REGIST_IMPORT");
-        $arrayEs["REGIST_FECMOV"]=$request->get("REGIST_FECMOV");
+        $arrayEs["REGIST_FECMOV"]=$HeadRegistration->REGIST_FECMOV;
  
 
-        $grcfor=$this->grcfor->findByAttributes(array("GRCFOR_CODFOR"=>$request->get("GRCFOR_CODFOR")));
+        $grcfor=$this->grcfor->findByAttributes(array("GRCFOR_CODFOR"=>$HeadRegistration->GRCFOR_CODFOR));
         $arrayEs["GRCFOR_MODFOR"]=$grcfor->GRCFOR_MODFOR;
         $cgmsbc=$this->cgmsbc->findByAttributes(array("CGMSBC_CODDIM"=>$request->get("CGMSBC_CODDIM")));
         $arrayEs["CGMSBC_SUBCUE"]=$cgmsbc->CGMSBC_SUBCUE;

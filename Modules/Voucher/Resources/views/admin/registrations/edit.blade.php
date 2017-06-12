@@ -27,17 +27,29 @@
                             <th> Comprobante </th>
                             <th> {{  trans('voucher::registrations.form.REGIST_CANTID') }}  </th>
                             <th> {{ trans('voucher::registrations.form.REGIST_IMPORT')}} </th>
+                            <th> IVA </th>
                             <th>  </th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <?php $total = 0; ?>
+                        <?php $iva = 0; ?>
+                        <?php $cantidad = 0; ?>
+
                     @foreach($registration->registrations as $r)
+
+
+                        <?php $total = $total+$r->REGIST_IMPORT; ?>
+                        <?php $iva = $iva+$r->REGIST_IMPIVA;; ?>
+                        <?php $cantidad = $cantidad+$r->REGIST_CANTID;; ?>
                         <tr>
                             <td> {!! $r->REGIST_NROFOR !!}</td>
                             <td> {!! $r->REGIST_CANTID !!}</td>
                             <td> {!! $r->REGIST_IMPORT !!}</td>
+                            <td> {!! $r->REGIST_IMPIVA !!}</td>
+
+
                             <td>
                             @if($r->REGIST_TRANSF=="N")
                                 <a class="btn btn-warning btn-flat" href="{{ route('admin.voucher.registration.edit.individual', [$r->id]) }}"  ><i class="fa fa-edit"></i></a>
@@ -47,7 +59,16 @@
                          </tr>
                     @endforeach
                     </tbody>
+                    <thead>
+                        <tr>
+                            <th> Total </th>
+                            <th> {{ $cantidad }} </th>
+                            <th> {{ $total }} </th>
+                            <th> {{ $iva }} </th>
+                            <th>  </th>
 
+                        </tr>
+                    </thead>
                 </table>
             </div>
         </div>

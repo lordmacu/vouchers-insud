@@ -95,7 +95,32 @@
                 {!! Form::label("CGMSBC_CODDIM", trans('voucher::registrations.form.CGMSBC_CODDIM')) !!}
                 {!! Form::select("CGMSBC_CODDIM", $Cgmsbc,"", ['placeholder' => trans('voucher::registrations.form.CGMSBC_CODDIM')]) !!}
             </div>
+
+            <div class="col-xs-12 col-sm-4  col-lg-4">
+                {!! Form::label("PVMPRH_NROCTA", trans('voucher::registrations.form.PVMPRH_NROCTA')) !!}
+                {!! Form::select("PVMPRH_NROCTA", $Pvmprh,"", ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
+            </div>
+
+           
         </div>
+        <div class="row">
+        
+            <div class="col-xs-12 col-sm-4  col-lg-4">
+
+                {!! Form::label("REGIST_FECMOV", trans('voucher::registrations.form.REGIST_FECMOV')) !!}
+                {!! Form::text('REGIST_FECMOV', $date,array("class"=>"form-control datetimepicker")); !!} 
+            </div>
+            <div class="col-xs-12 col-sm-4  col-lg-4">
+                {!! Form::label("GRCFOR_MODFOR", trans('voucher::registrations.form.GRCFOR_MODFOR')) !!}
+                {!! Form::select("GRCFOR_CODFOR", $Grcfor,"", ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR')]) !!}
+            </div>
+
+            <div class="col-xs-12 col-sm-4  col-lg-4">
+                {!! Form::label("REGIST_NROFOR", trans('voucher::registrations.form.REGIST_NROFOR')) !!}
+                {!! Form::text('REGIST_NROFOR',"",array("class"=>"form-control","required"=>"true")); !!}
+            </div>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
