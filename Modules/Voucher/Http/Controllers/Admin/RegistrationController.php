@@ -288,7 +288,7 @@ class RegistrationController extends AdminBaseController
             DB::table('voucher__registrations__head')->where('id', $id)->delete();
 
             return redirect()->route('admin.voucher.registration.index')
-            ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('voucher::registrations.title.registrations')]));
+            ->withSuccess("Se han eliminado los vouchers con éxito");
         }else{
             return redirect()->route('admin.voucher.registration.index')
             ->withError("No se puede eliminar ya que algunos de los vouchers ya fueron transferidos");
@@ -299,14 +299,16 @@ class RegistrationController extends AdminBaseController
     public function destroyRegistration($id, Request $request)
     {
 
+ 
         $result=DB::table('voucher__registrations')
-        ->where('REGIST_CABITM', $id)
+        ->where('id', $id)
         ->where('REGIST_TRANSF', 'N')
         ->delete();
 
-        return redirect()
+
+         return redirect()
         ->route('admin.voucher.registration.edit',array("id"=>$request->get("header"),"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
-        ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('voucher::registrations.title.registrations')]));
+            ->withSuccess("Se han eliminado el voucher con éxito");
     }
 
 
