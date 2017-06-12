@@ -82,7 +82,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-    <form action="{{ route('admin.voucher.registration.create') }}" method="GET">
+    <form action="{{ route('admin.voucher.registration.create') }}" id="formcreacion" method="GET">
         
    
       <div class="modal-header">
@@ -161,7 +161,7 @@
 
 
 
-    $('form').on('submit', function() {
+    $('#formcreacion').on('submit', function() {
    
         if(!$("#CGMSBC_CODDIM").val()){
           $("#CGMSBC_CODDIM").parent().addClass("bg-danger")
