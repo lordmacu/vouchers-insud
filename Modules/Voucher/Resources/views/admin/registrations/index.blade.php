@@ -112,7 +112,7 @@
             </div>
             <div class="col-xs-12 col-sm-4  col-lg-4">
                 {!! Form::label("GRCFOR_MODFOR", trans('voucher::registrations.form.GRCFOR_MODFOR')) !!}
-                {!! Form::select("GRCFOR_CODFOR", $Grcfor,"", ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR')]) !!}
+                {!! Form::select("GRCFOR_CODFOR", $Grcfor,"", ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR'),"id"=>"GRCFOR_CODFOR"]) !!}
             </div>
 
             <div class="col-xs-12 col-sm-4  col-lg-4">
@@ -145,6 +145,12 @@
 @stop
 
 @section('scripts')
+
+
+
+
+
+
     <script type="text/javascript">
         $( document ).ready(function() {
             $(document).keypressAction({
@@ -152,6 +158,54 @@
                     { key: 'c', route: "<?= route('admin.voucher.registration.create') ?>" }
                 ]
             });
+
+
+
+    $('form').on('submit', function() {
+   
+        if(!$("#CGMSBC_CODDIM").val()){
+          $("#CGMSBC_CODDIM").parent().addClass("bg-danger")
+          return false;
+        }else{
+          $("#CGMSBC_CODDIM").parent().removeClass("bg-danger")
+        }
+
+
+
+
+        if(!$("#PVMPRH_NROCTA").val() ){
+          $("#PVMPRH_NROCTA").parent().addClass("bg-danger")
+          return false;
+        }else{
+          $("#PVMPRH_NROCTA").parent().removeClass("bg-danger")
+        }
+
+
+
+        if(!$("#REGIST_FECMOV").val()  ){
+          $("#REGIST_FECMOV").parent().addClass("bg-danger")
+          return false;
+        }else{
+          $("#REGIST_FECMOV").parent().removeClass("bg-danger")
+        }
+
+       
+ 
+
+        if(!$("#GRCFOR_CODFOR").val()  ){
+          $("#GRCFOR_CODFOR").parent().addClass("bg-danger")
+          return false;
+        }else{
+          $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")
+        }
+
+ 
+
+
+return true;
+
+});
+
         });
     </script>
     <?php $locale = locale(); ?>

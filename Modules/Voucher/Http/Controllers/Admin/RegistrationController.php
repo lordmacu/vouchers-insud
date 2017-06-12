@@ -157,7 +157,7 @@ class RegistrationController extends AdminBaseController
 
         $grcfor=$this->grcfor->findByAttributes(array("GRCFOR_CODFOR"=>$HeadRegistration->GRCFOR_CODFOR));
         $arrayEs["GRCFOR_MODFOR"]=$grcfor->GRCFOR_MODFOR;
-        $cgmsbc=$this->cgmsbc->findByAttributes(array("CGMSBC_CODDIM"=>$request->get("CGMSBC_CODDIM")));
+        $cgmsbc=$this->cgmsbc->findByAttributes(array("CGMSBC_CODDIM"=>$HeadRegistration->CGMSBC_CODDIM));
         $arrayEs["CGMSBC_SUBCUE"]=$cgmsbc->CGMSBC_SUBCUE;
         $result=$this->registration->create($arrayEs);
         $incremental = sprintf('%04d',$result->id);
