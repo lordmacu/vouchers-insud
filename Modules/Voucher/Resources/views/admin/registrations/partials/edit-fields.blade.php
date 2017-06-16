@@ -43,7 +43,7 @@
 
 <script>
   
-$('form').on('submit', function() {
+$('#registrationstore').on('submit', function() {
    
     if(!$("#STMPDH_ARTCOD").val()){
       $("#STMPDH_ARTCOD").parent().addClass("bg-danger")

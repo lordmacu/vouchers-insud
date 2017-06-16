@@ -16,6 +16,8 @@
 @stop
 
 @section('content')
+
+ojo
     {!! Form::open(['route' => ['admin.voucher.voucher.update', $voucher->id], 'method' => 'put']) !!}
     <div class="row">
         <div class="col-md-12">

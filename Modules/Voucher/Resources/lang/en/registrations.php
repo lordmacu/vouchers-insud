@@ -2,16 +2,16 @@
 
 return [
     'list resource' => 'List Vouchers',
-    'create resource' => 'Crear ovucher',
+    'create resource' => 'Agregar ovucher',
     'edit resource' => 'Editar voucher',
     'destroy resource' => 'Destroy registrations',
     'title' => [
         'registrations' => 'Creación de Vouchers',
-        'create registration' => 'Crear un voucher',
+        'create registration' => 'Agregar un voucher',
         'edit registration' => 'Editar voucher',
     ],
     'button' => [
-        'create registration' => 'Crear un voucher',
+        'create registration' => 'Agregar un voucher',
     ],
     'table' => [
         'REGIST_ID'=>'Codigo Interfaz',

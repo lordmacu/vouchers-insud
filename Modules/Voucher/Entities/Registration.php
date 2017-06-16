@@ -3,6 +3,7 @@
 namespace Modules\Voucher\Entities;
 
  use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; // <-- This is required
 
 class Registration extends Model
 {
@@ -11,7 +12,8 @@ class Registration extends Model
     protected $table = 'voucher__registrations';
     public $translatedAttributes = [];
     protected $fillable = [];
-
+    use SoftDeletes; // <-- Use This Instead Of SoftDeletingTrait
+    
 
      public function cgmsbcs()
     {

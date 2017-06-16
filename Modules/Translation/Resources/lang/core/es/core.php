@@ -3,7 +3,7 @@
 return [
     'modal' => [
         'title' => 'Confirmación',
-        'confirmation-message' => '¿Estás seguro que quieres eliminar este registro?',
+        'confirmation-message' => '¿Estás seguro que quieres anular este registro?',
     ],
     'table' => [
         'created at' => 'Creado el',
@@ -29,7 +29,7 @@ return [
         'cancel' => 'Cancelar',
         'create' => 'Crear',
         'update' => 'Actualizar',
-        'delete' => 'Eliminar',
+        'delete' => 'Anular',
         'reset' => 'Reiniciar',
         'update and back' => 'Actualizar y regresar',
     ],
@@ -52,7 +52,7 @@ return [
         'resource created' => ':name creado éxitosamente.',
         'resource not found' => ':name no encontrado.',
         'resource updated' => ':name actualizado éxitosamente.',
-        'resource deleted' => ':name eliminado éxitosamente.',
+        'resource deleted' => ':name anulado éxitosamente.',
     ],
     'back' => 'Atrás',
     'back to index' => 'Regresar a :name',

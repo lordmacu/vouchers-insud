@@ -42,8 +42,80 @@ class RegistrationController extends AdminBaseController
         $this->cgmsbc = $cgmsbc;
         $this->stmpdh = $stmpdh;
 
-        $this->requireAssets();
+
     }
+
+function remove_empty_tags_recursive ($str, $repto = NULL)
+{
+    //** Return if string not given or empty.
+    if (!is_string ($str)
+        || trim ($str) == '')
+            return $str;
+
+    //** Recursive empty HTML tags.
+    return preg_replace (
+
+        //** Pattern written by Junaid Atari.
+        '/<([^<\/>]*)>([\s]*?|(?R))<\/\1>/imsU',
+
+        //** Replace with nothing if string empty.
+        !is_string ($repto) ? '' : $repto,
+
+        //** Source string
+        $str
+    );
+}
+
+function remove_empty_p($content){
+    $content = force_balance_tags($content);
+    return preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
+}
+
+function normaliza ($cadena){
+    $originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ
+ßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ';
+    $modificadas = 'aaaaaaaceeeeiiiidnoooooouuuuy
+bsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
+    $cadena = utf8_decode($cadena);
+    $cadena = strtr($cadena, utf8_decode($originales), $modificadas);
+    $cadena = strtolower($cadena);
+    return utf8_encode($cadena);
+}
+
+function extractCommonWords($string){
+      $stopWords = array('alguna','yo','un','una','sobre','y','son','como','de','ser','por','com','de','en','por','de','cual','en','es','eso','la','o','eso','la','eso','a','era','que','entonces','donde','quien','era','sera','con','und','el','lo','dónde','por qué','Qué','quién','cuándo','cuánto','cuál','cómo','e','ni','ni siquiera','sino','tambien','también','pero','aunque','al contrario','en cambio','sin empbargo','a pesar de','no obstante','sino','sino que','o bien','o sea','es decir','esto es','porque','ya que','dado que','debido a que','puesto que','como','a no ser que','aun','muy','luego','pues','por','eso','ahi','aqui','tan','para','fin','apenas','mientras','siempre','las','ylas','enlaedad','imgur','cuando','reddit','twitter','incluso','picture','este','imgrum','overseainstagrammernews','pixabay','cmics','depositphotos','puede','pueden','esto','nuestro','foto','estar','interesantecomar','tuits','saludableinteresantecomar','rexfeatures','puedes','demas','esta','pikabu','rrrrrrr','asko','mismointeresantecomar','todo','solo','estos','muchos' ,'dicen','pase','falta','hace','depositphotoscom','ella','fueron','dice','tener','debe','cada','hasta','quieren','todo','bien','tanto','eastnews','hacia','durante','despues','commons','wikimedia','permite','puedes','tiene','tipo','junto','contiene','encuentra','causar','puesto','algunas','mucho','pasan','desde','haran','menos','algunos','tantos','ellas','pudo','cualquier','antes','segun','ellos','haya','seguramente','quedo','estes','necesitas','estas','quienes','encontramos','mismo','0','sako','mejor','nuestros','toda','todas','todos','todosr','ahora','tienen','flickr','ademas','tipos','usando','debes','saben','algo','algunos','contra','contienen','puedas','hacerlo','dira','estan','east','gran','buena','otros','twittercom','imgurcom','redditcom','hollyscoopcom','empece','tengo','tenia','tengo','hizo','haber','tendra','muchas','cuantos','usar','simplemente','news','parte','decir','otras','otro','aquel','veces','vuelve','hacer','sabe','posible','muchas','facebookcom','nada','anos','intenta','basado','crees','queremos','sucede','sentimos','sigue','debido','revela','pena','limpiarlas','directamente','existe','consumidos','aportan','exitosa','debido','empezo','distintas');
+   
+      $string = preg_replace('/\s\s+/i', ' ', $string); // replace whitespace
+      $string = trim($string); // trim the string
+      $string = preg_replace('/[^a-zA-Z0-9 -]/', '', $string); // only take alphanumerical characters, but keep the spaces and dashes too…
+      $string = strtolower($string); // make it lowercase
+   
+      preg_match_all('/\b.*?\b/i', $string, $matchWords);
+      $matchWords = $matchWords[0];
+      
+      foreach ( $matchWords as $key=>$item ) {
+          if ( $item == '' || in_array(strtolower($item), $stopWords) || strlen($item) <= 3 ) {
+              unset($matchWords[$key]);
+          }
+      }   
+      $wordCountArr = array();
+      if ( is_array($matchWords) ) {
+          foreach ( $matchWords as $key => $val ) {
+              $val = strtolower($val);
+              if ( isset($wordCountArr[$val]) ) {
+                  $wordCountArr[$val]++;
+              } else {
+                  $wordCountArr[$val] = 1;
+              }
+          }
+      }
+      arsort($wordCountArr);
+      $wordCountArr = array_slice($wordCountArr, 0, 10);
+      return $wordCountArr;
+}
+
+
+   
 
     /**
      * Display a listing of the resource.
@@ -52,7 +124,109 @@ class RegistrationController extends AdminBaseController
      */
     public function index()
     {
-        $registrations = HeadRegistration::all();
+
+ /*$file="file.xml";
+$current = file_get_contents($file);
+
+ $otros="";
+
+
+  $contador=1;
+
+for ($i=1; $i <19 ; $i++) { 
+ 
+
+  $path = $i.".json";  
+  $json = json_decode(file_get_contents($path), true); 
+
+  if(count($json)>0){
+
+ 
+  foreach ($json as   $value) {
+
+    $result= array();
+    $result[] = array(
+          "titulo"=>$value["data"]["titulo"],
+          "src"=>$value["data"]["src"],
+          "desc"=>$value["data"]["desc"],
+          "href"=>$value["data"]["href"],
+          "html"=>$value["html"]
+          );
+    $desc=  str_replace("Genial.guru", " interesante.com.ar ", $value["data"]["desc"]);
+    $html=  str_replace("Genial.guru", " interesante.com.ar ", $value["html"]);
+    $removep=str_replace("\n", "", $html);
+    $resultddd = preg_replace('/<a href=\"(.*?)\">(.*?)<\/a>/', "\\2", $removep);
+    $htmlasfad = preg_replace('~>\s+<~', '><', $resultddd);
+    $limpiado=str_replace("&nbsp;", " ", $htmlasfad);
+
+    $titulo=$value["data"]["titulo"];
+    $image="";
+    $metasArray=array();
+    $slug = \Str::slug($value["data"]["titulo"], '_');
+
+    foreach ($value["metas"] as   $meta) {
+      
+      if($meta["property"]=="og:image"){
+          $image=$meta["content"];
+      }
+
+      if($meta["property"]=="og:site_name"){
+          $metasArraytemp=explode("—", $meta["content"]);
+          $metasArraytempUno=explode(".", trim($metasArraytemp[1]));
+   
+          foreach ($metasArraytempUno as $metaLimpio) {
+              if($metaLimpio){
+                  $metasArray[]= trim($metaLimpio);       
+              }
+          }
+      }
+    }
+    $cat=$metasArray[array_rand($metasArray,1)];
+    $textolimpioFin=$this->remove_empty_tags_recursive(strip_tags(($limpiado),"<img><p>"));
+
+    $palabraTags=array();
+    
+    foreach ($this->extractCommonWords(strip_tags($this->normaliza($textolimpioFin))) as $key => $keys) {
+      $palabraTags[]=$key;
+    }
+
+    $otros=$otros.'<post>
+                    <id>'.$contador.'</id>
+                    <image>'.$image.'</image>
+                    <titulo>'.$value["data"]["titulo"].'</titulo>
+                    <desc>'.$desc.'</desc>
+                    <cat>'.$cat.'</cat>
+                    <slug>'.$slug.'</slug>
+                    <tags>'.implode(",", $palabraTags).'</tags>
+                   
+                    <htmldata><![CDATA['.$textolimpioFin.']]></htmldata>
+                  </post>';
+    $contador++;
+
+   }
+  }
+ }
+ 
+$principio='<?xml version="1.0" encoding="UTF-8"?><document>';
+$fin='</document>';
+file_put_contents($file,  $principio.$otros.$fin);*/
+
+
+
+
+         $user = $this->auth->user();
+        $userRegistraion= new UserRegistration();
+        $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
+
+
+        if($getRegistrationUser->count()){
+            $registrationId=$getRegistrationUser[0]->USERIID;   
+        }else{
+            return redirect()->route('admin.voucher.registration.index')
+            ->withError("Es necesario que el usuario este vinculado con un id");
+        }
+
+        $registrations = HeadRegistration::where("USERIID",$getRegistrationUser[0]->USERIID)->get();
         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
@@ -78,19 +252,20 @@ class RegistrationController extends AdminBaseController
     {
 
 
+        $pvmprhValue=$request->get("PVMPRH_NROCTA");
 
-        $headRegistration= new HeadRegistration();
-        $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
-        $headRegistration->PVMPRH_NROCTA=$request->get("PVMPRH_NROCTA");
-        $headRegistration->REGIST_FECMOV=$request->get("REGIST_FECMOV");
-        $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
-        $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
-        $headRegistration->save();
+        if($request->has("temp_PVMPRH_NOMBRE")){
+          $pvmprhValue=mt_rand(1000000000,9000000000);
 
+          $pvmprh= new Pvmprh();
+          $pvmprh->PVMPRH_NROCTA=$pvmprhValue;
+          $pvmprh->PVMPRH_NOMBRE=$request->get("temp_PVMPRH_NOMBRE");
+          $pvmprh->PVMPRH_NRODOC=$request->get("temp_PVMPRH_NRODOC");
+          $pvmprh->new=1;
+          $pvmprh->save();
+        }
 
-
-        $headerId=$headRegistration->id;
-
+ 
         $user = $this->auth->user();
         $userRegistraion= new UserRegistration();
         $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
@@ -102,21 +277,42 @@ class RegistrationController extends AdminBaseController
             ->withError("Es necesario que el usuario este vinculado con un id");
         }
 
+        $headRegistration= new HeadRegistration();
+        $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
+        $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
+        $headRegistration->REGIST_FECMOV=$request->get("REGIST_FECMOV");
+        $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
+        $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
+        $headRegistration->USERIID=$registrationId;
+        $headRegistration->save();
+
+
+        $headerId=$headRegistration->id;
+
+
+        $registrationModel=HeadRegistration::find($headerId);
+
+
+        return redirect()
+        ->route('admin.voucher.registration.edit',array("id"=>$headRegistration->id,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+            ->withSuccess("Se han eliminado el voucher con éxito");
+
         $Pvmprh= new Pvmprh();
         $listPvmprh= array();
-//        $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
+        $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
         $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
-        //$GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
-       //  $date=date('Ymd');
+        $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
+         $date=date('Ymd');
 
         return view('voucher::admin.registrations.create')
-       // ->with("Pvmprh",$PvmprhTranslation)
+       ->with("Pvmprh",$PvmprhTranslation)
         ->with("Stmpdh",$StmpdhTranslation)
+        ->with("registrationModel",$registrationModel)
         ->with("Cgmsbc",$CgmsbcTranslation) 
-       // ->with("Grcfor",$GrcforTranslation)
+        ->with("Grcfor",$GrcforTranslation)
         ->with("REGIST_CABITM",$headerId)
-        //->with("date",$date)
+        ->with("date",$date)
         ->with("CGMSBC_CODDIM",$request->get("CGMSBC_CODDIM"))
         ->with("registrationId",$registrationId);
     }
@@ -169,6 +365,11 @@ class RegistrationController extends AdminBaseController
         return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
 
              ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('voucher::registrations.title.registrations')]));
+
+
+
+
+
     }
 
 
@@ -238,7 +439,8 @@ class RegistrationController extends AdminBaseController
         $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
  
         $registration= HeadRegistration::find($id);
-        $date=date('Ymd');
+
+         $date=date('Ymd');
  
         return view('voucher::admin.registrations.edit', compact('registration'))
         ->with("Pvmprh",$PvmprhTranslation)
@@ -247,6 +449,8 @@ class RegistrationController extends AdminBaseController
         ->with("Grcfor",$GrcforTranslation)
         ->with("REGIST_CABITM",$id)
         ->with("date",$date)
+                ->with("registrationModel",$registration)
+
         ->with("CGMSBC_CODDIM",$request->get("CGMSBC_CODDIM"))
         ->with("registrationId",$registrationId);
     }
@@ -291,12 +495,12 @@ class RegistrationController extends AdminBaseController
         }
 
 
-          if($contadorRegistros==0){
+        if($contadorRegistros==0){
             $result=DB::table('voucher__registrations')
             ->where('REGIST_CABITM', $id)
             ->delete();
  
-            DB::table('voucher__registrations__head')->where('id', $id)->delete();
+             $registrations->delete();
 
             return redirect()->route('admin.voucher.registration.index')
             ->withSuccess("Se han eliminado los vouchers con éxito");
@@ -323,14 +527,23 @@ class RegistrationController extends AdminBaseController
             ->withSuccess("Se han eliminado el voucher con éxito");
     }
 
+    public function updateRegister($id, Request $request){
+ 
+        $headRegistration=HeadRegistration::find($id);
+        $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
+        $headRegistration->PVMPRH_NROCTA=$request->get("PVMPRH_NROCTA");
+        $headRegistration->REGIST_FECMOV=$request->get("REGIST_FECMOV");
+        $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
+        $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
+        $headRegistration->save();
 
-     private function requireAssets()
-    {
-        $this->assetManager->addAsset('bootstrap-editables.css', Module::asset('translation:vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css'));
-        $this->assetManager->addAsset('bootstrap-editables.js', Module::asset('translation:vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js'));
-
-        $this->assetPipeline->requireJs('bootstrap-editables.js');
-        $this->assetPipeline->requireCss('bootstrap-editables.css');
+ 
+          return redirect()
+        ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+            ->withSuccess("Se han eliminado el voucher con éxito");
     }
+    
+
+
 }
   

@@ -204,6 +204,15 @@ $router->group(['prefix' =>'/voucher'], function (Router $router) {
         'uses' => 'RegistrationController@update',
         'middleware' => 'can:voucher.registrations.edit'
     ]);
+
+
+    $router->get('registrations/{id}/update', [
+        'as' => 'admin.voucher.registration.update.individual',
+        'uses' => 'RegistrationController@updateRegister',
+        'middleware' => 'can:voucher.registrations.edit'
+    ]);
+
+
     $router->delete('registrations/{id}', [
         'as' => 'admin.voucher.registration.destroy',
         'uses' => 'RegistrationController@destroy',

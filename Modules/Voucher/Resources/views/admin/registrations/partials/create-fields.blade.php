@@ -42,7 +42,7 @@
 
 <script>
   
-$('form').on('submit', function() {
+$('#registrationstore').on('submit', function() {
 
 
   if(!$("#STMPDH_ARTCOD").val()){

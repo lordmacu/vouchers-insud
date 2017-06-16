@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Voucher\Entities;
+use Illuminate\Database\Eloquent\SoftDeletes; // <-- This is required
 
  use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class HeadRegistration extends Model
     public $translatedAttributes = [];
     protected $fillable = [];
     protected $guarded = array();
+    use SoftDeletes; // <-- Use This Instead Of SoftDeletingTrait
 
 
   	public function registrations()
@@ -21,5 +23,24 @@ class HeadRegistration extends Model
      public function cgmsbcs()
     {
         return $this->hasOne("Modules\\Voucher\\Entities\\Cgmsbc","CGMSBC_CODDIM","CGMSBC_CODDIM");
+    }
+
+
+ 
+
+
+        public function grcfors()
+    {
+        return $this->hasOne("Modules\\Voucher\\Entities\\Grcfor","GRCFOR_CODFOR","GRCFOR_CODFOR");
+    }
+
+        public function pvmprhs()
+    {
+        return $this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","PVMPRH_NROCTA","PVMPRH_NROCTA");
+    }
+
+        public function stmpdhs()
+    {
+        return $this->hasOne("Modules\\Voucher\\Entities\\Stmpdh","STMPDH_TIPPRO","STMPDH_TIPPRO");
     }
 }

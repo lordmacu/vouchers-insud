@@ -16,6 +16,8 @@
 @stop
 
 @section('content')
+
+aqui
     {!! Form::open(['route' => ['admin.voucher.voucher.store'], 'method' => 'post']) !!}
     <div class="row">
         <div class="col-md-12">

@@ -36,7 +36,7 @@
  
 
                         <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.update') }}</button>
-                        <a class="btn btn-danger pull-right btn-flat" href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_CODDIM='.$registration->CGMSBC_CODDIM))}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
+                        <a class="btn btn-info pull-right btn-flat" href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_CODDIM='.$registration->CGMSBC_CODDIM))}}">Atras</a>
                     </div>
                 </div>
             </div> {{-- end nav-tabs-custom --}}
