@@ -481,8 +481,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     {
 
 
-
-        $registrations= HeadRegistration::find($id);
+         $registrations= HeadRegistration::find($id);
 
         $contadorRegistros=0;
         foreach ($registrations->registrations as $key ) {

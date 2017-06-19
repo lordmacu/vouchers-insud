@@ -148,7 +148,7 @@
                     <a type="button" href="{{ route('admin.voucher.registration.index') }}" class="btn btn-success pull-right"  >
                     Guardar
                     </a>
-                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-method="GET"  data-action-verb="GET" data-action-target="{{ route('admin.voucher.registration.destroy', [$REGIST_CABITM]) }}"><i class="fa fa-trash"></i> Anular</button>
+                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation"  data-action-target="{{ route('admin.voucher.registration.destroy', [$REGIST_CABITM]) }}"><i class="fa fa-trash"></i> Anular</button>
                 </div>
               </div>
 
