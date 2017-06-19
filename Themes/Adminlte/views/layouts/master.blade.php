@@ -101,7 +101,7 @@
            });
             });
 
-</script>
+</script> 
 @section('scripts')
 @show
 </body>
