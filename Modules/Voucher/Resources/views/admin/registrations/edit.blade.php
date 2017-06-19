@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-xs-12">
                         <br/>
-                            <button type="submit" class="btn btn-primary pull-left">Actualizar Voucher</button>
+                            <button type="submit" class="btn btn-default pull-left">Actualizar Voucher</button>
                         
 
                         </div>

@@ -367,9 +367,6 @@ file_put_contents($file,  $principio.$otros.$fin);*/
              ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('voucher::registrations.title.registrations')]));
 
 
-
-
-
     }
 
 
