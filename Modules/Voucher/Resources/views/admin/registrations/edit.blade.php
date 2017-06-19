@@ -39,9 +39,9 @@
                     <div class="row">
 
                         <div class="col-xs-12 col-sm-4  col-lg-4">
-
+                                
                             {!! Form::label("REGIST_FECMOV", trans('voucher::registrations.form.REGIST_FECMOV')) !!}
-                            {!! Form::text('REGIST_FECMOV', $date,array("class"=>"form-control datetimepicker")); !!} 
+                            {!! Form::text('REGIST_FECMOV', $registrationModel->REGIST_FECMOV,array("class"=>"form-control datetimepicker")); !!} 
                         </div>
                         <div class="col-xs-12 col-sm-4  col-lg-4">
                             {!! Form::label("GRCFOR_MODFOR", trans('voucher::registrations.form.GRCFOR_MODFOR')) !!}

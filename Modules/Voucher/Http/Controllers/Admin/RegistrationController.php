@@ -525,7 +525,6 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     }
 
     public function updateRegister($id, Request $request){
- 
         $headRegistration=HeadRegistration::find($id);
         $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
         $headRegistration->PVMPRH_NROCTA=$request->get("PVMPRH_NROCTA");
@@ -533,7 +532,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
         $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
         $headRegistration->save();
-
+ 
  
           return redirect()
         ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
