@@ -72,7 +72,7 @@
 
     <script src="{{ URL::asset('datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
 
-
+  
 <?php if (is_module_enabled('Notification')): ?>
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script src="{{ Module::asset('notification:js/pusherNotifications.js') }}"></script>
