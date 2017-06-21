@@ -231,7 +231,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
 
-         $date=date('Ymd');
+         $date=date('Y-m-d');
         $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
 
         return view('voucher::admin.registrations.index')
@@ -280,7 +280,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $headRegistration= new HeadRegistration();
         $headRegistration->CGMSBC_SUBCUE=$request->get("CGMSBC_SUBCUE");
         $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
-        $headRegistration->REGIST_FECMOV=$request->get("REGIST_FECMOV");
+        $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
         $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
         $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
         $headRegistration->USERIID=$registrationId;
@@ -437,7 +437,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
  
         $registration= HeadRegistration::find($id);
 
-         $date=date('Ymd');
+         $date=date('Y-m-d');
  
         return view('voucher::admin.registrations.edit', compact('registration'))
         ->with("Pvmprh",$PvmprhTranslation)
@@ -527,7 +527,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $headRegistration=HeadRegistration::find($id);
         $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
         $headRegistration->PVMPRH_NROCTA=$request->get("PVMPRH_NROCTA");
-        $headRegistration->REGIST_FECMOV=$request->get("REGIST_FECMOV");
+        $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
         $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
         $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
         $headRegistration->save();

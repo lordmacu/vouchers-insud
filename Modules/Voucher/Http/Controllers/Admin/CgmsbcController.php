@@ -93,9 +93,17 @@ class CgmsbcController extends AdminBaseController
      */
     public function destroy(Cgmsbc $cgmsbc)
     {
-        $this->cgmsbc->destroy($cgmsbc);
 
-        return redirect()->route('admin.voucher.cgmsbc.index')
-            ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('voucher::cgmsbcs.title.cgmsbcs')]));
+
+        if($cgmsbc->registrations->count()==0){
+            $this->cgmsbc->destroy($cgmsbc);
+            return redirect()->route('admin.voucher.cgmsbc.index')
+                ->withSuccess(trans('core::core.messages.resource deleted', ['name' => trans('voucher::cgmsbcs.title.cgmsbcs')]));
+                    
+        }else{
+                return redirect()->route('admin.voucher.cgmsbc.index')
+                ->withError("Esta pelicula tiene uno o mas vouchers asociados y no se puede borrar");
+            
+        }
     }
 }
