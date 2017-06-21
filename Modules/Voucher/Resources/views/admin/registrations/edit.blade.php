@@ -109,7 +109,7 @@
                             <td>
                             @if($r->REGIST_TRANSF=="N")
                                 <a class="btn btn-warning btn-flat" href="{{ route('admin.voucher.registration.edit.individual', [$r->id]) }}"  ><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-danger btn-flat" href="{{ route('admin.voucher.registration.destroyregistration', [$r->id,'CGMSBC_SUBCUE='.$CGMSBC_SUBCUE,'header='.$REGIST_CABITM]) }}"  ><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-danger btn-flat" href="{{ route('admin.voucher.registration.destroyregistration', [$r->id,'CGMSBC_SUBCUE='.$registration->CGMSBC_SUBCUE,'header='.$REGIST_CABITM]) }}"  ><i class="fa fa-trash"></i></a>
 
                                
 

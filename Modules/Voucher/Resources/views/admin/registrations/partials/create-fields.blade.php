@@ -32,7 +32,7 @@
     </div>
      {!! Form::hidden('REGIST_USERIID',$registrationId) !!}
      {!! Form::hidden('REGIST_CABITM',$REGIST_CABITM) !!}
-     {!! Form::hidden('CGMSBC_SUBCUE',$CGMSBC_SUBCUE) !!}
+     {!! Form::hidden('CGMSBC_SUBCUE',$registration->CGMSBC_SUBCUE) !!}
 
 
 

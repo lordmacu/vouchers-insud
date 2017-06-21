@@ -252,6 +252,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     {
 
 
+
         $pvmprhValue=$request->get("PVMPRH_NROCTA");
 
         if($request->has("temp_PVMPRH_NOMBRE")){
@@ -411,6 +412,8 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     public function edit($id,Request $request)
     {
 
+
+
         $user = $this->auth->user();
 
         $userRegistraion= new UserRegistration();
@@ -448,8 +451,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         ->with("date",$date)
                 ->with("registrationModel",$registration)
 
-        ->with("CGMSBC_SUBCUE",$request->get("CGMSBC_SUBCUE"))
-        ->with("registrationId",$registrationId);
+         ->with("registrationId",$registrationId);
     } 
 
     /**
