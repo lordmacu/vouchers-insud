@@ -80,7 +80,7 @@
                 <table  class="table table-hover table-bordered ">
                     <thead>
                         <tr>
-                            <th> Código </th>
+                            <th class="hidden-xs"> Código </th>
                             <th> Descripción </th>
                             <th> {{  trans('voucher::registrations.form.REGIST_CANTID') }}  </th>
                             <th> {{ trans('voucher::registrations.form.REGIST_IMPORT')}} </th>
@@ -101,7 +101,7 @@
                         <?php $iva = $iva+$r->REGIST_IMPIVA;; ?>
                         <?php $cantidad = $cantidad+$r->REGIST_CANTID;; ?>
                         <tr>
-                            <td> {!! $r->STMPDH_ARTCOD !!}  </td>
+                            <td class="hidden-xs"> {!! $r->STMPDH_ARTCOD !!}  </td>
                             <td> {!! $r->stmpdhs->STMPDH_DESCRP !!}  </td>
                             <td> {!! $r->REGIST_CANTID !!}</td>
                             <td> {!! $r->REGIST_IMPORT !!}</td>
@@ -123,7 +123,7 @@
                     </tbody>
                     <thead>
                         <tr class="bg-info">
-                                                    <th></th>
+                                                    <th class="hidden-xs"></th>
 
                             <th> Subotal </th>
                             <th> {{ $cantidad }} </th>
@@ -135,7 +135,7 @@
                     </thead>
                     <thead>
                         <tr class="bg-warning">
-                            <th>  </th>
+                            <th class="hidden-xs">  </th>
                             <th></th>
                             <th></th>
                             <th> Total </th>
