@@ -388,7 +388,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         }
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
-        $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
+        $StmpdhTranslation = Stmpdh::where("STMPDH_DESCRP","<>","")->pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
         $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
         return view('voucher::admin.registrations.editindividual', compact('registration'))
