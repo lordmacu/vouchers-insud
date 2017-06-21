@@ -80,7 +80,8 @@
                 <table  class="table table-hover table-bordered ">
                     <thead>
                         <tr>
-                            <th> Comprobante </th>
+                            <th> Código </th>
+                            <th> Descripción </th>
                             <th> {{  trans('voucher::registrations.form.REGIST_CANTID') }}  </th>
                             <th> {{ trans('voucher::registrations.form.REGIST_IMPORT')}} </th>
                             <th> IVA </th>
@@ -100,7 +101,8 @@
                         <?php $iva = $iva+$r->REGIST_IMPIVA;; ?>
                         <?php $cantidad = $cantidad+$r->REGIST_CANTID;; ?>
                         <tr>
-                            <td> {!! $r->REGIST_NROFOR !!}</td>
+                            <td> {!! $r->STMPDH_ARTCOD !!}  </td>
+                            <td> {!! $r->stmpdhs->STMPDH_DESCRP !!}  </td>
                             <td> {!! $r->REGIST_CANTID !!}</td>
                             <td> {!! $r->REGIST_IMPORT !!}</td>
                             <td> {!! $r->REGIST_IMPIVA !!}</td>
@@ -121,6 +123,8 @@
                     </tbody>
                     <thead>
                         <tr class="bg-info">
+                                                    <th></th>
+
                             <th> Subotal </th>
                             <th> {{ $cantidad }} </th>
                             <th> {{ $total }} </th>
@@ -132,6 +136,7 @@
                     <thead>
                         <tr class="bg-warning">
                             <th>  </th>
+                            <th></th>
                             <th></th>
                             <th> Total </th>
                             <th> {{ $total+$iva }} </th>
