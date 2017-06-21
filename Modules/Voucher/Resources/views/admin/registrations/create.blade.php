@@ -24,8 +24,8 @@
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-4  col-lg-4">
-                            {!! Form::label("CGMSBC_CODDIM", trans('voucher::registrations.form.CGMSBC_CODDIM')) !!}
-                            {!! Form::select("CGMSBC_CODDIM", $Cgmsbc,$registrationModel->CGMSBC_CODDIM, ['placeholder' => trans('voucher::registrations.form.CGMSBC_CODDIM')]) !!}
+                            {!! Form::label("CGMSBC_SUBCUE", trans('voucher::registrations.form.CGMSBC_SUBCUE')) !!}
+                            {!! Form::select("CGMSBC_CODDIM", $Cgmsbc,$registrationModel->CGMSBC_SUBCUE, ['placeholder' => trans('voucher::registrations.form.CGMSBC_SUBCUE')]) !!}
                         </div>
 
                         <div class="col-xs-12 col-sm-4  col-lg-4">

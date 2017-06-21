@@ -30,8 +30,9 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th data-sortable="false">{{ trans('core::core.table.created at') }}</th>
+                                <th data-sortable="true">Proveedor</th>
                                 <th data-sortable="true">Pelicula</th>
+                                 <th data-sortable="false">{{ trans('core::core.table.created at') }}</th>
 
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
@@ -40,16 +41,18 @@
                             <?php if (isset($registrations)): ?>
                             <?php foreach ($registrations as $registration): ?>
                             <tr>
-                                <td>
-                                    <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_CODDIM=']) }}{{ $registration->CGMSBC_CODDIM }}">
+
+                                 <td>{{ $registration->pvmprhs->PVMPRH_NOMBRE}}</td>
+                                 <td>{{ $registration->cgmsbcs->CGMSBC_DESCRP}}</td>
+                                 <td>
+                                    <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}">
                                         {{ $registration->created_at }}
                                         
                                      </a>
                                 </td>
-                                <td>{{ $registration->cgmsbcs->CGMSBC_DESCRP }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_CODDIM=']) }}{{ $registration->CGMSBC_CODDIM }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.voucher.registration.destroy', [$registration->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
@@ -124,8 +127,8 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-xs-12 col-sm-4  col-lg-4">
-                {!! Form::label("CGMSBC_CODDIM", trans('voucher::registrations.form.CGMSBC_CODDIM')) !!}
-                {!! Form::select("CGMSBC_CODDIM", $Cgmsbc,"", ['placeholder' => trans('voucher::registrations.form.CGMSBC_CODDIM')]) !!}
+                {!! Form::label("CGMSBC_SUBCUE", trans('voucher::registrations.form.CGMSBC_SUBCUE')) !!}
+                {!! Form::select("CGMSBC_SUBCUE", $Cgmsbc,"", ['placeholder' => trans('voucher::registrations.form.CGMSBC_SUBCUE')]) !!}
             </div>
 
             <div class="col-xs-12 col-sm-6  col-lg-6">
@@ -287,11 +290,11 @@ function validaCuit(sCUIT)
 
         $('#formcreacion').on('submit', function() {
    
-            if(!$("#CGMSBC_CODDIM").val()){
-              $("#CGMSBC_CODDIM").parent().addClass("bg-danger")
+            if(!$("#CGMSBC_SUBCUE").val()){
+              $("#CGMSBC_SUBCUE").parent().addClass("bg-danger")
               return false;
             }else{
-              $("#CGMSBC_CODDIM").parent().removeClass("bg-danger")
+              $("#CGMSBC_SUBCUE").parent().removeClass("bg-danger")
             }
           
 

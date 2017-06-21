@@ -30,17 +30,25 @@
                             <thead>
                             <tr>
                                 <th>{{ trans('core::core.table.created at') }}</th>
+                                <th>Descripción</th>
+                                <th>Código</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php if (isset($cgmsbcs)): ?>
-                            <?php foreach ($cgmsbcs as $cgmsbc): ?>
+                            <?php foreach ($cgmsbcs as $cgmsbc): ?> 
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.voucher.cgmsbc.edit', [$cgmsbc->id]) }}">
                                         {{ $cgmsbc->created_at }}
                                     </a>
+                                </td>
+                                <td>
+                                        {{ $cgmsbc->CGMSBC_DESCRP }}
+                                </td>
+                                <td>
+                                        {{ $cgmsbc->CGMSBC_SUBCUE }}
                                 </td>
                                 <td>
                                     <div class="btn-group">

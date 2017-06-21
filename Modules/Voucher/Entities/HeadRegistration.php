@@ -22,7 +22,7 @@ class HeadRegistration extends Model
 
      public function cgmsbcs()
     {
-        return $this->hasOne("Modules\\Voucher\\Entities\\Cgmsbc","CGMSBC_CODDIM","CGMSBC_CODDIM");
+        return $this->hasOne("Modules\\Voucher\\Entities\\Cgmsbc","CGMSBC_SUBCUE","CGMSBC_SUBCUE");
     }
 
 

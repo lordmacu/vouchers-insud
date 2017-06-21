@@ -227,7 +227,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         }
 
         $registrations = HeadRegistration::where("USERIID",$getRegistrationUser[0]->USERIID)->get();
-        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
+        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
 
@@ -278,7 +278,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         }
 
         $headRegistration= new HeadRegistration();
-        $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
+        $headRegistration->CGMSBC_SUBCUE=$request->get("CGMSBC_SUBCUE");
         $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
         $headRegistration->REGIST_FECMOV=$request->get("REGIST_FECMOV");
         $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
@@ -294,14 +294,14 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
 
         return redirect()
-        ->route('admin.voucher.registration.edit',array("id"=>$headRegistration->id,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+        ->route('admin.voucher.registration.edit',array("id"=>$headRegistration->id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
             ->withSuccess("Se han eliminado el voucher con éxito");
 
         $Pvmprh= new Pvmprh();
         $listPvmprh= array();
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
         $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
-        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
+        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
         $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
          $date=date('Ymd');
 
@@ -313,7 +313,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         ->with("Grcfor",$GrcforTranslation)
         ->with("REGIST_CABITM",$headerId)
         ->with("date",$date)
-        ->with("CGMSBC_CODDIM",$request->get("CGMSBC_CODDIM"))
+        ->with("CGMSBC_SUBCUE",$request->get("CGMSBC_SUBCUE"))
         ->with("registrationId",$registrationId);
     }
 
@@ -333,7 +333,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $arrayEs=array();
         $arrayEs["PVMPRH_NROCTA"]=$HeadRegistration->PVMPRH_NROCTA;
         $arrayEs["GRCFOR_CODFOR"]=$HeadRegistration->GRCFOR_CODFOR;
-        $arrayEs["CGMSBC_CODDIM"]=$HeadRegistration->CGMSBC_CODDIM;
+        $arrayEs["CGMSBC_SUBCUE"]=$HeadRegistration->CGMSBC_SUBCUE;
               
 
         $stmpdh=$this->stmpdh->findByAttributes(array("STMPDH_ARTCOD"=>$request->get("STMPDH_ARTCOD")));
@@ -353,8 +353,8 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
         $grcfor=$this->grcfor->findByAttributes(array("GRCFOR_CODFOR"=>$HeadRegistration->GRCFOR_CODFOR));
         $arrayEs["GRCFOR_MODFOR"]=$grcfor->GRCFOR_MODFOR;
-        $cgmsbc=$this->cgmsbc->findByAttributes(array("CGMSBC_CODDIM"=>$HeadRegistration->CGMSBC_CODDIM));
-        $arrayEs["CGMSBC_SUBCUE"]=$cgmsbc->CGMSBC_SUBCUE;
+        $cgmsbc=$this->cgmsbc->findByAttributes(array("CGMSBC_SUBCUE"=>$HeadRegistration->CGMSBC_SUBCUE));
+        $arrayEs["CGMSBC_CODDIM"]=$cgmsbc->CGMSBC_CODDIM;
         $result=$this->registration->create($arrayEs);
         $incremental = sprintf('%04d',$result->id);
         $resultTemp=Registration::find($result->id);
@@ -362,7 +362,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $resultTemp->REGIST_ID=date('Ymd').$incremental;
          $resultTemp->save();
  
-        return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+        return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
 
              ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('voucher::registrations.title.registrations')]));
 
@@ -389,7 +389,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
         $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
-        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
+        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
         $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
         return view('voucher::admin.registrations.editindividual', compact('registration'))
             ->with("Pvmprh",$PvmprhTranslation)
@@ -423,7 +423,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
             ->withError("Es necesario que el usuario este vinculado con un id");
         }
 
-        if(!$request->has("CGMSBC_CODDIM")){
+        if(!$request->has("CGMSBC_SUBCUE")){
                   return redirect()->route('admin.voucher.registration.index')
             ->withError("Es necesario vincular estos vouchers con una pelicula"); 
         } 
@@ -432,7 +432,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $listPvmprh= array();
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
         $StmpdhTranslation = Stmpdh::pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
-        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_CODDIM');
+        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
         $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
  
         $registration= HeadRegistration::find($id);
@@ -448,7 +448,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         ->with("date",$date)
                 ->with("registrationModel",$registration)
 
-        ->with("CGMSBC_CODDIM",$request->get("CGMSBC_CODDIM"))
+        ->with("CGMSBC_SUBCUE",$request->get("CGMSBC_SUBCUE"))
         ->with("registrationId",$registrationId);
     }
 
@@ -467,7 +467,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $registrationParams["REGIST_TIMMOD"] =date('Gis');
         $this->registration->update($registration, $registrationParams);
 
-        return redirect()->route('admin.voucher.registration.edit',array($request->REGIST_CABITM,"CGMSBC_CODDIM=".$request->CGMSBC_CODDIM))
+        return redirect()->route('admin.voucher.registration.edit',array($request->REGIST_CABITM,"CGMSBC_SUBCUE=".$request->CGMSBC_SUBCUE))
             ->withSuccess(trans('core::core.messages.resource updated', ['name' => trans('voucher::registrations.title.registrations')]));
     }
 
@@ -519,7 +519,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
 
          return redirect()
-        ->route('admin.voucher.registration.edit',array("id"=>$request->get("header"),"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+        ->route('admin.voucher.registration.edit',array("id"=>$request->get("header"),"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
             ->withSuccess("Se han eliminado el voucher con éxito");
     }
 
@@ -534,7 +534,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
  
  
           return redirect()
-        ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_CODDIM=".$request->get("CGMSBC_CODDIM")))
+        ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
             ->withSuccess("Se han eliminado el voucher con éxito");
     }
     

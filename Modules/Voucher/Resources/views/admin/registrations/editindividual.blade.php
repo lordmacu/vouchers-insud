@@ -6,7 +6,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-        <li><a href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_CODDIM='.$registration->CGMSBC_CODDIM))}}">{{ trans('voucher::registrations.title.registrations') }}</a></li>
+        <li><a href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_SUBCUE='.$registration->CGMSBC_SUBCUE))}}">{{ trans('voucher::registrations.title.registrations') }}</a></li>
         <li class="active">{{ trans('voucher::registrations.title.edit registration') }}</li>
     </ol>
 @stop
@@ -36,7 +36,7 @@
  
 
                         <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.update') }}</button>
-                        <a class="btn btn-info pull-right btn-flat" href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_CODDIM='.$registration->CGMSBC_CODDIM))}}">Atras</a>
+                        <a class="btn btn-info pull-right btn-flat" href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_SUBCUE='.$registration->CGMSBC_SUBCUE))}}">Atras</a>
                     </div>
                 </div>
             </div> {{-- end nav-tabs-custom --}}

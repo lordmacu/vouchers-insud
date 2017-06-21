@@ -34,7 +34,7 @@
 
      {!! Form::hidden('REGIST_USERUID',$registrationId) !!}
      {!! Form::hidden('REGIST_CABITM',$registration->REGIST_CABITM) !!}
-     {!! Form::hidden('CGMSBC_CODDIM',$registration->CGMSBC_CODDIM) !!}
+     {!! Form::hidden('CGMSBC_SUBCUE',$registration->CGMSBC_SUBCUE) !!}
 
 
 

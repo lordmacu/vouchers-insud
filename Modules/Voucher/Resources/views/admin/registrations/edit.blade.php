@@ -25,8 +25,8 @@
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-4  col-lg-4">
-                            {!! Form::label("CGMSBC_CODDIM", trans('voucher::registrations.form.CGMSBC_CODDIM')) !!}
-                            {!! Form::select("CGMSBC_CODDIM", $Cgmsbc,$registrationModel->CGMSBC_CODDIM, ['placeholder' => trans('voucher::registrations.form.CGMSBC_CODDIM')]) !!}
+                            {!! Form::label("CGMSBC_SUBCUE", trans('voucher::registrations.form.CGMSBC_SUBCUE')) !!}
+                            {!! Form::select("CGMSBC_SUBCUE", $Cgmsbc,$registrationModel->CGMSBC_SUBCUE, ['placeholder' => trans('voucher::registrations.form.CGMSBC_SUBCUE')]) !!}
                         </div>
 
                         <div class="col-xs-12 col-sm-4  col-lg-4">
@@ -109,7 +109,7 @@
                             <td>
                             @if($r->REGIST_TRANSF=="N")
                                 <a class="btn btn-warning btn-flat" href="{{ route('admin.voucher.registration.edit.individual', [$r->id]) }}"  ><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-danger btn-flat" href="{{ route('admin.voucher.registration.destroyregistration', [$r->id,'CGMSBC_CODDIM='.$CGMSBC_CODDIM,'header='.$REGIST_CABITM]) }}"  ><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-danger btn-flat" href="{{ route('admin.voucher.registration.destroyregistration', [$r->id,'CGMSBC_SUBCUE='.$CGMSBC_SUBCUE,'header='.$REGIST_CABITM]) }}"  ><i class="fa fa-trash"></i></a>
 
                                
 
@@ -180,8 +180,9 @@
                             @endforeach
 
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary btn-flat">Agregar</button>
-                                <button type="button" class="btn btn-danger pull-right btn-flat"  data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
+                                <button type="button" class="btn btn-danger pull-left btn-flat"  data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
+                                <button type="submit" class="btn btn-success btn-flat pull-right">Agregar</button>
+
                             </div>
                         </div>
                     </div> {{-- end nav-tabs-custom --}}
