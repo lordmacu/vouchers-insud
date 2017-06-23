@@ -34,9 +34,10 @@
 
                     <div class="box-footer">
  
+<a class="btn btn-info pull-left btn-flat" href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_SUBCUE='.$registration->CGMSBC_SUBCUE))}}">Atras</a>
 
-                        <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.update') }}</button>
-                        <a class="btn btn-info pull-right btn-flat" href="{{ route('admin.voucher.registration.edit',array($registration->REGIST_CABITM,'CGMSBC_SUBCUE='.$registration->CGMSBC_SUBCUE))}}">Atras</a>
+                        <button type="submit" class="btn btn-success btn-flat pull-right">{{ trans('core::core.button.update') }}</button>
+                        
                     </div>
                 </div>
             </div> {{-- end nav-tabs-custom --}}
