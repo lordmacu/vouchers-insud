@@ -26,13 +26,35 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4  col-lg-4">
                             {!! Form::label("CGMSBC_SUBCUE", trans('voucher::registrations.form.CGMSBC_SUBCUE')) !!}
-                            {!! Form::select("CGMSBC_SUBCUE", $Cgmsbc,$registrationModel->CGMSBC_SUBCUE, ['placeholder' => trans('voucher::registrations.form.CGMSBC_SUBCUE')]) !!}
+                            <input type="text"   class="form-control" disabled="disabled" value="{!!  $registrationModel->cgmsbcs->CGMSBC_DESCRP !!}">
+                            <input type="hidden" name="CGMSBC_SUBCUE"  value="{!!  $registrationModel->cgmsbcs->CGMSBC_SUBCUE !!}"> 
                         </div>
 
                         <div class="col-xs-12 col-sm-4  col-lg-4">
                             {!! Form::label("PVMPRH_NROCTA", trans('voucher::registrations.form.PVMPRH_NROCTA')) !!}
-                            {!! Form::select("PVMPRH_NROCTA", $Pvmprh,$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
+                  
+
+
+                            <div class="input-group" id="contenedor_proveedor_principal">
+                                {!! Form::select("PVMPRH_NROCTA", $Pvmprh,$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#modalDistribuidor" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </span>
+                            </div> 
+                            <div class="input-group  " style="display: none" id="contenedor_proveedor">
+
+                              <input type="text" disabled="disabled" id="titleProveedor" class="form-control"  />
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger"  onclick="closeProveedor()" type="button"><i class="fa fa-close" aria-hidden="true"></i></button>
+                                </span>
+                            </div>
+
+                {!! Form::hidden('temp_PVMPRH_NOMBRE', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NOMBRE")); !!} 
+                {!! Form::hidden('temp_PVMPRH_NRODOC', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NRODOC")); !!}
                         </div>
+
+
 
                        
                     </div>
@@ -54,9 +76,9 @@
                         </div>
                         <div class="col-xs-12">
                         <br/>
-                            <button type="submit" class="btn btn-default pull-left">Actualizar Voucher</button>
+                        <button type="submit" class="btn btn-success pull-right">Actualizar Voucher</button>
                         
-
+                        <button class="btn btn-danger btn-flat" type="button" data-toggle="modal" data-target="#modal-delete-confirmation"  data-action-target="{{ route('admin.voucher.registration.destroy', [$REGIST_CABITM]) }}"><i class="fa fa-trash"></i> Anular</button>
                         </div>
                     </div>
 
@@ -66,6 +88,10 @@
             </div>  
         </div>
     </div>
+
+    @if($registrationModel->REGIST_NROFOR)
+
+    
  <div class="row">
     <div class="col-md-12">
         <div class="nav-tabs-custom">
@@ -146,21 +172,14 @@
                     </thead>
                 </table>
 
-
-              <div class="row">
-                  
-                <div class="col-xs-12">
-                    <a type="button" href="{{ route('admin.voucher.registration.index') }}" class="btn btn-success pull-right"  >
-                    Guardar
-                    </a>
-                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation"  data-action-target="{{ route('admin.voucher.registration.destroy', [$REGIST_CABITM]) }}"><i class="fa fa-trash"></i> Anular</button>
-                </div>
-              </div>
-
+ 
             </div>
         </div>
     </div>
-  </div>
+</div>
+    @endif
+
+
 
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalForm">
   <div class="modal-dialog" role="document">
@@ -200,6 +219,41 @@
   </div>
 </div>
 
+<div class="modal fade" style="z-index:1053" id="modalDistribuidor" tabindex="-1" role="dialog" aria-labelledby="modalDistribuidorLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalDistribuidorLabel">Creación de Proveedor</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-6">
+                 <div class="form-group ">
+                   {!! Form::label('PVMPRH_NOMBRE_modal', trans('voucher::pvmprhs.form.PVMPRH_NOMBRE')); !!}
+                   {!! Form::text('PVMPRH_NOMBRE_modal',"",array("class"=>"form-control")) !!}
+                </div>           
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group ">
+                   {!! Form::label('PVMPRH_NRODOC_modal', trans('voucher::pvmprhs.form.PVMPRH_NRODOC')); !!}
+                   {!! Form::text('PVMPRH_NRODOC_modal',"",array("class"=>"form-control")) !!}
+                </div>
+            </div> 
+        </div>
+   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary"   onclick="saveProveedor()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
     @include('core::partials.delete-modal')
 
    
@@ -220,8 +274,122 @@
 @section('scripts')
     <script type="text/javascript">
 
+function saveProveedor(){
+        
+         var PVMPRH_NOMBRE= $("#PVMPRH_NOMBRE_modal").val()
+         var PVMPRH_NRODOC=$("#PVMPRH_NRODOC_modal").val()
+
+        if(!validaCuit(PVMPRH_NRODOC)){
+            alertify.error('Verifición de número de cuit erronea');
+              $("#PVMPRH_NRODOC_modal").parent().addClass("bg-danger")
+
+
+            return false;
+        }else{
+                          $("#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
+
+        }
+
+
+
+
+          $("#temp_PVMPRH_NOMBRE").val(PVMPRH_NOMBRE)
+         $("#temp_PVMPRH_NRODOC").val(PVMPRH_NRODOC)
+         $("#titleProveedor").val(PVMPRH_NOMBRE)
+         if(!!PVMPRH_NRODOC){
+            $("#contenedor_proveedor").show()
+            $("#contenedor_proveedor_principal").hide()
+
+         }
+
+         $("#modalDistribuidor").modal("hide");
+    }
+
+
+    function closeProveedor(){
+   
+          $("#temp_PVMPRH_NOMBRE").val("")
+         $("#temp_PVMPRH_NRODOC").val("")
+
+          $("#PVMPRH_NOMBRE_modal").val("")
+         $("#PVMPRH_NRODOC_modal").val("")
+
+         $("#contenedor_proveedor").hide()
+         $("#contenedor_proveedor_principal").show()
+
+    }
+
+
+function validaCuit(sCUIT) 
+{     
+    var aMult = '5432765432'; 
+    var aMult = aMult.split(''); 
+     
+    if (sCUIT && sCUIT.length == 11) 
+    { 
+        aCUIT = sCUIT.split(''); 
+        var iResult = 0; 
+        for(i = 0; i <= 9; i++) 
+        { 
+            iResult += aCUIT[i] * aMult[i]; 
+        } 
+        iResult = (iResult % 11); 
+        iResult = 11 - iResult; 
+         
+        if (iResult == 11) iResult = 0; 
+        if (iResult == 10) iResult = 9; 
+         
+        if (iResult == aCUIT[10]) 
+        { 
+            return true; 
+        } 
+    }     
+    return false; 
+} 
 
         $( document ).ready(function() {
+
+
+
+        $('#formupdate').on('submit', function() {
+   
+            if(!$("#CGMSBC_SUBCUE").val()){
+              $("#CGMSBC_SUBCUE").parent().addClass("bg-danger")
+              return false;
+            }else{
+              $("#CGMSBC_SUBCUE").parent().removeClass("bg-danger")
+            }
+          
+
+           if(!$("#temp_PVMPRH_NOMBRE").val()){
+                 if(!$("#PVMPRH_NROCTA").val() ){
+                  $("#PVMPRH_NROCTA").parent().addClass("bg-danger")
+                  return false;
+                }else{
+                  $("#PVMPRH_NROCTA").parent().removeClass("bg-danger")
+                }
+            } 
+
+ 
+          
+           if(!$("#GRCFOR_CODFOR").val()){
+              $("#GRCFOR_CODFOR").parent().addClass("bg-danger")
+              return false;
+            }else{
+              $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")
+            }
+            
+     
+ 
+
+ 
+
+
+            return true;
+
+        });
+
+
             $(document).keypressAction({
                 actions: [
                     { key: 'b', route: "<?= route('admin.voucher.registration.index') ?>" }

@@ -10,4 +10,11 @@ class Pvmprh extends Model
     protected $table = 'voucher__pvmprhs';
     public $translatedAttributes = [];
     protected $fillable = ['PVMPRH_NROCTA','PVMPRH_NOMBRE','PVMPRH_NRODOC'];
+
+
+    public function validateCuit ($nrodoc){
+
+    	return $this->where("PVMPRH_NRODOC",$nrodoc)->get();
+
+    }
 }

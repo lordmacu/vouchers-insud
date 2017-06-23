@@ -252,19 +252,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     {
 
 
-
-        $pvmprhValue=$request->get("PVMPRH_NROCTA");
-
-        if($request->has("temp_PVMPRH_NOMBRE")){
-          $pvmprhValue=mt_rand(1000000000,9000000000);
-
-          $pvmprh= new Pvmprh();
-          $pvmprh->PVMPRH_NROCTA=$pvmprhValue;
-          $pvmprh->PVMPRH_NOMBRE=$request->get("temp_PVMPRH_NOMBRE");
-          $pvmprh->PVMPRH_NRODOC=$request->get("temp_PVMPRH_NRODOC");
-          $pvmprh->new=1;
-          $pvmprh->save();
-        }
+ 
 
  
         $user = $this->auth->user();
@@ -277,15 +265,12 @@ file_put_contents($file,  $principio.$otros.$fin);*/
             return redirect()->route('admin.voucher.registration.index')
             ->withError("Es necesario que el usuario este vinculado con un id");
         }
-
         $headRegistration= new HeadRegistration();
         $headRegistration->CGMSBC_SUBCUE=$request->get("CGMSBC_SUBCUE");
-        $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
-        $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
-        $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
-        $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
+ 
         $headRegistration->USERIID=$registrationId;
         $headRegistration->save();
+
 
 
         $headerId=$headRegistration->id;
@@ -526,9 +511,37 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     }
 
     public function updateRegister($id, Request $request){
+
+ 
+           $pvmprhValue=$request->get("PVMPRH_NROCTA");
+
+          if($request->has("temp_PVMPRH_NOMBRE")){
+            $pvmprhValue=mt_rand(1000000000,9000000000);
+            $pvmprh= new Pvmprh();
+            $validateCuit=$pvmprh->validateCuit($request->get("temp_PVMPRH_NRODOC"));
+
+            if($validateCuit->count()!=0){
+
+               $nombreCuit="";
+              foreach ($validateCuit as $value) {
+                $nombreCuit=$value->PVMPRH_NOMBRE;
+              }
+               return redirect()
+            ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
+            ->withError("Este cuit ya existe y pertenece a <b>".$nombreCuit."</b>, ingrese uno diferente");
+            }
+
+            $pvmprh->PVMPRH_NROCTA=$pvmprhValue;
+            $pvmprh->PVMPRH_NOMBRE=$request->get("temp_PVMPRH_NOMBRE");
+            $pvmprh->PVMPRH_NRODOC=$request->get("temp_PVMPRH_NRODOC");
+            $pvmprh->new=1;
+            $pvmprh->save();
+
+         }
+
+
         $headRegistration=HeadRegistration::find($id);
-        $headRegistration->CGMSBC_CODDIM=$request->get("CGMSBC_CODDIM");
-        $headRegistration->PVMPRH_NROCTA=$request->get("PVMPRH_NROCTA");
+         $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
         $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
         $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
         $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");

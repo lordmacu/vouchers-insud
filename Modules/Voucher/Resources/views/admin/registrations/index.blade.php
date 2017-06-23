@@ -131,48 +131,11 @@
                 {!! Form::select("CGMSBC_SUBCUE", $Cgmsbc,"", ['placeholder' => trans('voucher::registrations.form.CGMSBC_SUBCUE')]) !!}
             </div>
 
-            <div class="col-xs-12 col-sm-6  col-lg-6">
-                {!! Form::label("PVMPRH_NROCTA", trans('voucher::registrations.form.PVMPRH_NROCTA')) !!}
-                  <div class="input-group" id="contenedor_proveedor_principal">
-                {!! Form::select("PVMPRH_NROCTA", $Pvmprh,"", ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
-                    <span class="input-group-btn">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#modalDistribuidor" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                    </span>
-                </div> 
-                <div class="input-group  " style="display: none" id="contenedor_proveedor">
- 
-                  <input type="text" disabled="disabled" id="titleProveedor" class="form-control"  />
-
-                    <span class="input-group-btn">
-                        <button class="btn btn-danger"  onclick="closeProveedor()" type="button"><i class="fa fa-close" aria-hidden="true"></i></button>
-                    </span>
-                </div> 
- 
-                {!! Form::hidden('temp_PVMPRH_NOMBRE', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NOMBRE")); !!} 
-                {!! Form::hidden('temp_PVMPRH_NRODOC', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NRODOC")); !!} 
-
-
-            </div>
+        
 
            
         </div>
-        <div class="row">
         
-            <div class="col-xs-12 col-sm-4  col-lg-4">
-
-                {!! Form::label("REGIST_FECMOV", trans('voucher::registrations.form.REGIST_FECMOV')) !!}
-                {!! Form::text('REGIST_FECMOV', $date,array("class"=>"form-control datetimepicker")); !!} 
-            </div>
-            <div class="col-xs-12 col-sm-4  col-lg-4">
-                {!! Form::label("GRCFOR_MODFOR", trans('voucher::registrations.form.GRCFOR_MODFOR')) !!}
-                {!! Form::select("GRCFOR_CODFOR", $Grcfor,"", ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR'),"id"=>"GRCFOR_CODFOR"]) !!}
-            </div>
-
-            <div class="col-xs-12 col-sm-4  col-lg-4">
-                {!! Form::label("REGIST_NROFOR", trans('voucher::registrations.form.REGIST_NROFOR')) !!}
-                {!! Form::text('REGIST_NROFOR',"",array("class"=>"form-control","required"=>"true")); !!}
-            </div>
-        </div>
 
       </div>
       <div class="modal-footer">
@@ -298,33 +261,11 @@ function validaCuit(sCUIT)
             }
           
 
-            if(!$("#temp_PVMPRH_NOMBRE").val()){
-                 if(!$("#PVMPRH_NROCTA").val() ){
-                  $("#PVMPRH_NROCTA").parent().addClass("bg-danger")
-                  return false;
-                }else{
-                  $("#PVMPRH_NROCTA").parent().removeClass("bg-danger")
-                }
-            } 
+           
 
            
      
-            if(!$("#REGIST_FECMOV").val()  ){
-              $("#REGIST_FECMOV").parent().addClass("bg-danger")
-              return false;
-            }else{
-              $("#REGIST_FECMOV").parent().removeClass("bg-danger")
-            }
-
-           
-     
-
-            if(!$("#GRCFOR_CODFOR").val()  ){
-              $("#GRCFOR_CODFOR").parent().addClass("bg-danger")
-              return false;
-            }else{
-              $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")
-            }
+ 
 
  
 
