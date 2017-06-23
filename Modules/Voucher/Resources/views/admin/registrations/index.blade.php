@@ -42,7 +42,7 @@
                             <?php foreach ($registrations as $registration): ?>
                             <tr>
 
-                                 <td>{{ $registration->pvmprhs->PVMPRH_NOMBRE}}</td>
+                                 @if($registration->pvmprhs)<td>{{  $registration->pvmprhs->PVMPRH_NOMBRE}}</td>@endif
                                  <td>{{ $registration->cgmsbcs->CGMSBC_DESCRP}}</td>
                                  <td>
                                     <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}">
