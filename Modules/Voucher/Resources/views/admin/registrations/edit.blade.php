@@ -76,8 +76,13 @@
                         </div>
                         <div class="col-xs-12">
                         <br/>
-                        <button type="submit" class="btn btn-success pull-right">Actualizar Voucher</button>
-                        
+                        @if($registrationModel->REGIST_NROFOR)
+
+                            <button type="submit" class="btn btn-success pull-right">Actualizar Voucher</button>
+                        @else
+                            <button type="submit" class="btn btn-success pull-right">Guardar Voucher</button>
+
+                        @endif
                 
                         <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
                         </div>
