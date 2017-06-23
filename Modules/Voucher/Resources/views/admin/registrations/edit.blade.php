@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4  col-lg-4">
                             {!! Form::label("CGMSBC_SUBCUE", trans('voucher::registrations.form.CGMSBC_SUBCUE')) !!}
-                            <input type="text"   class="form-control" disabled="disabled" value="{!!  $registrationModel->cgmsbcs->CGMSBC_DESCRP !!}">
+                            <input type="text"   class="form-control" disabled="disabled" value="{{ $registrationModel->cgmsbcs->CGMSBC_DESCRP }}">
                             <input type="hidden" name="CGMSBC_SUBCUE"  value="{!!  $registrationModel->cgmsbcs->CGMSBC_SUBCUE !!}"> 
                         </div>
 
