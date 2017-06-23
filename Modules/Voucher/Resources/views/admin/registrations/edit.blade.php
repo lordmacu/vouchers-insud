@@ -78,7 +78,8 @@
                         <br/>
                         <button type="submit" class="btn btn-success pull-right">Actualizar Voucher</button>
                         
-                        <button class="btn btn-danger btn-flat" type="button" data-toggle="modal" data-target="#modal-delete-confirmation"  data-action-target="{{ route('admin.voucher.registration.destroy', [$REGIST_CABITM]) }}"><i class="fa fa-trash"></i> Anular</button>
+                
+                        <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
                         </div>
                     </div>
 

@@ -42,7 +42,7 @@
                             <?php foreach ($registrations as $registration): ?>
                             <tr>
 
-                                 @if($registration->pvmprhs)<td>{{  $registration->pvmprhs->PVMPRH_NOMBRE}}</td>@endif
+                                 @if($registration->pvmprhs)<td>{{  $registration->pvmprhs->PVMPRH_NOMBRE}}</td> @else <td></td>@endif
                                  <td>{{ $registration->cgmsbcs->CGMSBC_DESCRP}}</td>
                                  <td>
                                     <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}">
@@ -60,15 +60,7 @@
                             <?php endforeach; ?>
                             <?php endif; ?>
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
-                                                                <th>Pelicula</th>
-
-                                <th>{{ trans('core::core.table.actions') }}</th>
-
-                            </tr>
-                            </tfoot>
+                            
                         </table>
                         <!-- /.box-body -->
                     </div>
