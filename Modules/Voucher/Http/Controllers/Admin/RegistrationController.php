@@ -507,8 +507,12 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     }
 
     public function updateRegister($id, Request $request){
+ 
+          $headerRegistration= new HeadRegistration();
 
             $pvmprhValue=$request->get("PVMPRH_NROCTA");
+
+
 
           if($request->has("temp_PVMPRH_NOMBRE")){
             $pvmprhValue=mt_rand(1000000000,9000000000);
@@ -523,7 +527,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
               }
                return redirect()
             ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-            ->withError("Este cuit ya existe y pertenece a <b>".$nombreCuit."</b>, ingrese uno diferente");
+            ->withError("Este cuit ya existe y pertenece a ".$nombreCuit.", ingrese uno diferente");
             }
 
             $pvmprh->PVMPRH_NROCTA=$pvmprhValue;
@@ -533,6 +537,13 @@ file_put_contents($file,  $principio.$otros.$fin);*/
             $pvmprh->save();
 
          }
+
+        if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"))->count()>0){
+
+          return redirect()
+            ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
+            ->withError("Este registro esta repetido, revisar el proveedor, el tipo de comprobante o el número del comprobante");
+        }
 
 
         $headRegistration=HeadRegistration::find($id);

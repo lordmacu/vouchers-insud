@@ -254,17 +254,6 @@ function validaCuit(sCUIT)
             }else{
               $("#CGMSBC_SUBCUE").parent().removeClass("bg-danger")
             }
-          
-
-           
-
-           
-     
- 
-
- 
-
-
             return true;
 
         });

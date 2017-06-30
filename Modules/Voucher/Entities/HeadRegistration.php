@@ -43,4 +43,12 @@ class HeadRegistration extends Model
     {
         return $this->hasOne("Modules\\Voucher\\Entities\\Stmpdh","STMPDH_TIPPRO","STMPDH_TIPPRO");
     }
+
+    public function getHeaderExist($pvmprh,$grcfor,$nrofor){
+        return $this
+        ->where("PVMPRH_NROCTA",$pvmprh)
+        ->where("GRCFOR_CODFOR",$grcfor)
+        ->where("REGIST_NROFOR",$nrofor)
+        ->get();
+    }
 }
