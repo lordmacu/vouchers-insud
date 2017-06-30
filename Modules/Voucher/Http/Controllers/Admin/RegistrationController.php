@@ -227,6 +227,21 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         }
 
         $registrations = HeadRegistration::where("USERIID",$getRegistrationUser[0]->USERIID)->get();
+
+        $arrayRegistrations=array();
+        foreach ($registrations as $r) {
+
+          if($r->registrations->count()==0 || !$r->PVMPRH_NROCTA){
+             HeadRegistration::find($r->id)->delete();
+          }
+          if($r->registrations->count()!=0){
+            $arrayRegistrations[]=$r;
+          }
+ 
+        }
+
+
+
         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
@@ -240,7 +255,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         ->with("date",$date)
         ->with("Grcfor",$GrcforTranslation)
 
-        ->with("registrations",$registrations) ;
+        ->with("registrations",$arrayRegistrations) ;
     }
 
     /**
@@ -281,26 +296,8 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
         return redirect()
         ->route('admin.voucher.registration.edit',array("id"=>$headRegistration->id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-            ->withSuccess("Se han eliminado el voucher con éxito");
-
-        $Pvmprh= new Pvmprh();
-        $listPvmprh= array();
-        $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
-        $StmpdhTranslation = Stmpdh::where("STMPDH_DESCRP","<>","")->pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
-        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
-        $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
-         $date=date('Ymd');
-
-        return view('voucher::admin.registrations.create')
-       ->with("Pvmprh",$PvmprhTranslation)
-        ->with("Stmpdh",$StmpdhTranslation)
-        ->with("registrationModel",$registrationModel)
-        ->with("Cgmsbc",$CgmsbcTranslation) 
-        ->with("Grcfor",$GrcforTranslation)
-        ->with("REGIST_CABITM",$headerId)
-        ->with("date",$date)
-        ->with("CGMSBC_SUBCUE",$request->get("CGMSBC_SUBCUE"))
-        ->with("registrationId",$registrationId);
+            ->withSuccess("Se han guardado el voucher con éxito");
+ 
     }
 
     /**
@@ -358,7 +355,6 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
 
     public function editIndividual($id){
-
         $registration= Registration::find($id);
 
         $user = $this->auth->user();
@@ -486,7 +482,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
              $registrations->delete();
 
             return redirect()->route('admin.voucher.registration.index')
-            ->withSuccess("Se han eliminado los vouchers con éxito");
+            ->withSuccess("Se han anulado los vouchers con éxito");
         }
         
          return redirect()->route('admin.voucher.registration.index')
@@ -512,8 +508,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
     public function updateRegister($id, Request $request){
 
- 
-           $pvmprhValue=$request->get("PVMPRH_NROCTA");
+            $pvmprhValue=$request->get("PVMPRH_NROCTA");
 
           if($request->has("temp_PVMPRH_NOMBRE")){
             $pvmprhValue=mt_rand(1000000000,9000000000);
@@ -547,10 +542,16 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
         $headRegistration->save();
  
- 
-          return redirect()
-        ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-            ->withSuccess("Se han eliminado el voucher con éxito");
+         if($request->has("nuevo")){
+                  return redirect()
+                ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")."&nuevo=".$request->get("nuevo")))
+                    ->withSuccess("Se han eliminado el voucher con éxito");
+         }else{
+                  return redirect()
+                ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
+                    ->withSuccess("Se han eliminado el voucher con éxito");
+         }
+
     }
     
 

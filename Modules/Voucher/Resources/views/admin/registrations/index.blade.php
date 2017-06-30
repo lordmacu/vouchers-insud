@@ -40,6 +40,8 @@
                             <tbody>
                             <?php if (isset($registrations)): ?>
                             <?php foreach ($registrations as $registration): ?>
+
+                              @if($registration->registrations->count()!=0 || $registration->PVMPRH_NROCTA)
                             <tr>
 
                                  @if($registration->pvmprhs)<td>{{  $registration->pvmprhs->PVMPRH_NOMBRE}}</td> @else <td></td>@endif
@@ -57,6 +59,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            @endif
                             <?php endforeach; ?>
                             <?php endif; ?>
                             </tbody>
@@ -132,7 +135,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary">Siguiente</button>
       </div>
        </form>
     </div>

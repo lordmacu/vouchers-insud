@@ -76,15 +76,17 @@
                         </div>
                         <div class="col-xs-12">
                         <br/>
-                        @if($registrationModel->REGIST_NROFOR)
-
-                            <button type="submit" class="btn btn-success pull-right">Actualizar Voucher</button>
-                        @else
-                            <button type="submit" class="btn btn-success pull-right">Guardar Voucher</button>
+                        @if(!$registrationModel->REGIST_NROFOR)
+                            <input type="hidden" name="nuevo" value="1">
+                                <button type="submit" class="btn btn-success pull-right">Guardar Voucher</button>
+                        
+                        <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
 
                         @endif
+                  
+
+
                 
-                        <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
                         </div>
                     </div>
 
@@ -145,9 +147,6 @@
                                 <a class="btn btn-warning btn-flat" href="{{ route('admin.voucher.registration.edit.individual', [$r->id]) }}"  ><i class="fa fa-edit"></i></a>
                                 <a class="btn btn-danger btn-flat" href="{{ route('admin.voucher.registration.destroyregistration', [$r->id,'CGMSBC_SUBCUE='.$registration->CGMSBC_SUBCUE,'header='.$REGIST_CABITM]) }}"  ><i class="fa fa-trash"></i></a>
 
-                               
-
-
                             @endif
                             </td>
                          </tr>
@@ -178,7 +177,13 @@
                     </thead>
                 </table>
 
- 
+             @if($registrationModel->REGIST_NROFOR)
+                                     <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
+
+                            <button type="submit" class="btn btn-success pull-right">Actualizar Voucher</button>
+                        @endif
+            </br>
+            </br>
             </div>
         </div>
     </div>
@@ -357,6 +362,25 @@ function validaCuit(sCUIT)
 
 
 
+            @if(app('request')->input('nuevo'))
+                $("#modalForm").modal("show");
+            @endif
+
+        $("#REGIST_NROFOR").change(function (e){
+            var valor=$("#REGIST_NROFOR").val().split("-");
+           
+            if(valor.length==1){
+                $("#REGIST_NROFOR").val(zeroPad(valor[0],4)+"-"+zeroPad(0,8));
+            }else{
+                console.log();
+                $("#REGIST_NROFOR").val(zeroPad(valor[0],4)+"-"+zeroPad(valor[1],8));
+
+            }
+
+        });
+
+ 
+
         $('#formupdate').on('submit', function() {
    
             if(!$("#CGMSBC_SUBCUE").val()){
@@ -441,6 +465,14 @@ function validaCuit(sCUIT)
         });
     </script>
     <script>
+
+
+function zeroPad(num, places) {
+  var zero = places - num.toString().length + 1;
+  return Array(+(zero > 0 && zero)).join("0") + num;
+}
+
+
         $( document ).ready(function() {
             $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
                 checkboxClass: 'icheckbox_flat-blue',
@@ -463,10 +495,12 @@ function()
         $(this).keydown(function(e)
         {
             var key = e.charCode || e.keyCode || 0;
-            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+
+             // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
             // home, end, period, and numpad decimal
             return (
                 key == 8 || 
+                key == 109 || 
                 key == 9 ||
                 key == 13 ||
                 key == 46 ||
