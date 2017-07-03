@@ -542,21 +542,37 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
          }
 
-        if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"))->count()>0){
-
-          return redirect()
-            ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-            ->withError("Este registro esta repetido, revisar el proveedor, el tipo de comprobante o el número del comprobante");
-        }
-
 
         $headRegistration=HeadRegistration::find($id);
-         $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
-        $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
-        $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
-        $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
-        $headRegistration->save();
- 
+
+        $marcador=1;
+        if($headRegistration->PVMPRH_NROCTA==$pvmprhValue,$request->get("GRCFOR_CODFOR")){
+          $marcador=0;
+        }
+
+        if($headRegistration->GRCFOR_CODFOR==$pvmprhValue,$request->get("GRCFOR_CODFOR")){
+          $marcador=0;
+        }
+
+        if($headRegistration->REGIST_NROFOR==$pvmprhValue,$request->get("REGIST_NROFOR")){
+          $marcador=0;
+        }
+        if($marcador==1){
+
+          if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"))->count()>0){
+
+            return redirect()
+              ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
+              ->withError("Este registro esta repetido, revisar el proveedor, el tipo de comprobante o el número del comprobante");
+          }
+
+
+           $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
+          $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
+          $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
+          $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
+          $headRegistration->save();
+        }
          if($request->has("nuevo")){
                   return redirect()
                 ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")."&nuevo=".$request->get("nuevo")))
