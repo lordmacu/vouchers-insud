@@ -25,6 +25,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Id user CWA</th>
+                                <th>Pelicula</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </thead>
@@ -42,7 +43,9 @@
                                         {{ $user["USERIID"]  }}
                                     </a>
                                 </td>
-
+                                <td>
+                                     {{ $user["CGMSBC_DESCRP"]  }}
+                                </td>
 
                                 <td>
                                     <div class="btn-group">
@@ -58,6 +61,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Id user CWA</th>
+                                <th>Pelicula</th>
 
                                 <th>{{ trans('core::core.table.actions') }}</th>
                             </tr>

@@ -8,5 +8,12 @@
 	   {!! Form::hidden('user_id',$userRegistrationArray["id"]) !!}
 	</div>
 
+<div class="form-group ">
+	   {!! Form::label('CGMSBC_DESCRP', "Peliculas"); !!}
+      {!! Form::select('CGMSBC_SUBCUE', $Cgmsbc, $userRegistrationArray["CGMSBC_SUBCUE"], ['class' => 'form-control']) !!}
+
+	</div>
+
+
   
 </div>

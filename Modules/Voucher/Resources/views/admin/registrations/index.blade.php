@@ -15,9 +15,17 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
+                   
+                @if($CGMSBC_SUBCUE==0)
                     <a type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal" style="padding: 4px 10px;">
                         <i class="fa fa-pencil"></i> {{ trans('voucher::registrations.button.create registration') }}
                     </a>
+                @else
+                    <a type="button" class="btn btn-primary " href="{{ route('admin.voucher.registration.create') }}?CGMSBC_SUBCUE={{$CGMSBC_SUBCUE}}" style="padding: 4px 10px;">
+                        <i class="fa fa-pencil"></i> {{ trans('voucher::registrations.button.create registration') }}
+                    </a>
+                @endif
+
                 </div>
                 
                    </div>

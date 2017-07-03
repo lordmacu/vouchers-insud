@@ -8,6 +8,7 @@ use Modules\Voucher\Entities\UserRegistration;
 use Modules\Voucher\Repositories\UserRegistrationRepository;
 use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use Modules\User\Repositories\UserRepository;
+ use Modules\Voucher\Entities\Cgmsbc;
 
 class UserRegistrationController extends AdminBaseController
 {
@@ -50,15 +51,30 @@ class UserRegistrationController extends AdminBaseController
             $getRegistrationUser=$usersUregistration->getRegistrationUser($value->id);
 
             if($getRegistrationUser->count()){
-                $userArray[$key]["USERIID"]=$usersUregistration->getRegistrationUser($value->id)[0]->USERIID;
+                $userArray[$key]["USERIID"]= $getRegistrationUser[0]->USERIID;
+                $Cgmsbc= new Cgmsbc();
+
+                  if($getRegistrationUser[0]->CGMSBC_SUBCUE!=0){
+
+                    $getNameMovie=$Cgmsbc->getNameMovie($getRegistrationUser[0]->CGMSBC_SUBCUE);
+                    $userArray[$key]["CGMSBC_DESCRP"]= $getNameMovie[0]->CGMSBC_DESCRP;
+
+                  }else{
+                    $userArray[$key]["CGMSBC_DESCRP"]="";
+
+                  }
+
             }else{
                 $userArray[$key]["USERIID"]="";
+                $userArray[$key]["CGMSBC_DESCRP"]="";
             }
 
          }
 
- 
-        return view('voucher::admin.userregistrations.index')->with("users",$userArray);
+
+
+
+         return view('voucher::admin.userregistrations.index')->with("users",$userArray);
     }
 
     /**
@@ -93,29 +109,35 @@ class UserRegistrationController extends AdminBaseController
      */
     public function edit($id)
     {
+ 
 
+         $Cgmsbc = Cgmsbc::pluck("CGMSBC_DESCRP","CGMSBC_SUBCUE")->all();
+ 
         $user=$this->user->find($id);
         $userRegistraion= new UserRegistration();
         $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
          $registrationId="";
-
+         $CGMSBC_SUBCUE=0;
 
          if($getRegistrationUser->count()){
-            $registrationId=$getRegistrationUser[0]->USERIID;   
-        }
+            $registrationId=$getRegistrationUser[0]->USERIID; 
+            $CGMSBC_SUBCUE=$getRegistrationUser[0]->CGMSBC_SUBCUE; 
+
+         }
 
         $userRegistrationArray= array(
             "first_name"=>$user->first_name,
             "last_name"=>$user->last_name,
             "id"=>$user->id,
-            "registrationId"=>$registrationId
+            "registrationId"=>$registrationId,
+            "CGMSBC_SUBCUE"=>$CGMSBC_SUBCUE
             );
 
 
 
 
  
-        return view('voucher::admin.userregistrations.edit', compact('userRegistrationArray'));
+        return view('voucher::admin.userregistrations.edit', compact('userRegistrationArray'))->with("Cgmsbc",array('0' => 'Seleccione una Pelicula') +$Cgmsbc);
     }
 
     /**
@@ -138,10 +160,12 @@ class UserRegistrationController extends AdminBaseController
 
           if($getRegistrationUserId->count()){
             $userRegistrationFind=UserRegistration::find($getRegistrationUserId[0]->id);
+            $userRegistrationFind->CGMSBC_SUBCUE=$request->get("CGMSBC_SUBCUE");
             $userRegistrationFind->USERIID=$request->get("USERIID");
             $userRegistrationFind->save();
         }else{
             $userregistration->user_id=$request->get("user_id");
+            $userregistration->CGMSBC_SUBCUE=$request->get("CGMSBC_SUBCUE");
             $userregistration->USERIID=$request->get("USERIID");
             $userregistration->save();
         }

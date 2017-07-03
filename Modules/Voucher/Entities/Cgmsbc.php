@@ -15,4 +15,9 @@ class Cgmsbc extends Model
     {
         return $this->hasMany("Modules\\Voucher\\Entities\\Registration","CGMSBC_SUBCUE","CGMSBC_SUBCUE");
     }
+
+    public function getNameMovie($Cgmsbc){
+    	return $this->where("CGMSBC_SUBCUE",$Cgmsbc)->get();
+
+    }
 }

@@ -240,9 +240,14 @@ file_put_contents($file,  $principio.$otros.$fin);*/
  
         }
 
+ 
+        $CGMSBC_SUBCUE=0;
 
+        foreach ($getRegistrationUser as  $value) {
+           $CGMSBC_SUBCUE=$value->CGMSBC_SUBCUE;
+        }
 
-        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
+         $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
 
@@ -254,7 +259,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
                 ->with("Pvmprh",$PvmprhTranslation)
         ->with("date",$date)
         ->with("Grcfor",$GrcforTranslation)
-
+        ->with("CGMSBC_SUBCUE",$CGMSBC_SUBCUE)
         ->with("registrations",$arrayRegistrations) ;
     }
 
@@ -295,8 +300,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
 
         return redirect()
-        ->route('admin.voucher.registration.edit',array("id"=>$headRegistration->id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-            ->withSuccess("Se han guardado el voucher con éxito");
+        ->route('admin.voucher.registration.edit',array("id"=>$headRegistration->id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")));
  
     }
 

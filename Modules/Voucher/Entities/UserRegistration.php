@@ -20,8 +20,12 @@ class UserRegistration extends Model
 	}
 
 
+
+
 	public function getRegistrationUser($id){
-		return $this->where("user_id",$id)->get();
+		return $this->where("user_id",$id)
+		
+		->get();
 	}
 
 
