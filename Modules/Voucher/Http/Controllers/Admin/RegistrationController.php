@@ -548,23 +548,19 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $marcador=1;
         if($headRegistration->PVMPRH_NROCTA!=$pvmprhValue){
           $marcador=0;
-          echo "PVMPRH_NROCTA --- ";
-        }
+         }
 
         if($headRegistration->GRCFOR_CODFOR!=$request->get("GRCFOR_CODFOR")){
           $marcador=0;
-                    echo "GRCFOR_CODFOR  ----";
-
+ 
         }
 
         if($headRegistration->REGIST_NROFOR!=$request->get("REGIST_NROFOR")){
           $marcador=0;
-                              echo "REGIST_NROFOR ---- ";
-
+ 
         }
 
-        dd("aqui". $marcador);
-
+ 
         if($marcador==1){
 
           if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"))->count()>0){
