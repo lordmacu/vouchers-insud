@@ -561,7 +561,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         }
 
  
-        if($marcador==1){
+        if($marcador==0){
 
           if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"))->count()>0){
 
