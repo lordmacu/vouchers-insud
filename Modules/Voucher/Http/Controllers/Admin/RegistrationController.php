@@ -546,18 +546,18 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $headRegistration=HeadRegistration::find($id);
 
         $marcador=1;
-        if($headRegistration->PVMPRH_NROCTA==$pvmprhValue){
+        if($headRegistration->PVMPRH_NROCTA!=$pvmprhValue){
           $marcador=0;
           echo "PVMPRH_NROCTA --- ";
         }
 
-        if($headRegistration->GRCFOR_CODFOR==$request->get("GRCFOR_CODFOR")){
+        if($headRegistration->GRCFOR_CODFOR!=$request->get("GRCFOR_CODFOR")){
           $marcador=0;
                     echo "GRCFOR_CODFOR  ----";
 
         }
 
-        if($headRegistration->REGIST_NROFOR==$request->get("REGIST_NROFOR")){
+        if($headRegistration->REGIST_NROFOR!=$request->get("REGIST_NROFOR")){
           $marcador=0;
                               echo "REGIST_NROFOR ---- ";
 
