@@ -507,7 +507,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
          return redirect()
         ->route('admin.voucher.registration.edit',array("id"=>$request->get("header"),"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-            ->withSuccess("Se han eliminado el voucher con éxito");
+            ->withSuccess("Se han creado el voucher con éxito");
     }
 
     public function updateRegister($id, Request $request){

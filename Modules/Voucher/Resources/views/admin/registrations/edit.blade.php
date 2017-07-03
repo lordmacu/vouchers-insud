@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="nav-tabs-custom">
                  <div class="tab-content">
-                    <form action="{{ route('admin.voucher.registration.update.individual',array('id'=>$registrationModel->id)) }}" id="formupdate" method="get">
+                    <form action="{{ route('admin.voucher.registration.update.individual',array('id'=>$registrationModel->id)) }}" id="formupdate" method="get"  >
 
 
                     <div class="row">
@@ -180,7 +180,7 @@
              @if($registrationModel->REGIST_NROFOR)
                                      <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
 
-                            <button type="submit" class="btn btn-success pull-right">Actualizar Voucher</button>
+                            <button type="button" onclick="updateRegistration()" class="btn btn-success pull-right">Actualizar Voucher</button>
                         @endif
             </br>
             </br>
@@ -284,6 +284,11 @@
 
 @section('scripts')
     <script type="text/javascript">
+
+function updateRegistration(){
+    console.log("aquiiii");
+    $("#formupdate").submit();
+}
 
 function saveProveedor(){
         
