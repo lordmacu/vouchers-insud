@@ -576,11 +576,11 @@ file_put_contents($file,  $principio.$otros.$fin);*/
          if($request->has("nuevo")){
                   return redirect()
                 ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")."&nuevo=".$request->get("nuevo")))
-                    ->withSuccess("Se han eliminado el voucher con éxito");
+                    ->withSuccess("Se ha guardado el voucher con éxito");
          }else{
                   return redirect()
                 ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-                    ->withSuccess("Se han eliminado el voucher con éxito");
+                    ->withSuccess("Se ha guardado el voucher con éxito");
          }
 
     }
