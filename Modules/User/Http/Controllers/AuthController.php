@@ -37,8 +37,8 @@ class AuthController extends BasePublicController
 
         $error = $this->auth->login($credentials, $remember);
         if (!$error) {
-            return redirect()->intended()
-                ->withSuccess(trans('user::messages.successfully logged in'));
+
+             return redirect()->route('dashboard.index');
         }
 
         return redirect()->back()->withInput()->withError($error);

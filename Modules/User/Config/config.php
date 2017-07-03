@@ -13,7 +13,7 @@ return [
     | Define which route to redirect to after a successful login
     |--------------------------------------------------------------------------
     */
-    'redirect_route_after_login' => 'homepage',
+    'redirect_route_after_login' => 'dashboard',
     /*
     |--------------------------------------------------------------------------
     | Define which route the user should be redirected to after accessing
