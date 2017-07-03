@@ -413,7 +413,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
         if(!$request->has("CGMSBC_SUBCUE")){
                   return redirect()->route('admin.voucher.registration.index')
-            ->withError("Es necesario vincular estos vouchers con una pelicula"); 
+            ->withError("Es necesario vincular estos vouchers con una película"); 
         } 
 
         $Pvmprh= new Pvmprh();

@@ -102,7 +102,7 @@ class CgmsbcController extends AdminBaseController
                     
         }else{
                 return redirect()->route('admin.voucher.cgmsbc.index')
-                ->withError("Esta pelicula tiene uno o mas vouchers asociados y no se puede borrar");
+                ->withError("Esta película tiene uno o mas vouchers asociados y no se puede borrar");
             
         }
     }

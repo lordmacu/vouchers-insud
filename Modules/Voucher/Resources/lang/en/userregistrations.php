@@ -3,10 +3,10 @@
 return [
     'list resource' => 'List userregistrations',
     'create resource' => 'Create userregistrations',
-    'edit resource' => 'Edit userregistrations',
+    'edit resource' => 'Edit Usuario Plataforma',
     'destroy resource' => 'Destroy userregistrations',
     'title' => [
-        'userregistrations' => 'UserRegistration',
+        'userregistrations' => 'Usuarios Plataforma',
         'create userregistration' => 'Create a userregistration',
         'edit userregistration' => 'Edit a userregistration',
     ],

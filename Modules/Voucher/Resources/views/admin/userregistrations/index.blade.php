@@ -25,7 +25,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Id user CWA</th>
-                                <th>Pelicula</th>
+                                <th>Película</th>
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                             </tr>
                             </thead>
@@ -61,7 +61,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Id user CWA</th>
-                                <th>Pelicula</th>
+                                <th>Película</th>
 
                                 <th>{{ trans('core::core.table.actions') }}</th>
                             </tr>

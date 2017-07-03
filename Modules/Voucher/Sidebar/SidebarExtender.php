@@ -42,7 +42,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('voucher::pvmprhs.title.pvmprhs'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.voucher.pvmprh.create');
+                   // $item->append('admin.voucher.pvmprh.create');
                     $item->route('admin.voucher.pvmprh.index');
                     $item->authorize(
                         $this->auth->hasAccess('voucher.pvmprhs.index')
@@ -51,7 +51,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('voucher::stmpdhs.title.stmpdhs'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.voucher.stmpdh.create');
+                  //  $item->append('admin.voucher.stmpdh.create');
                     $item->route('admin.voucher.stmpdh.index');
                     $item->authorize(
                         $this->auth->hasAccess('voucher.stmpdhs.index')
@@ -60,7 +60,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('voucher::cgmsbcs.title.cgmsbcs'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.voucher.cgmsbc.create');
+                   // $item->append('admin.voucher.cgmsbc.create');
                     $item->route('admin.voucher.cgmsbc.index');
                     $item->authorize(
                         $this->auth->hasAccess('voucher.cgmsbcs.index')
@@ -69,7 +69,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('voucher::grcfors.title.grcfors'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.voucher.grcfor.create');
+                 //   $item->append('admin.voucher.grcfor.create');
                     $item->route('admin.voucher.grcfor.index');
                     $item->authorize(
                         $this->auth->hasAccess('voucher.grcfors.index')
@@ -78,7 +78,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('voucher::registrations.title.registrations'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.voucher.registration.create');
+                   // $item->append('admin.voucher.registration.create');
                     $item->route('admin.voucher.registration.index');
                     $item->authorize(
                         $this->auth->hasAccess('voucher.registrations.index')
@@ -87,7 +87,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('voucher::userregistrations.title.userregistrations'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.voucher.userregistration.create');
+                   // $item->append('admin.voucher.userregistration.create');
                     $item->route('admin.voucher.userregistration.index');
                     $item->authorize(
                         $this->auth->hasAccess('voucher.userregistrations.index')
