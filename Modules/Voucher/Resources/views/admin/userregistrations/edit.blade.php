@@ -32,7 +32,7 @@
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat pull-right">{{ trans('core::core.button.update') }}</button>
-                        <a class="btn btn-danger pull-left btn-flat" href="{{ route('admin.voucher.userregistration.index')}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
+                        <a class="btn btn-info pull-left btn-flat" href="{{ route('admin.voucher.userregistration.index')}}"> Atras</a>
                     </div>
                 </div>
             </div> {{-- end nav-tabs-custom --}}
