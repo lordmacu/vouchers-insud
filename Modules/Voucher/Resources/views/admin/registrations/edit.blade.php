@@ -30,7 +30,7 @@
                             <input type="hidden" name="CGMSBC_SUBCUE"  value="{!!  $registrationModel->cgmsbcs->CGMSBC_SUBCUE !!}"> 
                         </div>
 
-                        <div class="col-xs-12 col-sm-4  col-lg-4">
+                        <div class="col-xs-12 col-sm-6  col-lg-6">
                             {!! Form::label("PVMPRH_NROCTA", trans('voucher::registrations.form.PVMPRH_NROCTA')) !!}
                   
 
