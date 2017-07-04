@@ -31,7 +31,7 @@
                     @endforeach
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary btn-flat pull-right">{{ trans('core::core.button.update') }}</button>
+                        <button type="submit" class="btn btn-success btn-flat pull-right">{{ trans('core::core.button.update') }}</button>
                         <a class="btn btn-info pull-left btn-flat" href="{{ route('admin.voucher.userregistration.index')}}"> Atras</a>
                     </div>
                 </div>
