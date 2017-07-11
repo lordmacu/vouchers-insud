@@ -11,6 +11,10 @@
 @stop
 
 @section('content')
+
+    <script src="{{ URL::asset('js/voucher.js') }}" type="text/javascript"></script>
+
+ 
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
@@ -185,7 +189,7 @@ function saveProveedor(){
 
             return false;
         }else{
-                          $("#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
+          $("#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
 
         }
 
@@ -281,7 +285,7 @@ function validaCuit(sCUIT)
                 "order": [[ 0, "desc" ]],
                 "language": {
                     "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
-                }
+                } 
             });
         });
 

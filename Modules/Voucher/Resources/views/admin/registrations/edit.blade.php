@@ -177,11 +177,11 @@
                     </thead>
                 </table>
 
-             @if($registrationModel->REGIST_NROFOR)
-                                     <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
+                @if($registrationModel->REGIST_NROFOR)
+                    <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
 
-                            <button type="button" onclick="updateRegistration()" class="btn btn-success pull-right">Actualizar Voucher</button>
-                        @endif
+                    <button type="button" onclick="updateRegistration()" class="btn btn-success pull-right">Actualizar Voucher</button>
+                @endif
             </br>
             </br>
             </div>
