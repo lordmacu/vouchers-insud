@@ -418,25 +418,18 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
         $Pvmprh= new Pvmprh();
         $listPvmprh= array();
-        $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
-        $StmpdhTranslation = Stmpdh::where("STMPDH_DESCRP","<>","")->pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
-        $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
-        $GrcforTranslation = Grcfor::pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
+ 
  
         $registration= HeadRegistration::find($id);
 
          $date=date('Y-m-d');
  
         return view('voucher::admin.registrations.edit', compact('registration'))
-        ->with("Pvmprh",$PvmprhTranslation)
-        ->with("Stmpdh",$StmpdhTranslation)
-        ->with("Cgmsbc",$CgmsbcTranslation)
-        ->with("Grcfor",$GrcforTranslation)
+ 
         ->with("REGIST_CABITM",$id)
         ->with("date",$date)
-                ->with("registrationModel",$registration)
-
-         ->with("registrationId",$registrationId);
+        ->with("registrationModel",$registration)
+        ->with("registrationId",$registrationId);
     } 
 
     /**
