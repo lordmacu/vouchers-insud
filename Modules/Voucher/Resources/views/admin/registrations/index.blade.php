@@ -12,7 +12,6 @@
 
 @section('content')
 
-    <script src="{{ URL::asset('js/voucher.js') }}" type="text/javascript"></script>
 
  
     <div class="row">

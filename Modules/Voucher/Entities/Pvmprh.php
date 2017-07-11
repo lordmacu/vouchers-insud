@@ -17,4 +17,9 @@ class Pvmprh extends Model
     	return $this->where("PVMPRH_NRODOC",$nrodoc)->get();
 
     }
+
+
+    public function searchByName($q){
+    	return $this->where("PVMPRH_NOMBRE","LIKE","%".$q."%")->get();
+    }
 }

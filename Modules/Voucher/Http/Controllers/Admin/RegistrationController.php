@@ -510,6 +510,44 @@ file_put_contents($file,  $principio.$otros.$fin);*/
             ->withSuccess("Se han creado el voucher con éxito");
     }
 
+    public function searchProveedor(Request $request){
+      $pvmprh= new Pvmprh();
+      $searchByName=$pvmprh->searchByName($request->get("q"));
+      return ["proveedores"=>$searchByName->toArray()];
+    }
+
+    public function searchCuenta(Request $request){
+      $grcfor= new Grcfor();
+      $searchByName=$grcfor->searchByName($request->get("q"));
+       return ["comprobantes"=>$searchByName->toArray()];
+    }
+
+    public function searchProducto(Request $request){
+      $stmpdh= new Stmpdh();
+      $searchByName=$stmpdh->searchByName($request->get("q"));
+       return ["productos"=>$searchByName->toArray()];
+    }
+
+
+    public function validateCuit(Request $request){
+                  $pvmprh= new Pvmprh();
+
+       $validateCuit=$pvmprh->validateCuit($request->get("cuit"));
+
+            if($validateCuit->count()!=0){
+
+               $nombreCuit="";
+              foreach ($validateCuit as $value) {
+                $nombreCuit=$value->PVMPRH_NOMBRE;
+              }
+                
+            return response()->json(['response' => 1, 'message' => 'Este cuit ya existe y pertenece a '.$nombreCuit.', ingrese uno diferente']);
+ 
+            }else{
+              return response()->json(['response' => 2, 'message' => 'ok']);
+            }
+    }
+
     public function updateRegister($id, Request $request){
  
           $headerRegistration= new HeadRegistration();

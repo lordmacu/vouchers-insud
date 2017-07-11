@@ -13,9 +13,25 @@
 
 @section('styles')
     {!! Theme::script('js/vendor/ckeditor/ckeditor.js') !!}
+ 
 @stop
-
+ 
+ 
 @section('content')
+
+<script>
+    
+    var urlAssets="{{route('admin.voucher.registration.index')}}";
+    var validationRegistration="{{route('admin.voucher.registration.validateCuit')}}"
+    var searchProveedor="{{route('admin.voucher.registration.searchProveedor')}}"
+    var searchCuenta="{{route('admin.voucher.registration.searchCuenta')}}"
+    var searchProducto="{{route('admin.voucher.registration.searchProducto')}}"
+    var nuevo=false;
+
+     @if(app('request')->input('nuevo'))
+                nuevo=true;
+            @endif
+</script>
 <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">
@@ -36,7 +52,7 @@
 
 
                             <div class="input-group" id="contenedor_proveedor_principal">
-                                {!! Form::select("PVMPRH_NROCTA", $Pvmprh,$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
+                                {!! Form::select("PVMPRH_NROCTA", [],$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
                                     <span class="input-group-btn">
                                         <button class="btn btn-success" data-toggle="modal" data-target="#modalDistribuidor" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     </span>
@@ -67,7 +83,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4  col-lg-4">
                             {!! Form::label("GRCFOR_MODFOR", trans('voucher::registrations.form.GRCFOR_MODFOR')) !!}
-                            {!! Form::select("GRCFOR_CODFOR", $Grcfor,$registrationModel->GRCFOR_CODFOR, ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR'),"id"=>"GRCFOR_CODFOR"]) !!}
+                            {!! Form::select("GRCFOR_CODFOR", [],$registrationModel->GRCFOR_CODFOR, ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR'),"id"=>"GRCFOR_CODFOR"]) !!}
                         </div>
 
                         <div class="col-xs-12 col-sm-4  col-lg-4">
@@ -257,7 +273,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary"   onclick="saveProveedor()">Guardar</button>
+        <button type="button" class="btn btn-primary" id="validarButton" disabled="disabled"  onclick="saveProveedor()">Guardar</button>
       </div>
     </div>
   </div>
@@ -283,243 +299,9 @@
 @stop
 
 @section('scripts')
-    <script type="text/javascript">
 
-function updateRegistration(){
-    console.log("aquiiii");
-    $("#formupdate").submit();
-}
-
-function saveProveedor(){
-        
-         var PVMPRH_NOMBRE= $("#PVMPRH_NOMBRE_modal").val()
-         var PVMPRH_NRODOC=$("#PVMPRH_NRODOC_modal").val()
-
-        if(!validaCuit(PVMPRH_NRODOC)){
-            alertify.error('Verifición de número de cuit erronea');
-              $("#PVMPRH_NRODOC_modal").parent().addClass("bg-danger")
-
-
-            return false;
-        }else{
-                          $("#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
-
-        }
-
-
-
-
-          $("#temp_PVMPRH_NOMBRE").val(PVMPRH_NOMBRE)
-         $("#temp_PVMPRH_NRODOC").val(PVMPRH_NRODOC)
-         $("#titleProveedor").val(PVMPRH_NOMBRE)
-         if(!!PVMPRH_NRODOC){
-            $("#contenedor_proveedor").show()
-            $("#contenedor_proveedor_principal").hide()
-
-         }
-
-         $("#modalDistribuidor").modal("hide");
-    }
-
-
-    function closeProveedor(){
-   
-          $("#temp_PVMPRH_NOMBRE").val("")
-         $("#temp_PVMPRH_NRODOC").val("")
-
-          $("#PVMPRH_NOMBRE_modal").val("")
-         $("#PVMPRH_NRODOC_modal").val("")
-
-         $("#contenedor_proveedor").hide()
-         $("#contenedor_proveedor_principal").show()
-
-    }
-
-
-function validaCuit(sCUIT) 
-{     
-    var aMult = '5432765432'; 
-    var aMult = aMult.split(''); 
-     
-    if (sCUIT && sCUIT.length == 11) 
-    { 
-        aCUIT = sCUIT.split(''); 
-        var iResult = 0; 
-        for(i = 0; i <= 9; i++) 
-        { 
-            iResult += aCUIT[i] * aMult[i]; 
-        } 
-        iResult = (iResult % 11); 
-        iResult = 11 - iResult; 
-         
-        if (iResult == 11) iResult = 0; 
-        if (iResult == 10) iResult = 9; 
-         
-        if (iResult == aCUIT[10]) 
-        { 
-            return true; 
-        } 
-    }     
-    return false; 
-} 
-
-        $( document ).ready(function() {
-
-
-
-            @if(app('request')->input('nuevo'))
-                $("#modalForm").modal("show");
-            @endif
-
-        $("#REGIST_NROFOR").change(function (e){
-            var valor=$("#REGIST_NROFOR").val().split("-");
-           
-            if(valor.length==1){
-                $("#REGIST_NROFOR").val(zeroPad(valor[0],4)+"-"+zeroPad(0,8));
-            }else{
-                console.log();
-                $("#REGIST_NROFOR").val(zeroPad(valor[0],4)+"-"+zeroPad(valor[1],8));
-
-            }
-
-        });
+         <script src="{{ URL::asset('js/voucher.js') }}" type="text/javascript"></script>
 
  
 
-        $('#formupdate').on('submit', function() {
-   
-            if(!$("#CGMSBC_SUBCUE").val()){
-              $("#CGMSBC_SUBCUE").parent().addClass("bg-danger")
-              return false;
-            }else{
-              $("#CGMSBC_SUBCUE").parent().removeClass("bg-danger")
-            }
-          
-
-           if(!$("#temp_PVMPRH_NOMBRE").val()){
-                 if(!$("#PVMPRH_NROCTA").val() ){
-                  $("#PVMPRH_NROCTA").parent().addClass("bg-danger")
-                  return false;
-                }else{
-                  $("#PVMPRH_NROCTA").parent().removeClass("bg-danger")
-                }
-            } 
-
- 
-          
-           if(!$("#GRCFOR_CODFOR").val()){
-              $("#GRCFOR_CODFOR").parent().addClass("bg-danger")
-              return false;
-            }else{
-              $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")
-            }
-            
-     
- 
-
- 
-
-
-            return true;
-
-        });
-
-
-            $(document).keypressAction({
-                actions: [
-                    { key: 'b', route: "<?= route('admin.voucher.registration.index') ?>" }
-                ]
-            });
-
-            var cantidad=$("#REGIST_CANTID");
-            var precio =$("#REGIST_IMPORT");
-            var porcentajeInput=$("#porcentaje_iva");
-            cantidad.change(function (){
-                if(!precio.val().length==0){
-                    porcentaje=((cantidad.val()*precio.val())*porcentajeInput.val())/100;
-                     $("#REGIST_IMPIVA").val(porcentaje)
-
-                 }
-            })
-
-
-            precio.change(function (){
-                if(!cantidad.val().length==0){
-                    porcentaje=((cantidad.val()*precio.val())*porcentajeInput.val())/100;
-                     $("#REGIST_IMPIVA").val(porcentaje)
-                 }
-            })
-
-            porcentajeInput.change(function (){
-                if(!cantidad.val().length==0){
-                    porcentaje=((cantidad.val()*precio.val())*porcentajeInput.val())/100;
-                     $("#REGIST_IMPIVA").val(porcentaje)
-                 }
-
-                if(!precio.val().length==0){
-                    porcentaje=((cantidad.val()*precio.val())*porcentajeInput.val())/100;
-                     $("#REGIST_IMPIVA").val(porcentaje)
-                 }
-            })
-
-            $("#REGIST_CANTID").ForceNumericOnly();
-            $("#porcentaje_iva").ForceNumericOnly();
-            $("#REGIST_IMPORT").ForceNumericOnly();
-            $("#REGIST_NROFOR").ForceNumericOnly();
-
-        });
-    </script>
-    <script>
-
-
-function zeroPad(num, places) {
-  var zero = places - num.toString().length + 1;
-  return Array(+(zero > 0 && zero)).join("0") + num;
-}
-
-
-        $( document ).ready(function() {
-            $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
-                checkboxClass: 'icheckbox_flat-blue',
-                radioClass: 'iradio_flat-blue'
-            });
-        });
-
-
-        $('select').selectize({
-            create: false,
-            sortField: 'text'
-        });
-
-
-jQuery.fn.ForceNumericOnly =
-function()
-{
-    return this.each(function()
-    {
-        $(this).keydown(function(e)
-        {
-            var key = e.charCode || e.keyCode || 0;
-
-             // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
-            // home, end, period, and numpad decimal
-            return (
-                key == 8 || 
-                key == 109 || 
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 110 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105));
-        });
-    });
-};
-
-
-
-
-    </script>
 @stop

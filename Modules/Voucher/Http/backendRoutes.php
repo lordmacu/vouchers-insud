@@ -177,6 +177,36 @@ $router->group(['prefix' =>'/voucher'], function (Router $router) {
         'uses' => 'RegistrationController@index',
         'middleware' => 'can:voucher.registrations.index'
     ]);
+
+
+    ////ajax registrations
+
+    $router->get('registrations/validateCuit', [
+        'as' => 'admin.voucher.registration.validateCuit',
+        'uses' => 'RegistrationController@validateCuit',
+        'middleware' => 'can:voucher.registrations.index'
+    ]);
+
+    $router->get('registrations/searchProveedor', [
+        'as' => 'admin.voucher.registration.searchProveedor',
+        'uses' => 'RegistrationController@searchProveedor',
+        'middleware' => 'can:voucher.registrations.index'
+    ]); 
+
+    $router->get('registrations/searchCuenta', [
+        'as' => 'admin.voucher.registration.searchCuenta',
+        'uses' => 'RegistrationController@searchCuenta',
+        'middleware' => 'can:voucher.registrations.index'
+    ]); 
+
+    $router->get('registrations/searchProducto', [
+        'as' => 'admin.voucher.registration.searchProducto',
+        'uses' => 'RegistrationController@searchProducto',
+        'middleware' => 'can:voucher.registrations.index'
+    ]); 
+
+
+    ///ajax registrations
     $router->get('registrations/create', [
         'as' => 'admin.voucher.registration.create',
         'uses' => 'RegistrationController@create',

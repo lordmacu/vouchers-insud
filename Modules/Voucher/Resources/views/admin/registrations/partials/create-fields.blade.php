@@ -6,7 +6,7 @@
    
       <div class="col-xs-12 col-sm-6  col-lg-6">
       	{!! Form::label("STMPDH_ARTCOD", "Producto") !!}
-          {!! Form::select("STMPDH_ARTCOD", $Stmpdh,"", ['placeholder' => trans('voucher::registrations.form.STMPDH_ARTCOD')]) !!}
+          {!! Form::select("STMPDH_ARTCOD",[],"", ['placeholder' => trans('voucher::registrations.form.STMPDH_ARTCOD')]) !!}
        </div>
       <div class="col-xs-12 col-sm-6  col-lg-6">
         {!! Form::label("porcentaje_iva", "Porcentaje Iva") !!}
