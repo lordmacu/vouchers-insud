@@ -19,6 +19,13 @@
  
 @section('content')
 
+
+<style>
+    
+    .selectize-dropdown{
+        z-index: 5000
+    }
+</style>
 <script>
     
     var urlAssets="{{route('admin.voucher.registration.index')}}";
