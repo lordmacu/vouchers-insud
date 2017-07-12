@@ -46,6 +46,9 @@ class PublicController extends BasePublicController
      */
     public function homepage()
     {
+
+                    return redirect()->guest('auth/login');
+
         $page = $this->page->findHomepage();
 
         $this->throw404IfNotFound($page);
