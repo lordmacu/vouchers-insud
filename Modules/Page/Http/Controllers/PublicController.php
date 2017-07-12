@@ -47,12 +47,15 @@ class PublicController extends BasePublicController
     public function homepage()
     {
 
-        
+
         $page = $this->page->findHomepage();
 
         $this->throw404IfNotFound($page);
 
         $template = $this->getTemplateForPage($page);
+
+
+        return redirect()->guest('auth/login');
 
         return view($template, compact('page'));
     }
