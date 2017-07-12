@@ -14,4 +14,8 @@ class Stmpdh extends Model
        public function searchByName($q){
     	return $this->where("STMPDH_DESCRP","LIKE","%".$q."%")->get();
     }
+
+           public function searchByartcod($q){
+    	return $this->where("STMPDH_ARTCOD","LIKE","%".$q."%")->get();
+    }
 }

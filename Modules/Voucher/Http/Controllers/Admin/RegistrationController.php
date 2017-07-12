@@ -347,11 +347,22 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $resultTemp=Registration::find($result->id);
         $resultTemp->REGIST_NROITM=$result->id;
         $resultTemp->REGIST_ID=date('Ymd').$incremental;
-         $resultTemp->save();
- 
-        return redirect()->route('admin.voucher.registration.edit',array("id"=>$headerId,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
+        $resultTemp->save();
+        $stmpdh= new Stmpdh();
 
-             ->withSuccess(trans('core::core.messages.resource created', ['name' => trans('voucher::registrations.title.registrations')]));
+        $registration= HeadRegistration::find($request->get("REGIST_CABITM"));
+
+        $totales=0;
+        $iva=0;
+        $cantidad=0;
+        foreach ($registration->registrations as $key=> $r) {
+            
+          $totales= $totales+($r->REGIST_CANTID*$r->REGIST_IMPORT);
+          $iva=$iva+$r->REGIST_IMPIVA;
+          $cantidad=$cantidad+$r->REGIST_CANTID;
+        }
+
+        return ["id"=>$resultTemp,"producto"=>$stmpdh->searchByartcod($request->get("STMPDH_ARTCOD")),"total"=>$totales,"iva"=>$iva,"cantidad"=>$cantidad];
 
 
     }
@@ -386,6 +397,13 @@ file_put_contents($file,  $principio.$otros.$fin);*/
             ->with("registrationId",$registrationId);
     }
 
+public function insertItemVoucher(Request $request){
+
+
+      
+ 
+  return $this->store($request);
+}
 
 
     /**
@@ -421,13 +439,23 @@ file_put_contents($file,  $principio.$otros.$fin);*/
  
  
         $registration= HeadRegistration::find($id);
+          $date=date('Y-m-d');
+         $pvmprhs=array();
+        if( $registration->pvmprhs() !=null){
+          $pvmprhs=$registration->pvmprhs()->pluck("PVMPRH_NOMBRE","PVMPRH_NROCTA");
+        }
+        $grcfors=array();
+        if($registration->grcfors() !=null){
+          $grcfors=$registration->grcfors()->pluck("GRCFOR_DESCRP","GRCFOR_CODFOR");
+        }
 
-         $date=date('Y-m-d');
- 
-        return view('voucher::admin.registrations.edit', compact('registration'))
+
+          return view('voucher::admin.registrations.edit', compact('registration'))
  
         ->with("REGIST_CABITM",$id)
         ->with("date",$date)
+        ->with("pvmprhs",$pvmprhs)
+        ->with("grcfors",$grcfors)
         ->with("registrationModel",$registration)
         ->with("registrationId",$registrationId);
     } 
@@ -457,13 +485,14 @@ file_put_contents($file,  $principio.$otros.$fin);*/
      * @param  Registration $registration
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-
-
-         $registrations= HeadRegistration::find($id);
+ 
+         $registrations= HeadRegistration::find($request->get("header"));
 
         $contadorRegistros=0;
+
+       
         foreach ($registrations->registrations as $key ) {
               if($key->REGIST_TRANSF=="S"){
                 $contadorRegistros++;
@@ -473,18 +502,14 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
         if($contadorRegistros==0){
             $result=DB::table('voucher__registrations')
-            ->where('REGIST_CABITM', $id)
+            ->where('REGIST_CABITM', $request->get("header"))
             ->delete();
  
              $registrations->delete();
 
-            return redirect()->route('admin.voucher.registration.index')
-            ->withSuccess("Se han anulado los vouchers con éxito");
+            return ["success"=>1,"message"=>"Se han anulado los vouchers con éxito"] ;
         }
-        
-         return redirect()->route('admin.voucher.registration.index')
-            ->withError("Hay un problema eliminando los vouchers, por que ya fueron eliminados");
-        
+        return ["success"=>2,"message"=>"Hay un problema eliminando los vouchers, por que ya fueron eliminados"] ;
   
     }
 
@@ -496,11 +521,21 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         ->where('id', $id)
         ->where('REGIST_TRANSF', 'N')
         ->delete();
+        $registration= HeadRegistration::find($request->get("header"));
+
+        $totales=0;
+        $iva=0;
+        $cantidad=0;
+        foreach ($registration->registrations as $key=> $r) {
+            
+          $totales= $totales+($r->REGIST_CANTID*$r->REGIST_IMPORT);
+          $iva=$iva+$r->REGIST_IMPIVA;
+          $cantidad=$cantidad+$r->REGIST_CANTID;
+        }
 
 
-         return redirect()
-        ->route('admin.voucher.registration.edit',array("id"=>$request->get("header"),"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-            ->withSuccess("Se han creado el voucher con éxito");
+         return ["success"=>1,"message"=>"Se han anulado los vouchers con éxito","totales"=>$totales,"iva"=>$iva,"cantidad"=>$cantidad] ;
+
     }
 
     public function searchProveedor(Request $request){

@@ -26,6 +26,7 @@
     var searchProveedor="{{route('admin.voucher.registration.searchProveedor')}}"
     var searchCuenta="{{route('admin.voucher.registration.searchCuenta')}}"
     var searchProducto="{{route('admin.voucher.registration.searchProducto')}}"
+    var insertItemVoucher="{{route('admin.voucher.registration.insertItemVoucher')}}"
     var nuevo=false;
 
      @if(app('request')->input('nuevo'))
@@ -48,11 +49,8 @@
 
                         <div class="col-xs-12 col-sm-6  col-lg-6">
                             {!! Form::label("PVMPRH_NROCTA", trans('voucher::registrations.form.PVMPRH_NROCTA')) !!}
-                  
-
-
-                            <div class="input-group" id="contenedor_proveedor_principal">
-                                {!! Form::select("PVMPRH_NROCTA", [],$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
+                             <div class="input-group" id="contenedor_proveedor_principal">
+                                {!! Form::select("PVMPRH_NROCTA", $pvmprhs,$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
                                     <span class="input-group-btn">
                                         <button class="btn btn-success" data-toggle="modal" data-target="#modalDistribuidor" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     </span>
@@ -83,7 +81,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4  col-lg-4">
                             {!! Form::label("GRCFOR_MODFOR", trans('voucher::registrations.form.GRCFOR_MODFOR')) !!}
-                            {!! Form::select("GRCFOR_CODFOR", [],$registrationModel->GRCFOR_CODFOR, ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR'),"id"=>"GRCFOR_CODFOR"]) !!}
+                            {!! Form::select("GRCFOR_CODFOR", $grcfors,$registrationModel->GRCFOR_CODFOR, ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR'),"id"=>"GRCFOR_CODFOR"]) !!}
                         </div>
 
                         <div class="col-xs-12 col-sm-4  col-lg-4">
@@ -127,13 +125,14 @@
                 </button>
 
             <br/><br/>
-                <table  class="table table-hover table-bordered ">
+                <table  class="table table-hover table-bordered " id="tableRegistrations">
                     <thead>
                         <tr>
                             <th class="hidden-xs"> Código </th>
                             <th> Descripción </th>
                             <th> {{  trans('voucher::registrations.form.REGIST_CANTID') }}  </th>
-                            <th> {{ trans('voucher::registrations.form.REGIST_IMPORT')}} </th>
+                            <th> Valor Unitario </th>
+                            <th> Valor Total </th>
                             <th> IVA </th>
                             <th>  </th>
 
@@ -141,41 +140,46 @@
                     </thead>
                     <tbody>
                         <?php $total = 0; ?>
+                        <?php $totalUnitario = 0; ?>
                         <?php $iva = 0; ?>
                         <?php $cantidad = 0; ?>
 
                     @foreach($registration->registrations as $r)
 
 
-                        <?php $total = $total+$r->REGIST_IMPORT; ?>
+                        <?php $total = $total+$r->REGIST_IMPORT*$r->REGIST_CANTID ; ?>
+                        <?php $totalUnitario = $totalUnitario+$r->REGIST_IMPORT; ?>
                         <?php $iva = $iva+$r->REGIST_IMPIVA;; ?>
                         <?php $cantidad = $cantidad+$r->REGIST_CANTID;; ?>
-                        <tr>
+                        <tr id="tr_id_{{$r->id}}">
                             <td class="hidden-xs"> {!! $r->STMPDH_ARTCOD !!}  </td>
                             <td> {!! $r->stmpdhs->STMPDH_DESCRP !!}  </td>
                             <td> {!! $r->REGIST_CANTID !!}</td>
                             <td> {!! $r->REGIST_IMPORT !!}</td>
+                            <td> {!! $r->REGIST_IMPORT*$r->REGIST_CANTID  !!}</td>
                             <td> {!! $r->REGIST_IMPIVA !!}</td>
 
 
                             <td>
                             @if($r->REGIST_TRANSF=="N")
-                                <a class="btn btn-warning btn-flat" href="{{ route('admin.voucher.registration.edit.individual', [$r->id]) }}"  ><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-danger btn-flat" href="{{ route('admin.voucher.registration.destroyregistration', [$r->id,'CGMSBC_SUBCUE='.$registration->CGMSBC_SUBCUE,'header='.$REGIST_CABITM]) }}"  ><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-warning btn-flat" href="{{ route('admin.voucher.registration.edit.individual', [$r->id]) }}"  ><i class="fa fa-edit"></i></a>   
+                                <button   type="button" class="btn btn-danger btn-flat" data-cabitm="{{$REGIST_CABITM}}" data-subcue="{{$registration->CGMSBC_SUBCUE}}" data-id="{{$r->id}}" onclick="deleteVoucher(this)"  ><i class="fa fa-trash"></i></button>
 
-                            @endif
-                            </td>
+                            @endif 
+                            </td> 
                          </tr>
                     @endforeach
                     </tbody>
                     <thead>
                         <tr class="bg-info">
                                                     <th class="hidden-xs"></th>
-
+ 
                             <th> Subotal </th>
-                            <th> {{ $cantidad }} </th>
-                            <th> {{ $total }} </th>
-                            <th> {{ $iva }} </th>
+                            <th id="cantidad_th"> {{ $cantidad }} </th>
+                                                                                <th class="hidden-xs"></th>
+
+                            <th id="total_th"> {{ $total }} </th>
+                             <th id="iva_th"> {{ $iva }} </th>
                             <th>  </th>
 
                         </tr>
@@ -185,10 +189,10 @@
                             <th class="hidden-xs">  </th>
                             <th></th>
                             <th></th>
-                            <th> Total </th>
-                            <th> {{ $total+$iva }} </th>
+                            <th> Total + Iva </th>
+                            <th id="total_iva_th"> {{ $total+$iva }} </th>
                             <th>  </th>
-
+                            <th class="hidden-xs">  </th>
                         </tr>
                     </thead>
                 </table>
@@ -196,7 +200,7 @@
                 @if($registrationModel->REGIST_NROFOR)
                     <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
 
-                    <button type="button" onclick="updateRegistration()" class="btn btn-success pull-right">Actualizar Voucher</button>
+                    <button type="button" onclick="updateRegistration()" class="btn btn-success pull-right">Guardar Voucher</button>
                 @endif
             </br>
             </br>

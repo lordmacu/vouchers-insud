@@ -37,55 +37,5 @@
      {!! Form::hidden('CGMSBC_SUBCUE',$registration->CGMSBC_SUBCUE) !!}
 
 
-
  </div>
-
-
-<script>
-  
-$('#registrationstore').on('submit', function() {
-   
-    if(!$("#STMPDH_ARTCOD").val()){
-      $("#STMPDH_ARTCOD").parent().addClass("bg-danger")
-      return false;
-    }else{
-      $("#STMPDH_ARTCOD").parent().removeClass("bg-danger")
-    }
-
-
-
-
-    if(!$("#porcentaje_iva").val() ){
-      $("#porcentaje_iva").parent().addClass("bg-danger")
-      return false;
-    }else{
-      $("#porcentaje_iva").parent().removeClass("bg-danger")
-    }
-
-
-
-    if(!$("#REGIST_CANTID").val()  || $("#REGIST_CANTID").val() == 0 ){
-      $("#REGIST_CANTID").parent().addClass("bg-danger")
-      return false;
-    }else{
-      $("#REGIST_CANTID").parent().removeClass("bg-danger")
-    }
-
-   
-
-
-    if(!$("#REGIST_IMPORT").val()  || $("#REGIST_IMPORT").val() == 0 ){
-      $("#REGIST_IMPORT").parent().addClass("bg-danger")
-      return false;
-    }else{
-      $("#REGIST_IMPORT").parent().removeClass("bg-danger")
-    }
-
  
-
-
-return true;
-
-});
-
-</script>

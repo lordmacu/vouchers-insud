@@ -36,6 +36,12 @@
 
 
 
+     <script>
+      var REGIST_USERUID="{{$registrationId}}";
+      var REGIST_CABITM="{{$REGIST_CABITM}}";
+      var CGMSBC_SUBCUE="{{$registration->CGMSBC_SUBCUE}}";
+
+     </script>
  </div>
 
 

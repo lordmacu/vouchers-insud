@@ -205,6 +205,13 @@ $router->group(['prefix' =>'/voucher'], function (Router $router) {
         'middleware' => 'can:voucher.registrations.index'
     ]); 
 
+    $router->get('registrations/insertItemVoucher', [
+        'as' => 'admin.voucher.registration.insertItemVoucher',
+        'uses' => 'RegistrationController@insertItemVoucher',
+        'middleware' => 'can:voucher.registrations.index'
+    ]); 
+
+
 
     ///ajax registrations
     $router->get('registrations/create', [
@@ -242,6 +249,11 @@ $router->group(['prefix' =>'/voucher'], function (Router $router) {
         'middleware' => 'can:voucher.registrations.edit'
     ]);
 
+    $router->get('registrations/{id}/delete', [
+        'as' => 'admin.voucher.registration.update.destroyRegistration',
+        'uses' => 'RegistrationController@destroyRegistration',
+        'middleware' => 'can:voucher.registrations.destroy'
+    ]);
 
     $router->delete('registrations/{id}', [
         'as' => 'admin.voucher.registration.destroy',

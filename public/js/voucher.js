@@ -31,6 +31,28 @@ function validateCuit(val){
 	})
 } 
 
+
+function deleteVoucher(datainput){
+
+
+ 
+$.ajax({
+		data:{CGMSBC_SUBCUE:$(datainput).data("subcue"),header:$(datainput).data("cabitm")},
+ 		url:urlAssets+"/"+$(datainput).data("id")+"/delete",
+		success:function (data){
+			$("#tr_id_"+$(datainput).data("id")).remove();
+
+ 			alertify.success("Se ha eliminado el voucher con éxito");
+			 $("#cantidad_th").html(data.cantidad);
+			 $("#total_th").html(data.totales);
+			 $("#iva_th").html(data.iva);
+			 $("#total_iva_th").html(data.totales+data.iva);
+
+ 		}
+	})
+}
+
+
 function updateRegistration(){
     console.log("aquiiii");
     $("#formupdate").submit();
@@ -82,6 +104,7 @@ function saveProveedor(){
     }
 
 
+
 function validaCuit(sCUIT) 
 {     
     var aMult = '5432765432'; 
@@ -111,6 +134,76 @@ function validaCuit(sCUIT)
 
         $( document ).ready(function() {
 
+
+
+  
+$('#registrationstore').on('submit', function() {
+   
+    if(!$("#STMPDH_ARTCOD").val()){
+      $("#STMPDH_ARTCOD").parent().addClass("bg-danger")
+      return false;
+    }else{
+      $("#STMPDH_ARTCOD").parent().removeClass("bg-danger")
+    }
+
+
+
+
+    if(!$("#porcentaje_iva").val() ){
+      $("#porcentaje_iva").parent().addClass("bg-danger")
+      return false;
+    }else{
+      $("#porcentaje_iva").parent().removeClass("bg-danger")
+    }
+
+
+
+    if(!$("#REGIST_CANTID").val()  || $("#REGIST_CANTID").val() == 0 ){
+      $("#REGIST_CANTID").parent().addClass("bg-danger")
+      return false;
+    }else{
+      $("#REGIST_CANTID").parent().removeClass("bg-danger")
+    }
+
+   
+
+
+    if(!$("#REGIST_IMPORT").val()  || $("#REGIST_IMPORT").val() == 0 ){
+      $("#REGIST_IMPORT").parent().addClass("bg-danger")
+      return false;
+    }else{
+      $("#REGIST_IMPORT").parent().removeClass("bg-danger")
+    }
+
+ sendItemVoucher($("#STMPDH_ARTCOD").val(),$("#porcentaje_iva").val(),$("#REGIST_CANTID").val(),$("#REGIST_IMPORT").val(),$("#REGIST_IMPIVA").val());
+ 
+return false;
+
+});
+
+
+
+function sendItemVoucher(STMPDH_ARTCOD,porcentaje_iva,REGIST_CANTID,REGIST_IMPORT,REGIST_IMPIVA){
+	$.ajax({
+		data:{STMPDH_ARTCOD:STMPDH_ARTCOD,porcentaje_iva:porcentaje_iva,REGIST_CANTID:REGIST_CANTID,REGIST_IMPORT:REGIST_IMPORT,REGIST_USERIID:REGIST_USERUID,REGIST_CABITM:REGIST_CABITM,CGMSBC_SUBCUE:CGMSBC_SUBCUE,REGIST_IMPIVA:REGIST_IMPIVA},
+		url:insertItemVoucher,
+		success:function (data){
+			
+			$("#tableRegistrations tbody").append('<tr id="tr_id_'+data.id.id+'"><td class="hidden-xs"> '+STMPDH_ARTCOD+'  </td><td> '+data.producto[0].STMPDH_DESCRP+'  </td><td> '+REGIST_CANTID+' </td><td>'+REGIST_IMPORT+'</td><td> '+(REGIST_IMPORT*REGIST_CANTID)+'</td><td> '+REGIST_IMPIVA+' </td><td><a class="btn btn-warning btn-flat" href="'+urlAssets+'/'+data.id.id+'/editindividual"><i class="fa fa-edit"></i></a> <button type="button" class="btn btn-danger btn-flat" data-cabitm="'+REGIST_CABITM+'" data-subcue="'+CGMSBC_SUBCUE+'" data-id="'+data.id.id+'" onclick="deleteVoucher(this)"><i class="fa fa-trash"></i></button></td></tr>');
+            $("#modalForm").modal("hide");
+			 alertify.success("Se ha creado el voucher con exito");
+			 $("#cantidad_th").html(data.cantidad);
+			 $("#total_th").html(data.total);
+			 $("#iva_th").html(data.iva);
+ 			 $("#total_iva_th").html(data.total+data.iva);
+
+ 			 $("#REGIST_CANTID").val(0);
+ 			 $("#REGIST_IMPORT").val(0);
+ 			 $("#REGIST_IMPIVA").val(0);
+
+		}
+	})
+}
 
         	$("#PVMPRH_NRODOC_modal").change(function (){
          		validateCuit($(this).val())
@@ -188,6 +281,7 @@ $('#STMPDH_ARTCOD').selectize({
 $('#PVMPRH_NROCTA').selectize({
     valueField: 'PVMPRH_NROCTA',
     labelField: 'PVMPRH_NOMBRE',
+
     searchField: 'PVMPRH_NOMBRE',
     create: false,
     render: {
@@ -214,6 +308,19 @@ $('#PVMPRH_NROCTA').selectize({
         });
     }
 });
+
+
+        $( document ).ready(function() {
+
+ 
+        	
+            $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
+                checkboxClass: 'icheckbox_flat-blue',
+                radioClass: 'iradio_flat-blue'
+            });
+        });
+
+
 
 
         $("#REGIST_NROFOR").change(function (e){
@@ -321,13 +428,6 @@ function zeroPad(num, places) {
   return Array(+(zero > 0 && zero)).join("0") + num;
 }
 
-
-        $( document ).ready(function() {
-            $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
-                checkboxClass: 'icheckbox_flat-blue',
-                radioClass: 'iradio_flat-blue'
-            });
-        });
 
 
 

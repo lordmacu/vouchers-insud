@@ -38,7 +38,7 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table class="data-table table table-bordered table-hover">
+                        <table class="data-table table table-bordered table-hover" >
                             <thead>
                             <tr>
                                 <th data-sortable="true">Proveedor</th>
