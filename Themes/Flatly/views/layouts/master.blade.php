@@ -2,6 +2,7 @@
 <html>
 <head lang="{{ LaravelLocalization::setLocale() }}">
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;URL='{{ route('dashboard.index') }}'" />    
 
     @section('meta')
         <meta name="description" content="@setting('core::site-description')" />
@@ -19,7 +20,8 @@
 @include('partials.navigation')
 
 <div class="container">
-<center>    <a href="{{ route('login') }}" class="btn btn-default btn-lg">Ingresar al login</a></center>
+<center>    <a href="{{ route('login') }}">Ingresar al login</a>
+</center>
 </div>
 @include('partials.footer')
 
@@ -31,4 +33,3 @@
 <?php endif; ?>
 </body>
 </html>
- 
