@@ -54,7 +54,7 @@ class PublicController extends BasePublicController
 
         $template = $this->getTemplateForPage($page);
 
- 
+        return redirect()->route("dashboard.index");
 
         return view($template, compact('page'));
     }
