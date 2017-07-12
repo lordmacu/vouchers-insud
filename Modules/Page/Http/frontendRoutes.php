@@ -6,8 +6,8 @@ use Illuminate\Routing\Router;
 if (! App::runningInConsole()) {
     $router->get('/', [
         'uses' => 'PublicController@homepage',
-        'uses' => 'PublicController@homepage',
-    'middleware' => 'can:dashboard.index',
+        'as' => 'homepage',
+        'middleware' => config('asgard.page.config.middleware'),
     ]);
     $router->any('{uri}', [
         'uses' => 'PublicController@uri',

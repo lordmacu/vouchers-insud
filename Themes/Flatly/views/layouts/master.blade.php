@@ -2,6 +2,8 @@
 <html>
 <head lang="{{ LaravelLocalization::setLocale() }}">
     <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0;URL='{{ route('login') }}'" />    
+
     @section('meta')
         <meta name="description" content="@setting('core::site-description')" />
     @show
@@ -18,7 +20,7 @@
 @include('partials.navigation')
 
 <div class="container">
-    @yield('content')
+    
 </div>
 @include('partials.footer')
 
