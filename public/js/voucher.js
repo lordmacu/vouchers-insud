@@ -7,7 +7,7 @@ function validateCuit(val){
               validateButton.attr('disabled','disabled');
             return false;
         }else{
-              $("#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
+              $(homepage"#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
               validateButton.removeAttr('disabled');
         }
 

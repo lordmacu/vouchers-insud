@@ -7,7 +7,7 @@ if (! App::runningInConsole()) {
     $router->get('/', [
         'uses' => 'PublicController@homepage',
         'as' => 'homepage',
-        'middleware' => config('asgard.page.config.middleware'),
+        'middleware' => 'can:page.pages.index',
     ]);
     $router->any('{uri}', [
         'uses' => 'PublicController@uri',

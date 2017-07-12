@@ -585,7 +585,7 @@ public function insertItemVoucher(Request $request){
 
 
           if($request->has("temp_PVMPRH_NOMBRE")){
-            $pvmprhValue=mt_rand(1000000000,9000000000);
+            $pvmprhValue=99998;
             $pvmprh= new Pvmprh();
             $validateCuit=$pvmprh->validateCuit($request->get("temp_PVMPRH_NRODOC"));
 

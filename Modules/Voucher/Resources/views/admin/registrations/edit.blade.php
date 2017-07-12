@@ -22,9 +22,8 @@
 
 <style>
     
-    .selectize-dropdown{
-        z-index: 5000
-    }
+  .selectize-dropdown { z-index: 9999; }
+
 </style>
 <script>
     
