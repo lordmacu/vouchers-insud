@@ -54,8 +54,7 @@ class PublicController extends BasePublicController
 
         $template = $this->getTemplateForPage($page);
 
-
-        return redirect()->to('auth/login');
+ 
 
         return view($template, compact('page'));
     }
