@@ -14,8 +14,8 @@
        </div>
     
       
-     </div> 
-     <div class="row" style="z-index: -5">
+     </div>
+     <div class="row">
        <div class="col-xs-12 col-sm-4  col-lg-4">
              
          {!! Form::label("REGIST_CANTID", trans('voucher::registrations.form.REGIST_CANTID')) !!}

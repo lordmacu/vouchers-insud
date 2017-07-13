@@ -24,7 +24,11 @@
     .modal-body { 
     position: static !important; 
 }
-  .selectize-dropdown {     z-index: 9999999 !important; }
+  .selectize-dropdown {     z-index: 9999999 !important; 
+-webkit-transform: translate3d(0,0,5px);
+transform: translate3d(0,0,5px);
+
+  }
 
 </style> 
 <script>
