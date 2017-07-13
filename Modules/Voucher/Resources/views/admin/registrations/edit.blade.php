@@ -22,9 +22,9 @@
 
 <style>
     
-  .selectize-dropdown { z-index: 9999; }
+  .selectize-dropdown {     z-index: 9999999 !important; }
 
-</style>
+</style> 
 <script>
     
     var urlAssets="{{route('admin.voucher.registration.index')}}";
