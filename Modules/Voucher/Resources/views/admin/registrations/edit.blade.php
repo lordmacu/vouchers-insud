@@ -53,7 +53,7 @@ transform: translate3d(0,0,5px);
 
 
                     <div class="row">
-                        <div class="col-xs-12 col-sm-4  col-lg-4">
+                        <div class="col-xs-12 col-sm-6  col-lg-4">
                             {!! Form::label("CGMSBC_SUBCUE", trans('voucher::registrations.form.CGMSBC_SUBCUE')) !!}
                             <input type="text"   class="form-control" disabled="disabled" value="{{ $registrationModel->cgmsbcs->CGMSBC_DESCRP }}">
                             <input type="hidden" name="CGMSBC_SUBCUE"  value="{!!  $registrationModel->cgmsbcs->CGMSBC_SUBCUE !!}"> 
@@ -86,12 +86,12 @@ transform: translate3d(0,0,5px);
                     </div>
                     <div class="row">
 
-                        <div class="col-xs-12 col-sm-4  col-lg-4">
+                        <div class="col-xs-12 col-sm-3  col-lg-4">
                                 
                             {!! Form::label("REGIST_FECMOV", trans('voucher::registrations.form.REGIST_FECMOV')) !!}
                             {!! Form::text('REGIST_FECMOV', $registrationModel->REGIST_FECMOV,array("class"=>"form-control datetimepicker")); !!} 
                         </div>
-                        <div class="col-xs-12 col-sm-4  col-lg-4">
+                        <div class="col-xs-12 col-sm-5  col-lg-4">
                             {!! Form::label("GRCFOR_MODFOR", trans('voucher::registrations.form.GRCFOR_MODFOR')) !!}
                             {!! Form::select("GRCFOR_CODFOR", $grcfors,$registrationModel->GRCFOR_CODFOR, ['placeholder' => trans('voucher::registrations.form.GRCFOR_CODFOR'),"id"=>"GRCFOR_CODFOR"]) !!}
                         </div>
