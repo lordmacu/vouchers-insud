@@ -21,9 +21,10 @@
 
 
 <style>
-    
-  .selectize-dropdown {     z-index: 9999999 !important;    position: relative;
- }
+    .modal-body { 
+    position: static !important; 
+}
+  .selectize-dropdown {     z-index: 9999999 !important; }
 
 </style> 
 <script>
