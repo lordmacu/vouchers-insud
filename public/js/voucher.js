@@ -46,7 +46,7 @@ $.ajax({
 			 $("#cantidad_th").html(data.cantidad);
 			 $("#total_th").html(data.totales);
 			 $("#iva_th").html(data.iva);
-			 $("#total_iva_th").html(data.totales+data.iva);
+			 $("#total_iva_th").html((data.totales+data.iva).toFixed(2));
 
  		}
 	})
@@ -181,7 +181,24 @@ return false;
 
 });
 
+function round(value, exp) {
+  if (typeof exp === 'undefined' || +exp === 0)
+    return Math.round(value);
 
+  value = +value;
+  exp = +exp;
+
+  if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
+    return NaN;
+
+  // Shift
+  value = value.toString().split('e');
+  value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+
+  // Shift back
+  value = value.toString().split('e');
+  return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+}
 
 function sendItemVoucher(STMPDH_ARTCOD,porcentaje_iva,REGIST_CANTID,REGIST_IMPORT,REGIST_IMPIVA){
 	$.ajax({
@@ -189,13 +206,13 @@ function sendItemVoucher(STMPDH_ARTCOD,porcentaje_iva,REGIST_CANTID,REGIST_IMPOR
 		url:insertItemVoucher,
 		success:function (data){
 			
-			$("#tableRegistrations tbody").append('<tr id="tr_id_'+data.id.id+'"><td class="hidden-xs"> '+STMPDH_ARTCOD+'  </td><td> '+data.producto[0].STMPDH_DESCRP+'  </td><td> '+REGIST_CANTID+' </td><td>'+REGIST_IMPORT+'</td><td> '+(REGIST_IMPORT*REGIST_CANTID)+'</td><td> '+REGIST_IMPIVA+' </td><td><a class="btn btn-warning btn-flat" href="'+urlAssets+'/'+data.id.id+'/editindividual"><i class="fa fa-edit"></i></a> <button type="button" class="btn btn-danger btn-flat" data-cabitm="'+REGIST_CABITM+'" data-subcue="'+CGMSBC_SUBCUE+'" data-id="'+data.id.id+'" onclick="deleteVoucher(this)"><i class="fa fa-trash"></i></button></td></tr>');
+			$("#tableRegistrations tbody").append('<tr id="tr_id_'+data.id.id+'"><td class="hidden-xs"> '+STMPDH_ARTCOD+'  </td><td> '+data.producto[0].STMPDH_DESCRP+'  </td><td> '+REGIST_CANTID+' </td><td>'+ round(REGIST_IMPORT,2)+'</td><td> '+round(REGIST_IMPORT*REGIST_CANTID,2)+'</td><td> '+ round(REGIST_IMPIVA,2)+' </td><td><a class="btn btn-warning btn-flat" href="'+urlAssets+'/'+data.id.id+'/editindividual"><i class="fa fa-edit"></i></a> <button type="button" class="btn btn-danger btn-flat" data-cabitm="'+REGIST_CABITM+'" data-subcue="'+CGMSBC_SUBCUE+'" data-id="'+data.id.id+'" onclick="deleteVoucher(this)"><i class="fa fa-trash"></i></button></td></tr>');
             $("#modalForm").modal("hide");
 			 alertify.success("Se ha creado el voucher con exito");
 			 $("#cantidad_th").html(data.cantidad);
 			 $("#total_th").html(data.total);
 			 $("#iva_th").html(data.iva);
- 			 $("#total_iva_th").html(data.total+data.iva);
+ 			 $("#total_iva_th").html((data.total+data.iva).toFixed(2));
 
  			 $("#REGIST_CANTID").val(0);
  			 $("#REGIST_IMPORT").val(0);
