@@ -52,10 +52,13 @@ $.ajax({
 	})
 }
 
+function updatenewRegistration(){
+      $("#nuevosubmit").val(1);
+      updateRegistration();
 
+}
 function updateRegistration(){
-    console.log("aquiiii");
-    $("#formupdate").submit();
+     $("#formupdate").submit();
 }
 
 function saveProveedor(){
@@ -383,12 +386,6 @@ $('#PVMPRH_NROCTA').selectize({
               $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")
             }
             
-     
- 
-
- 
-
-
             return true;
 
         });

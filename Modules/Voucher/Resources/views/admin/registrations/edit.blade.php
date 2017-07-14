@@ -110,7 +110,7 @@ transform: translate3d(0,0,5px);
 
                         @endif
                   
-
+                        <input type="hidden" name="nuevosubmit" id="nuevosubmit" value="0">
 
                 
                         </div>
@@ -211,8 +211,11 @@ transform: translate3d(0,0,5px);
 
                 @if($registrationModel->REGIST_NROFOR)
                     <a href="{{ route('admin.voucher.registration.index') }}" class="btn btn-info">Atras</a>
+                    <button type="button" onclick="updatenewRegistration()" class="btn btn-primary pull-right">Guardar y Nuevo</button> 
 
-                    <button type="button" onclick="updateRegistration()" class="btn btn-success pull-right">Guardar Voucher</button>
+                    <button style="margin-right: 10px" type="button" onclick="updateRegistration()" class="btn btn-success pull-right">Guardar Voucher</button>  
+
+
                 @endif
             </br>
             </br>

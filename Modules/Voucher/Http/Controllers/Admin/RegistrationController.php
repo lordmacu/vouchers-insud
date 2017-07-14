@@ -212,12 +212,9 @@ $fin='</document>';
 file_put_contents($file,  $principio.$otros.$fin);*/
 
 
-
-
-         $user = $this->auth->user();
+  $user = $this->auth->user();
         $userRegistraion= new UserRegistration();
         $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
-
 
         if($getRegistrationUser->count()){
             $registrationId=$getRegistrationUser[0]->USERIID;   
@@ -239,7 +236,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
           }
  
         }
-
+       
  
         $CGMSBC_SUBCUE=0;
 
@@ -470,6 +467,7 @@ public function insertItemVoucher(Request $request){
     public function update(Registration $registration, Request $request)
     {
 
+
         $registrationParams=$request->all();
         $registrationParams["REGIST_FECMOD"] =date('Ymd');
         $registrationParams["REGIST_TIMMOD"] =date('Gis');
@@ -648,9 +646,34 @@ public function insertItemVoucher(Request $request){
                 ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")."&nuevo=".$request->get("nuevo")))
                     ->withSuccess("Se ha guardado el voucher con éxito");
          }else{
-                  return redirect()
-                ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
+          if($request->get("nuevosubmit")==1){
+
+            $user = $this->auth->user();
+            $userRegistraion= new UserRegistration();
+            $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
+     
+            $CGMSBC_SUBCUE=0;
+
+            foreach ($getRegistrationUser as  $value) {
+               $CGMSBC_SUBCUE=$value->CGMSBC_SUBCUE;
+            }
+
+            if($CGMSBC_SUBCUE == 0){
+ 
+               return redirect()
+                ->route('admin.voucher.registration.index',array("new"=>1))
                     ->withSuccess("Se ha guardado el voucher con éxito");
+            }else{
+              return redirect()
+                ->route('admin.voucher.registration.create',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
+                    ->withSuccess("Se ha guardado el voucher con éxito");
+             
+            }
+ 
+          } 
+            return redirect()
+                ->route('admin.voucher.registration.index');
+              
          }
 
     }

@@ -174,7 +174,12 @@
 
 
     <script type="text/javascript">
+   
+  @if(Request::has('new'))
+    $("#myModal").modal("show")
+  @endif
 
+ 
 
 function saveProveedor(){
         
