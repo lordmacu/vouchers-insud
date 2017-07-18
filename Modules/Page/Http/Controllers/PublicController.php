@@ -47,7 +47,6 @@ class PublicController extends BasePublicController
     public function homepage()
     {
 
-        return Redirect::to('http://heera.it');
 
         $page = $this->page->findHomepage();
 

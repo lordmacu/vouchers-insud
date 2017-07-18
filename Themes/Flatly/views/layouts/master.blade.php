@@ -20,11 +20,10 @@
 @include('partials.navigation')
 
 <div class="container">
-<center>    <a href="{{ route('login') }}">Ingresar al login</a>
+<center>    <a href="{{ route('login') }}">Cargando...</a>
 </center>
 </div>
-@include('partials.footer')
-
+ 
 {!! Theme::script('js/all.js') !!}
 @yield('scripts')
 
