@@ -661,13 +661,10 @@ public function insertItemVoucher(Request $request){
             if($CGMSBC_SUBCUE == 0){
  
                return redirect()
-                ->route('admin.voucher.registration.index',array("new"=>1))
-                    ->withSuccess("Se ha guardado el voucher con éxito");
+                ->route('admin.voucher.registration.index',array("new"=>1));
             }else{
               return redirect()
-                ->route('admin.voucher.registration.create',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
-                    ->withSuccess("Se ha guardado el voucher con éxito");
-             
+                ->route('admin.voucher.registration.create',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")));;
             }
  
           } 
