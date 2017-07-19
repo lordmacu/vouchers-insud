@@ -19,6 +19,8 @@ use Modules\Voucher\Repositories\GrcforRepository;
 use Modules\Voucher\Repositories\CgmsbcRepository;
 use Modules\Voucher\Repositories\StmpdhRepository;
 use Illuminate\Support\Facades\DB;
+use PDF;
+
 class RegistrationController extends AdminBaseController
 {
     /**
@@ -43,6 +45,24 @@ class RegistrationController extends AdminBaseController
         $this->stmpdh = $stmpdh;
 
 
+    }
+
+
+    public function generatePdf(Request $request){
+
+             // return view('voucher::admin.registrations.pdf.tableone');
+
+      $data = [
+    'foo' => 'bar'
+  ];
+  if($request->get("type")==1){
+    $pdf = PDF::loadView('voucher::admin.registrations.pdf.tableone', $data);
+
+  }else{
+      $pdf = PDF::loadView('voucher::admin.registrations.pdf.tabletwo', $data);
+
+  }
+  return $pdf->stream('document.pdf');
     }
 
 function remove_empty_tags_recursive ($str, $repto = NULL)
@@ -624,21 +644,27 @@ public function insertItemVoucher(Request $request){
  
         }
 
+             if($headRegistration->payment_method!=$request->get("payment_method")){
+          $marcador=0;
  
-        if($marcador==0){
+        }
+ 
+ 
+         if($marcador==0){
 
-          if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"))->count()>0){
+          if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"),$request->get("payment_method"))->count()>0){
 
             return redirect()
               ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
               ->withError("Este registro esta repetido, revisar el proveedor, el tipo de comprobante o el número del comprobante");
           }
 
-
            $headRegistration->PVMPRH_NROCTA=$pvmprhValue;
           $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
           $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
           $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
+          $headRegistration->payment_method=$request->get("payment_method");
+
           $headRegistration->save();
         }
          if($request->has("nuevo")){

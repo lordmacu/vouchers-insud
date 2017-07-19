@@ -188,8 +188,11 @@ return [
         Modules\Core\Providers\AsgardServiceProvider::class,
 
         App\Providers\RouteServiceProvider::class,
-        
-        Pion\Laravel\ChunkUpload\Providers\ChunkUploadServiceProvider::class        
+            niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+
+        Pion\Laravel\ChunkUpload\Providers\ChunkUploadServiceProvider::class      
+
+  
     ],
 
     /*
@@ -237,6 +240,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Str'       => 'Illuminate\Support\Str',
+            'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
+
+
+
     ],
 
 ];

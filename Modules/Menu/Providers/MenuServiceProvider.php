@@ -11,8 +11,10 @@ use Modules\Menu\Repositories\Cache\CacheMenuDecorator;
 use Modules\Menu\Repositories\Cache\CacheMenuItemDecorator;
 use Modules\Menu\Repositories\Eloquent\EloquentMenuItemRepository;
 use Modules\Menu\Repositories\Eloquent\EloquentMenuRepository;
-use Nwidart\Menus\MenuBuilder as Builder;
+use Modules\Menu\Repositories\MenuItemRepository;
+use Modules\Menu\Repositories\MenuRepository;
 use Nwidart\Menus\Facades\Menu as MenuFacade;
+use Nwidart\Menus\MenuBuilder as Builder;
 use Nwidart\Menus\MenuItem as PingpongMenuItem;
 
 class MenuServiceProvider extends ServiceProvider
@@ -48,7 +50,7 @@ class MenuServiceProvider extends ServiceProvider
         $this->registerBladeTags();
         $this->publishConfig('menu', 'permissions');
         $this->publishConfig('menu', 'config');
-        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
     /**
@@ -172,11 +174,11 @@ class MenuServiceProvider extends ServiceProvider
      */
     private function registerMenus()
     {
-        if (! $this->app['asgard.isInstalled']) {
+        if ($this->app['asgard.isInstalled'] === false || $this->app['asgard.onBackend'] === true) {
             return;
         }
-        $menu = $this->app->make('Modules\Menu\Repositories\MenuRepository');
-        $menuItem = $this->app->make('Modules\Menu\Repositories\MenuItemRepository');
+        $menu = $this->app->make(MenuRepository::class);
+        $menuItem = $this->app->make(MenuItemRepository::class);
         foreach ($menu->allOnline() as $menu) {
             $menuTree = $menuItem->getTreeForMenu($menu->id);
             MenuFacade::create($menu->name, function (Builder $menu) use ($menuTree) {

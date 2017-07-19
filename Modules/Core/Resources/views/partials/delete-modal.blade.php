@@ -30,24 +30,8 @@
         $('#modal-delete-confirmation').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var actionTarget = button.data('action-target');
-
-
-            var verb="DELETE";
-            var method="POST";
-
-            var actionMethod=button.data("action-method");
-            var actionVerb=button.data("action-verb");
-
-        
             var modal = $(this);
             modal.find('form').attr('action', actionTarget);
-            if(!!actionMethod){
-                method=actionMethod;
-                verb=actionVerb;
-                modal.find('form').find("input").attr("disabled",true);
-            }
-            modal.find('form').attr("method", method);
-            modal.find('form').find( "input[name='_method']").val(verb);
 
             if (button.data('message') === undefined) {
             } else if (button.data('message') != '') {

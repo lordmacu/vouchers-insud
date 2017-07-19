@@ -44,11 +44,13 @@ class HeadRegistration extends Model
         return $this->hasOne("Modules\\Voucher\\Entities\\Stmpdh","STMPDH_TIPPRO","STMPDH_TIPPRO");
     }
 
-    public function getHeaderExist($pvmprh,$grcfor,$nrofor){
+    public function getHeaderExist($pvmprh,$grcfor,$nrofor,$payment_method){
         return $this
         ->where("PVMPRH_NROCTA",$pvmprh)
         ->where("GRCFOR_CODFOR",$grcfor)
         ->where("REGIST_NROFOR",$nrofor)
+        ->where("REGIST_NROFOR",$nrofor)
+        ->where("payment_method",$payment_method)
         ->get();
     }
 }

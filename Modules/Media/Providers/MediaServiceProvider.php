@@ -8,7 +8,10 @@ use Illuminate\Support\ServiceProvider;
 use Modules\Core\Traits\CanPublishConfiguration;
 use Modules\Media\Blade\MediaMultipleDirective;
 use Modules\Media\Blade\MediaSingleDirective;
+use Modules\Media\Blade\MediaThumbnailDirective;
 use Modules\Media\Console\RefreshThumbnailCommand;
+use Modules\Media\Contracts\DeletingMedia;
+use Modules\Media\Contracts\StoringMedia;
 use Modules\Media\Entities\File;
 use Modules\Media\Events\Handlers\HandleMediaStorage;
 use Modules\Media\Events\Handlers\RemovePolymorphicLink;
@@ -44,6 +47,9 @@ class MediaServiceProvider extends ServiceProvider
         $this->app->bind('media.multiple.directive', function () {
             return new MediaMultipleDirective();
         });
+        $this->app->bind('media.thumbnail.directive', function () {
+            return new MediaThumbnailDirective();
+        });
     }
 
     public function boot(DispatcherContract $events)
@@ -54,14 +60,14 @@ class MediaServiceProvider extends ServiceProvider
         $this->publishConfig('media', 'permissions');
         $this->publishConfig('media', 'assets');
 
-        $events->listen('*', HandleMediaStorage::class);
-        $events->listen('*', RemovePolymorphicLink::class);
+        $events->listen(StoringMedia::class, HandleMediaStorage::class);
+        $events->listen(DeletingMedia::class, RemovePolymorphicLink::class);
 
         $this->app[TagManager::class]->registerNamespace(new File());
         $this->registerThumbnails();
         $this->registerBladeTags();
 
-        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
     /**
@@ -140,6 +146,9 @@ class MediaServiceProvider extends ServiceProvider
         });
         $this->app['blade.compiler']->directive('mediaMultiple', function ($value) {
             return "<?php echo MediaMultipleDirective::show([$value]); ?>";
+        });
+        $this->app['blade.compiler']->directive('thumbnail', function ($value) {
+            return "<?php echo MediaThumbnailDirective::show([$value]); ?>";
         });
     }
 }

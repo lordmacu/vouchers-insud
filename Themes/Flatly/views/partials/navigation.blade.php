@@ -6,7 +6,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('login') }}">@setting('core::site-name') Insud</a>
+            <a class="navbar-brand" href="{{ URL::to('/') }}">@setting('core::site-name')</a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             @menu('main')

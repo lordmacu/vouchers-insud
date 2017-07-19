@@ -9,6 +9,3 @@ $(document).ready(function () {
         window.open('https://asgardcms.com/docs', '_blank');
     });
 });
-
-
-

@@ -2,6 +2,8 @@
 
 namespace Modules\Media\Tests;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\App;
 use Modules\Media\Image\Imagy;
 use Modules\Media\Image\Intervention\InterventionFactory;
@@ -15,11 +17,11 @@ class ImagyTest extends MediaTestCase
      */
     protected $imagy;
     /**
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $finder;
     /**
-     * @var \Illuminate\Contracts\Config\Repository
+     * @var Repository
      */
     protected $config;
     /**
@@ -34,11 +36,11 @@ class ImagyTest extends MediaTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->config = App::make('Illuminate\Contracts\Config\Repository');
-        $this->finder = App::make('Illuminate\Filesystem\Filesystem');
+        $this->config = App::make(Repository::class);
+        $this->finder = App::make(Filesystem::class);
         $this->imagy = new Imagy(new InterventionFactory(), app(ThumbnailManager::class), $this->config);
 
-        $this->testbenchPublicPath = __DIR__ . '/../../../vendor/orchestra/testbench/fixture/public/';
+        $this->testbenchPublicPath = __DIR__ . '/../../../vendor/orchestra/testbench-core/fixture/public/';
         $this->mediaPath = __DIR__ . '/Fixtures/';
         $this->finder->copy("{$this->mediaPath}google-map.png", "{$this->testbenchPublicPath}google-map.png");
     }

@@ -32,7 +32,7 @@ class SettingServiceProvider extends ServiceProvider
     {
         $this->registerBindings();
 
-        $this->app['setting.settings'] = $this->app->share(function ($app) {
+        $this->app->singleton('setting.settings', function ($app) {
             return new Settings($app[SettingRepository::class]);
         });
 
@@ -51,7 +51,7 @@ class SettingServiceProvider extends ServiceProvider
         $this->publishConfig('setting', 'permissions');
         $this->publishConfig('setting', 'config');
         $this->registerBladeTags();
-        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
     /**

@@ -266,6 +266,13 @@ $router->group(['prefix' =>'/voucher'], function (Router $router) {
         'uses' => 'RegistrationController@destroyRegistration',
         'middleware' => 'can:voucher.registrations.destroy'
     ]);
+
+
+     $router->get('registrations/pdf', [
+        'as' => 'admin.voucher.registration.generatepdf',
+        'uses' => 'RegistrationController@generatePdf',
+        'middleware' => 'can:voucher.registrations.destroy'
+    ]);
     $router->bind('userregistration', function ($id) {
         return app('Modules\Voucher\Repositories\UserRegistrationRepository')->find($id);
     });

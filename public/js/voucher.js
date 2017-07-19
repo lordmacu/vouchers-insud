@@ -278,6 +278,7 @@ $(document).ready(function() {
     });
 
 
+    $('.selectize').selectize();
 
     $('#STMPDH_ARTCOD').selectize({
         valueField: 'STMPDH_ARTCOD',

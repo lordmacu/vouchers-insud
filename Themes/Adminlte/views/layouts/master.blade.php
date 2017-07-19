@@ -13,9 +13,6 @@
     @foreach($cssFiles as $css)
         <link media="all" type="text/css" rel="stylesheet" href="{{ URL::asset($css) }}">
     @endforeach
-        <link media="all" type="text/css" rel="stylesheet" href="{{ URL::asset('datetimepicker/build/css/bootstrap-datetimepicker.css') }}">
- 
- 
     {!! Theme::script('vendor/jquery/jquery.min.js') !!}
     @include('partials.asgard-globals')
     @section('styles')
@@ -69,10 +66,6 @@
 @foreach($jsFiles as $js)
     <script src="{{ URL::asset($js) }}" type="text/javascript"></script>
 @endforeach
-
-    <script src="{{ URL::asset('datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
-
-  
 <?php if (is_module_enabled('Notification')): ?>
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script src="{{ Module::asset('notification:js/pusherNotifications.js') }}"></script>
@@ -93,15 +86,6 @@
         });
     </script>
 <?php endif; ?>
-
-<script>
-      $(function () {
-                $('.datetimepicker').datetimepicker({
-                 format: 'YYYY-MM-DD'
-           });
-            });
-
-</script> 
 @section('scripts')
 @show
 </body>

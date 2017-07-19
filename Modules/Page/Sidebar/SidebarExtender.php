@@ -2,11 +2,9 @@
 
 namespace Modules\Page\Sidebar;
 
-use Maatwebsite\Sidebar\Badge;
 use Maatwebsite\Sidebar\Group;
 use Maatwebsite\Sidebar\Item;
 use Maatwebsite\Sidebar\Menu;
-use Modules\Page\Repositories\PageRepository;
 use Modules\User\Contracts\Authentication;
 
 class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
@@ -38,10 +36,6 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->icon('fa fa-file');
                 $item->weight(1);
                 $item->route('admin.page.page.index');
-                $item->badge(function (Badge $badge, PageRepository $page) {
-                    $badge->setClass('bg-green');
-                    $badge->setValue($page->countAll());
-                });
                 $item->authorize(
                     $this->auth->hasAccess('page.pages.index')
                 );

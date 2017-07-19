@@ -53,13 +53,13 @@ transform: translate3d(0,0,5px);
 
 
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6  col-lg-4">
+                        <div class="col-xs-12 col-sm-4  col-lg-4">
                             {!! Form::label("CGMSBC_SUBCUE", trans('voucher::registrations.form.CGMSBC_SUBCUE')) !!}
                             <input type="text"   class="form-control" disabled="disabled" value="{{ $registrationModel->cgmsbcs->CGMSBC_DESCRP }}">
                             <input type="hidden" name="CGMSBC_SUBCUE"  value="{!!  $registrationModel->cgmsbcs->CGMSBC_SUBCUE !!}"> 
                         </div>
 
-                        <div class="col-xs-12 col-sm-6  col-lg-6">
+                        <div class="col-xs-12 col-sm-5  col-lg-5">
                             {!! Form::label("PVMPRH_NROCTA", trans('voucher::registrations.form.PVMPRH_NROCTA')) !!}
                              <div class="input-group" id="contenedor_proveedor_principal">
                                 {!! Form::select("PVMPRH_NROCTA", $pvmprhs,$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
@@ -78,6 +78,12 @@ transform: translate3d(0,0,5px);
 
                 {!! Form::hidden('temp_PVMPRH_NOMBRE', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NOMBRE")); !!} 
                 {!! Form::hidden('temp_PVMPRH_NRODOC', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NRODOC")); !!}
+                        </div>
+                         <div class="col-xs-12 col-sm-3  col-lg-3">
+
+                            <label for="payment_method">Medio Pago</label>
+
+                            {!! Form::select("payment_method", array(1=>'Tarjeta de credito',2=>"Efectivo"),$registrationModel->payment_method, ['placeholder' => "metodo de pago",'class'=>'selectize']) !!} 
                         </div>
 
 

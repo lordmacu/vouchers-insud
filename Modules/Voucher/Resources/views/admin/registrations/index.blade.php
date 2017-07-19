@@ -153,6 +153,7 @@
   </div>
 </div>
 
+
     @include('core::partials.delete-modal')
 @stop
 
@@ -169,8 +170,12 @@
 @section('scripts')
 
 
+         <script src="{{ URL::asset('js/jspdf.js') }}" type="text/javascript"></script>
+         <script src="{{ URL::asset('js/from_html.js') }}" type="text/javascript"></script>
+         <script src="{{ URL::asset('js/split_text_to_size.js') }}" type="text/javascript"></script>
+         <script src="{{ URL::asset('js/standard_fonts_metrics.js') }}" type="text/javascript"></script>
 
-
+ 
 
 
     <script type="text/javascript">
@@ -180,6 +185,15 @@
   @endif
 
  
+
+
+function demoFromHTML() {
+var doc = new jsPDF("landscape", "mm", "a4");
+doc.setFontSize(22);
+doc.text(20, 20, 'Example');
+doc.output('dataurlnewwindow', {})
+
+}
 
 function saveProveedor(){
         
