@@ -102,13 +102,13 @@
    <tr>
        
       <td  >
-        RENDIDO POR {{$encabezado["area"]}}
+        RENDIDO POR  {{$encabezado["nombre_usuario"]}}
       </td>
       <td class="sin_padding" width="200px">
          <table  style=" width: 100%;"  >
             <tr class="sinborder" >
                <td  >AREA</td>
-               <td  >{{$encabezado["nombre_usuario"]}}</td>
+               <td  >{{$encabezado["area"]}}</td>
             </tr>
             <tr class="top_border ">
                <td>RUBRO:</td>
