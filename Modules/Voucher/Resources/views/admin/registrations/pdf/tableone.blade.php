@@ -91,12 +91,12 @@
    </tr>
    <tr>
       <td width="150px"  class="center_text">TITULO DEL PROYECTO</td>
-      <td class="center_text">OPERATION FINALE</td>
+      <td class="center_text">{{$encabezado["proyecto"]}}</td>
       <td class="sin_padding" width="170px">
          <table style=" width: 100%">
             <tr class="sinborder">
                <td width="68px"  class="center_text">FECHA</td>
-               <td  class="center_text">07/07/2017</td>
+               <td  class="center_text"> {{$encabezado["fecha"]}}</td>
             </tr>
          </table>
       </td>
@@ -106,13 +106,13 @@
          RENDIDO POR:
       </td>
       <td class="center_text">
-         MARIANO CUMAR
+         {{$encabezado["nombre_usuario"]}}
       </td>
       <td class="sin_padding" width="170px">
          <table  style=" width: 100%;"  >
             <tr class="sinborder" >
                <td  width="60px" class="center_text">AREA</td>
-               <td  class="center_text" >LOCACIONES</td>
+               <td  class="center_text" >{{$encabezado["area"]}}</td>
             </tr>
             <tr class="top_border ">
                <td  class="center_text">Rendicion Nª:</td>

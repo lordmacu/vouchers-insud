@@ -20,4 +20,5 @@ class Cgmsbc extends Model
     	return $this->where("CGMSBC_SUBCUE",$Cgmsbc)->get();
 
     }
+ 
 }

@@ -89,12 +89,12 @@
     
   
    <tr>
-     <td >TITULO DEL PROYECTO OPERACION FINALE</td>
+     <td >TITULO DEL PROYECTO: {{$encabezado["proyecto"]}}</td>
       <td class="sin_padding" width="160px">
          <table style=" width: 100%">
             <tr class="sinborder">
                <td>FECHA</td>
-               <td>07/07/2017</td>
+               <td>{{$encabezado["fecha"]}}</td>
             </tr>
          </table>
       </td>
@@ -102,17 +102,17 @@
    <tr>
        
       <td  >
-        RENDIDO POR MARIANO CUMAR
+        RENDIDO POR {{$encabezado["area"]}}
       </td>
       <td class="sin_padding" width="200px">
          <table  style=" width: 100%;"  >
             <tr class="sinborder" >
                <td  >AREA</td>
-               <td  >LOCACIONES</td>
+               <td  >{{$encabezado["nombre_usuario"]}}</td>
             </tr>
             <tr class="top_border ">
-               <td>Rendicion Nª:</td>
-               <td style="text-align: center;">1</td>
+               <td>RUBRO:</td>
+               <td style="text-align: center;">{{$rubro}}</td>
             </tr>
          </table>
       </td>
@@ -137,28 +137,31 @@
          TOTAL
       </td>
    </tr>
+
+   @foreach($items as $item)
    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
+   	<td></td>	<td class="center_text">{{$item["desc"]}}</td>	<td class="center_text">${{$item["total"]}}</td>
    </tr>
+
+   @endforeach
     <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
+        <td colspan="2"  style="text-align: left; font-weight: bold;"> TOTALES </td>  <td class="center_text">${{$valortotal}}</td>
    </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
+</table>
+
+<table style=" width: 100%; margin-top: 30px" >
+   <tr>
+      <td  width="120px" height="50px" class="center_text">
+         Firma
+      </td>
+      <td>
+      </td>
    </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
+   <tr>
+      <td  width="120px" height="50px" class="center_text">
+         Aclaración
+      </td>
+      <td>
+      </td>
    </tr>
 </table>

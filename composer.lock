@@ -4,8 +4,44 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ead1754aa0c7f715eeb4bb35b4d8f18",
+    "content-hash": "41b044f4a3a69efc117db19664df805b",
     "packages": [
+        {
+            "name": "carlos-meneses/laravel-mpdf",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carlos-meneses/laravel-mpdf.git",
+                "reference": "b81ed975d16972b2fb1a76a1661e28dd447eb54b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carlos-meneses/laravel-mpdf/zipball/b81ed975d16972b2fb1a76a1661e28dd447eb54b",
+                "reference": "b81ed975d16972b2fb1a76a1661e28dd447eb54b",
+                "shasum": ""
+            },
+            "require": {
+                "mpdf/mpdf": "^6.1.3",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Meneses\\LaravelMpdf\\": "src/LaravelMpdf"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel Mpdf: Using Mpdf in Laravel 5 for generate Pdfs.",
+            "keywords": [
+                "laravel",
+                "mpdf",
+                "pdf"
+            ],
+            "time": "2017-04-22T18:07:48+00:00"
+        },
         {
             "name": "cartalyst/sentinel",
             "version": "v2.0.15",
@@ -1655,16 +1691,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.29",
+            "version": "v5.4.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "4f7588c744eb15e49544c99c6ee90d5598b0b50b"
+                "reference": "b9a64955f4278f45ac348a6e000b5ecc85da167a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/4f7588c744eb15e49544c99c6ee90d5598b0b50b",
-                "reference": "4f7588c744eb15e49544c99c6ee90d5598b0b50b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b9a64955f4278f45ac348a6e000b5ecc85da167a",
+                "reference": "b9a64955f4278f45ac348a6e000b5ecc85da167a",
                 "shasum": ""
             },
             "require": {
@@ -1780,7 +1816,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-07-19T13:26:57+00:00"
+            "time": "2017-07-19T19:26:19+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -2304,42 +2340,6 @@
             "time": "2017-01-16T07:55:07+00:00"
         },
         {
-            "name": "niklasravnsborg/laravel-pdf",
-            "version": "v1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/niklasravnsborg/laravel-pdf.git",
-                "reference": "68a24e8ddc0b981f41b9b80dcae5ee3466a0a998"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/niklasravnsborg/laravel-pdf/zipball/68a24e8ddc0b981f41b9b80dcae5ee3466a0a998",
-                "reference": "68a24e8ddc0b981f41b9b80dcae5ee3466a0a998",
-                "shasum": ""
-            },
-            "require": {
-                "mpdf/mpdf": "^6.1.3",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "niklasravnsborg\\LaravelPdf\\": "src/LaravelPdf"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Generate PDFs in Laravel with this mPDF wrapper.",
-            "keywords": [
-                "laravel",
-                "mpdf",
-                "pdf"
-            ],
-            "time": "2017-02-08T20:24:49+00:00"
-        },
-        {
             "name": "nwidart/laravel-menus",
             "version": "0.4.0",
             "source": {
@@ -2409,16 +2409,16 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "1.26.0",
+            "version": "1.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "d819c4ace5e5a6b0c168d88170d20e90b958667a"
+                "reference": "15b2b36ae82afa9425183853d6644aa026e45435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/d819c4ace5e5a6b0c168d88170d20e90b958667a",
-                "reference": "d819c4ace5e5a6b0c168d88170d20e90b958667a",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/15b2b36ae82afa9425183853d6644aa026e45435",
+                "reference": "15b2b36ae82afa9425183853d6644aa026e45435",
                 "shasum": ""
             },
             "require": {
@@ -2426,10 +2426,10 @@
                 "php": ">=5.5"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^1.11",
+                "friendsofphp/php-cs-fixer": "^2.4",
                 "mockery/mockery": "~0.9",
                 "orchestra/testbench": "^3.1|^3.2|^3.3|^3.4",
-                "phpro/grumphp": "^0.9.1",
+                "phpro/grumphp": "^0.11",
                 "phpunit/phpunit": "~5.7"
             },
             "type": "library",
@@ -2471,7 +2471,7 @@
                 "nwidart",
                 "rad"
             ],
-            "time": "2017-07-06T19:33:38+00:00"
+            "time": "2017-07-19T15:45:41+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3841,16 +3841,16 @@
     "packages-dev": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.31.6",
+            "version": "3.31.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4e066559063683aa4574aee3ed54fcb90b2b10b2"
+                "reference": "74b1cc16d44dc4a90b5ff93fd33e97cf38a5331a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4e066559063683aa4574aee3ed54fcb90b2b10b2",
-                "reference": "4e066559063683aa4574aee3ed54fcb90b2b10b2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/74b1cc16d44dc4a90b5ff93fd33e97cf38a5331a",
+                "reference": "74b1cc16d44dc4a90b5ff93fd33e97cf38a5331a",
                 "shasum": ""
             },
             "require": {
@@ -3917,7 +3917,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-07-17T21:18:04+00:00"
+            "time": "2017-07-19T18:07:19+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",

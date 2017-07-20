@@ -36,4 +36,8 @@ class Registration extends Model
         return $this->hasOne("Modules\\Voucher\\Entities\\Stmpdh","STMPDH_ARTCOD","STMPDH_ARTCOD");
     }
 
+
+    public function getVouchersPerHeaderId($id){
+        return $this->where("REGIST_CABITM",$id)->count();
+    }
 }

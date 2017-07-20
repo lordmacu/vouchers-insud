@@ -186,12 +186,10 @@ return [
         App\Providers\EventServiceProvider::class,
 
         Modules\Core\Providers\AsgardServiceProvider::class,
+    Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
 
         App\Providers\RouteServiceProvider::class,
-            niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
-
-        Pion\Laravel\ChunkUpload\Providers\ChunkUploadServiceProvider::class      
-
+ 
   
     ],
 
@@ -240,7 +238,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Str'       => 'Illuminate\Support\Str',
-            'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
+    'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class
 
 
 

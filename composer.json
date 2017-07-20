@@ -29,8 +29,10 @@
         "idavoll/flatly-theme": "~2.0",
         "idavoll/adminlte-theme": "~2.0",
         "pion/laravel-chunk-upload": "^1.0",
-        "niklasravnsborg/laravel-pdf": "^1.5"
-    },
+        "carlos-meneses/laravel-mpdf": "^1.0"
+
+ 
+       },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",

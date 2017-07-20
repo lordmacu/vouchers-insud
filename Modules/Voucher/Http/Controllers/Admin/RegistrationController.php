@@ -20,6 +20,9 @@ use Modules\Voucher\Repositories\GrcforRepository;
 use Modules\Voucher\Repositories\CgmsbcRepository;
 use Modules\Voucher\Repositories\StmpdhRepository;
 use Illuminate\Support\Facades\DB;
+
+use App;
+use View;
 use PDF;
 
 class RegistrationController extends AdminBaseController
@@ -54,11 +57,18 @@ class RegistrationController extends AdminBaseController
              // return view('voucher::admin.registrations.pdf.tableone');
 
 
+$pdf = PDF::LoadEmpty();
+$mpdf=$pdf->getMpdf();
+
+
+ 
+
         $user = $this->auth->user();
         $userRegistraion= new UserRegistration();
         $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
  
  
+           // $pdf = App::make('mpdf.wrapper');
 
         foreach ($getRegistrationUser as $usuario) {
            
@@ -67,52 +77,117 @@ class RegistrationController extends AdminBaseController
           $getRegistrationsByStatus= $HeadRegistration->getRegistrationsByStatus(1,$usuario->USERIID);
    
           $arrayGroupByAgr=array();
+
+          $vouchersArray=array();
            foreach ($getRegistrationsByStatus as $header) {
  
               foreach ($header->registrations as $key=> $registration ) {
                       $arrayRegistration=$registration->toArray();
-                       $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration->toArray();
+                       $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration;
+                       $vouchersArray[]=$registration->toArray();
               }
            }
 
 
-  
-           $arrayRegistrosPrimerPdf=array();
-           $contador=0;
-                         $totalRendicion=0;
+ 
+         
 
            foreach ($arrayGroupByAgr as $key=> $peliculas) {
-              foreach ($peliculas as $agrupados) {
+              $Cgmsbc= new Cgmsbc();
+
+              $getNameMovie=$Cgmsbc->getNameMovie($key);
+ 
+              $totalRendicion=0;
+              $arrayRegistrosPrimerPdf=array();
+               $contador=0;
+              foreach ($peliculas as $key=> $agrupados) {
              
                 $usrAgrp=new UsrAgrp();
-                $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid("$key");
+                $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
                 foreach ( $getUsrAgrpByid as $usta ) {
 
                   $total=0;
                   foreach ($agrupados as $registros ) {
-                    $total=$total+(($registros["REGIST_IMPORT"]*$registros["REGIST_CANTID"])+$registros["REGIST_IMPIVA"]);
+                  $total=$total+(($registros->REGIST_IMPORT*$registros->REGIST_CANTID)+$registros->REGIST_IMPIVA);
+                 
+                 
                   }
                   $arrayRegistrosPrimerPdf[$contador]["rubro"]=$usta->USR_AGRP01_DESCRP;
                   $arrayRegistrosPrimerPdf[$contador]["rubroId"]=$key;
                   $arrayRegistrosPrimerPdf[$contador]["total"]=$total;
                   $totalRendicion=$totalRendicion+$total;
+
+
                   $contador++;
+
                 }
 
-              }
-               $data1 = [
+                $data1 = [
+                 'encabezado' => array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y")),
                 'data' => $arrayRegistrosPrimerPdf,
                 'totalRendicion' => $totalRendicion
                 ];
-                $pdf = PDF::loadView('voucher::admin.registrations.pdf.tableone', $data1);
-
+              }
+               
+               $mpdf->AddPage();
+              $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tableone', $data1, [])->render());
 
           }
  
       }
 
-        return $pdf->stream('document.pdf');
 
+
+foreach ($arrayGroupByAgr as $key => $pelicula) {
+     $Cgmsbc= new Cgmsbc();
+
+      $getNameMovie=$Cgmsbc->getNameMovie($key);
+
+  foreach ($pelicula as $key => $rubro) {
+
+    $usrAgrp=new UsrAgrp();
+    $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
+       $arrayRubro=array();
+       $arrayVoucher=array();
+       $totalValorItems=0;
+    foreach ($rubro as $item) {
+
+      $total=($item->REGIST_IMPORT*$item->REGIST_CANTID)+$item->REGIST_IMPIVA;
+       $arrayVoucher[]=array(
+        "desc"=>$item->pvmprhs->PVMPRH_NOMBRE." - ".$item->grcfors->GRCFOR_DESCRP." - ".$item->REGIST_NROFOR." - ".$item->order_item,
+        "total"=>$total,
+);
+
+       $totalValorItems=$totalValorItems+$total;
+    }
+
+
+             
+    $arrayRubro["items"]=$arrayVoucher;
+    $arrayRubro["rubro"]=$key;
+    $arrayRubro["valortotal"]=$totalValorItems;
+    $arrayRubro["encabezado"]=array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y"));
+               $mpdf->AddPage();
+              $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tabletwo', $arrayRubro, [])->render());
+
+
+  }
+
+}
+return $mpdf->Output('file.pdf','I');
+
+/*
+ $arrayVoucher=array("desc"=>$registros->pvmprhs->PVMPRH_NOMBRE." - ".$registros->grcfors->GRCFOR_DESCRP." ".$registros->REGIST_NROFOR);
+                  $arrayRegistrosSegundoPdf[]= $arrayVoucher;
+
+*/
+
+
+die();
+
+ return $mpdf->Output('file.pdf','I');
+
+die();
 
       $data1 = [
       'data' => $arrayRegistrosPrimerPdf,
@@ -422,6 +497,12 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $arrayEs["GRCFOR_MODFOR"]=$grcfor->GRCFOR_MODFOR;
         $cgmsbc=$this->cgmsbc->findByAttributes(array("CGMSBC_SUBCUE"=>$HeadRegistration->CGMSBC_SUBCUE));
         $arrayEs["CGMSBC_CODDIM"]=$cgmsbc->CGMSBC_CODDIM;
+
+        $registrationModel= new Registration();
+        $arrayEs["order_item"]=$registrationModel->getVouchersPerHeaderId($request->get("REGIST_CABITM"))+1;
+
+
+
         $result=$this->registration->create($arrayEs);
         $incremental = sprintf('%04d',$result->id);
         $resultTemp=Registration::find($result->id);
