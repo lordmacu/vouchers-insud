@@ -15,6 +15,8 @@
     @endforeach
     {!! Theme::script('vendor/jquery/jquery.min.js') !!}
     @include('partials.asgard-globals')
+         
+
     @section('styles')
     @show
 
@@ -66,6 +68,8 @@
 @foreach($jsFiles as $js)
     <script src="{{ URL::asset($js) }}" type="text/javascript"></script>
 @endforeach
+
+
 <?php if (is_module_enabled('Notification')): ?>
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script src="{{ Module::asset('notification:js/pusherNotifications.js') }}"></script>

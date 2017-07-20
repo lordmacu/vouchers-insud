@@ -12,6 +12,7 @@ use Modules\Voucher\Entities\Stmpdh;
 use Modules\Voucher\Entities\Cgmsbc;
 use Modules\Voucher\Entities\Grcfor;
 use Modules\Voucher\Entities\HeadRegistration;
+use Modules\Voucher\Entities\UsrAgrp;
 use Nwidart\Modules\Facades\Module;
 use Modules\User\Contracts\Authentication;
 use Modules\Voucher\Entities\UserRegistration;
@@ -52,11 +53,73 @@ class RegistrationController extends AdminBaseController
 
              // return view('voucher::admin.registrations.pdf.tableone');
 
-      $data = [
-    'foo' => 'bar'
-  ];
+
+        $user = $this->auth->user();
+        $userRegistraion= new UserRegistration();
+        $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
+ 
+ 
+
+        foreach ($getRegistrationUser as $usuario) {
+           
+        
+          $HeadRegistration= new HeadRegistration();
+          $getRegistrationsByStatus= $HeadRegistration->getRegistrationsByStatus(1,$usuario->USERIID);
+   
+          $arrayGroupByAgr=array();
+           foreach ($getRegistrationsByStatus as $header) {
+ 
+              foreach ($header->registrations as $key=> $registration ) {
+                      $arrayRegistration=$registration->toArray();
+                       $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration->toArray();
+              }
+           }
+
+
+  
+           $arrayRegistrosPrimerPdf=array();
+           $contador=0;
+                         $totalRendicion=0;
+
+           foreach ($arrayGroupByAgr as $key=> $peliculas) {
+              foreach ($peliculas as $agrupados) {
+             
+                $usrAgrp=new UsrAgrp();
+                $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid("$key");
+                foreach ( $getUsrAgrpByid as $usta ) {
+
+                  $total=0;
+                  foreach ($agrupados as $registros ) {
+                    $total=$total+(($registros["REGIST_IMPORT"]*$registros["REGIST_CANTID"])+$registros["REGIST_IMPIVA"]);
+                  }
+                  $arrayRegistrosPrimerPdf[$contador]["rubro"]=$usta->USR_AGRP01_DESCRP;
+                  $arrayRegistrosPrimerPdf[$contador]["rubroId"]=$key;
+                  $arrayRegistrosPrimerPdf[$contador]["total"]=$total;
+                  $totalRendicion=$totalRendicion+$total;
+                  $contador++;
+                }
+
+              }
+               $data1 = [
+                'data' => $arrayRegistrosPrimerPdf,
+                'totalRendicion' => $totalRendicion
+                ];
+                $pdf = PDF::loadView('voucher::admin.registrations.pdf.tableone', $data1);
+
+
+          }
+ 
+      }
+
+        return $pdf->stream('document.pdf');
+
+
+      $data1 = [
+      'data' => $arrayRegistrosPrimerPdf,
+      'totalRendicion' => $totalRendicion
+      ];
   if($request->get("type")==1){
-    $pdf = PDF::loadView('voucher::admin.registrations.pdf.tableone', $data);
+    $pdf = PDF::loadView('voucher::admin.registrations.pdf.tableone', $data1);
 
   }else{
       $pdf = PDF::loadView('voucher::admin.registrations.pdf.tabletwo', $data);
@@ -232,7 +295,7 @@ $fin='</document>';
 file_put_contents($file,  $principio.$otros.$fin);*/
 
 
-  $user = $this->auth->user();
+        $user = $this->auth->user();
         $userRegistraion= new UserRegistration();
         $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
 

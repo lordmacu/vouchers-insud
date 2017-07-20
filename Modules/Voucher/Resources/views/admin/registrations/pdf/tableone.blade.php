@@ -140,28 +140,42 @@
          TOTAL
       </td>
    </tr>
+
+   @foreach($data as $d)
    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
+   	<td class="center_text">{{$d["rubroId"]}}</td>	
+   	<td  class="center_text">{{$d["rubro"]}}</td>	
+   	<td  class="center_text">{{$d["total"]}}</td>
+   </tr>
+   @endforeach
+    <tr class="result_rows">
+	   	<td class="center_text"> </td>	
+	   	<td  class="center_text"> </td>	
+	   	<td  class="center_text"> </td>
    </tr>
     <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
+	   	<td class="center_text"> </td>	
+	   	<td  class="center_text"> </td>	
+	   	<td  class="center_text"> </td>
    </tr>
     <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
+	   	<td class="center_text" colspan="2" style="font-weight: bold;">TOTALES</td>	
+ 	   	<td  class="center_text" style="font-weight: bold;">{{$totalRendicion}}</td>
    </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
-    <tr class="result_rows">
-   	<td></td>	<td></td>	<td></td>
-   </tr>
+</table>
+<table style=" width: 100%" >
+	<tr>
+		<td  width="120px" height="50px" class="center_text">
+			Firma
+		</td>
+		<td>
+		</td>
+	</tr>
+	<tr>
+		<td  width="120px" height="50px" class="center_text">
+			Aclaración
+		</td>
+		<td>
+		</td>
+	</tr>
 </table>

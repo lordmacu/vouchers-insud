@@ -53,4 +53,11 @@ class HeadRegistration extends Model
         ->where("payment_method",$payment_method)
         ->get();
     }
+
+    public function getRegistrationsByStatus($status,$user){
+        return $this
+        ->where("USERIID",$user)
+        ->where("status",$status)
+         ->get();
+    }
 }

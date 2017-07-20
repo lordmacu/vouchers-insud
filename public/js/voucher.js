@@ -138,7 +138,10 @@ function validaCuit(sCUIT) {
 }
 
 $(document).ready(function() {
-
+            $('.datetimepicker').datetimepicker({
+                format: 'YYYYMMDD',
+                format: 'YYYY-MM-DD'
+            });
 
 
 

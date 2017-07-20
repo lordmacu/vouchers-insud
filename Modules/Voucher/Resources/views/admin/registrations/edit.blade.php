@@ -12,10 +12,19 @@
 @stop
 
 @section('styles')
-    {!! Theme::script('js/vendor/ckeditor/ckeditor.js') !!}
+     <link media="all" type="text/css" rel="stylesheet" href="{{ URL::asset('datetimepicker/build/css/bootstrap-datetimepicker.css') }}">
  
 @stop
  
+@section('scripts')
+    {!! Theme::script('js/vendor/ckeditor/ckeditor.js') !!}
+ 
+        <script src="{{ URL::asset('datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+         <script src="{{ URL::asset('js/voucher.js') }}" type="text/javascript"></script>
+
+@stop
+
+
  
 @section('content')
 
@@ -322,11 +331,4 @@ transform: translate3d(0,0,5px);
         <dd>{{ trans('core::core.back to index') }}</dd>
     </dl>
 @stop
-
-@section('scripts')
-
-         <script src="{{ URL::asset('js/voucher.js') }}" type="text/javascript"></script>
-
  
-
-@stop
