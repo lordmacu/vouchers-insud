@@ -52,156 +52,110 @@ class RegistrationController extends AdminBaseController
     }
 
 
-    public function generatePdf(Request $request){
+  public function generatePdf(Request $request){
 
-             // return view('voucher::admin.registrations.pdf.tableone');
+      $pdf = PDF::LoadEmpty();
+      $mpdf=$pdf->getMpdf();
 
+      $user = $this->auth->user();
+      $userRegistraion= new UserRegistration();
+      $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
 
-$pdf = PDF::LoadEmpty();
-$mpdf=$pdf->getMpdf();
-
-
+      foreach ($getRegistrationUser as $usuario) {
+      
+        $HeadRegistration= new HeadRegistration();
+        $getRegistrationsByStatus= $HeadRegistration->getRegistrationsByStatus(1,$usuario->USERIID);
  
+        $arrayGroupByAgr=array();
+        $vouchersArray=array();
 
-        $user = $this->auth->user();
-        $userRegistraion= new UserRegistration();
-        $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
- 
- 
-           // $pdf = App::make('mpdf.wrapper');
+         foreach ($getRegistrationsByStatus as $header) {
+            foreach ($header->registrations as $key=> $registration ) {
+              $arrayRegistration=$registration->toArray();
+              $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration;
+              $vouchersArray[]=$registration->toArray();
+            }
+         }        
 
-        foreach ($getRegistrationUser as $usuario) {
+         foreach ($arrayGroupByAgr as $key=> $peliculas) {
+            $Cgmsbc= new Cgmsbc();
+
+            $getNameMovie=$Cgmsbc->getNameMovie($key);
+
+            $totalRendicion=0;
+            $arrayRegistrosPrimerPdf=array();
+            $contador=0;
+
+            foreach ($peliculas as $key=> $agrupados) {
            
-        
-          $HeadRegistration= new HeadRegistration();
-          $getRegistrationsByStatus= $HeadRegistration->getRegistrationsByStatus(1,$usuario->USERIID);
-   
-          $arrayGroupByAgr=array();
+              $usrAgrp=new UsrAgrp();
+              $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
+              foreach ( $getUsrAgrpByid as $usta ) {
 
-          $vouchersArray=array();
-           foreach ($getRegistrationsByStatus as $header) {
- 
-              foreach ($header->registrations as $key=> $registration ) {
-                      $arrayRegistration=$registration->toArray();
-                       $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration;
-                       $vouchersArray[]=$registration->toArray();
-              }
-           }
-
-
- 
-         
-
-           foreach ($arrayGroupByAgr as $key=> $peliculas) {
-              $Cgmsbc= new Cgmsbc();
-
-              $getNameMovie=$Cgmsbc->getNameMovie($key);
- 
-              $totalRendicion=0;
-              $arrayRegistrosPrimerPdf=array();
-               $contador=0;
-              foreach ($peliculas as $key=> $agrupados) {
-             
-                $usrAgrp=new UsrAgrp();
-                $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
-                foreach ( $getUsrAgrpByid as $usta ) {
-
-                  $total=0;
-                  foreach ($agrupados as $registros ) {
+                $total=0;
+                foreach ($agrupados as $registros ) {
                   $total=$total+(($registros->REGIST_IMPORT*$registros->REGIST_CANTID)+$registros->REGIST_IMPIVA);
-                 
-                 
-                  }
-                  $arrayRegistrosPrimerPdf[$contador]["rubro"]=$usta->USR_AGRP01_DESCRP;
-                  $arrayRegistrosPrimerPdf[$contador]["rubroId"]=$key;
-                  $arrayRegistrosPrimerPdf[$contador]["total"]=$total;
-                  $totalRendicion=$totalRendicion+$total;
-
-
-                  $contador++;
-
                 }
 
-                $data1 = [
-                 'encabezado' => array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y")),
-                'data' => $arrayRegistrosPrimerPdf,
-                'totalRendicion' => $totalRendicion
-                ];
-              }
-               
-               $mpdf->AddPage();
-              $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tableone', $data1, [])->render());
+                $arrayRegistrosPrimerPdf[$contador]["rubro"]=$usta->USR_AGRP01_DESCRP;
+                $arrayRegistrosPrimerPdf[$contador]["rubroId"]=$key;
+                $arrayRegistrosPrimerPdf[$contador]["total"]=$total;
+                $totalRendicion=$totalRendicion+$total;
+                $contador++;
 
-          }
- 
+              }
+
+              $data1 = [
+               'encabezado' => array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y")),
+              'data' => $arrayRegistrosPrimerPdf,
+              'totalRendicion' => $totalRendicion
+              ];
+            }
+             
+            $mpdf->AddPage();
+            $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tableone', $data1, [])->render());
+
+        }
+
       }
 
 
+      foreach ($arrayGroupByAgr as $key => $pelicula) {
+           $Cgmsbc= new Cgmsbc();
 
-foreach ($arrayGroupByAgr as $key => $pelicula) {
-     $Cgmsbc= new Cgmsbc();
+            $getNameMovie=$Cgmsbc->getNameMovie($key);
 
-      $getNameMovie=$Cgmsbc->getNameMovie($key);
+        foreach ($pelicula as $key => $rubro) {
 
-  foreach ($pelicula as $key => $rubro) {
+          $usrAgrp=new UsrAgrp();
+          $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
+             $arrayRubro=array();
+             $arrayVoucher=array();
+             $totalValorItems=0;
+          foreach ($rubro as $item) {
 
-    $usrAgrp=new UsrAgrp();
-    $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
-       $arrayRubro=array();
-       $arrayVoucher=array();
-       $totalValorItems=0;
-    foreach ($rubro as $item) {
+            $total=($item->REGIST_IMPORT*$item->REGIST_CANTID)+$item->REGIST_IMPIVA;
+            $arrayVoucher[]=array(
+              "desc"=>$item->pvmprhs->PVMPRH_NOMBRE." - ".$item->grcfors->GRCFOR_DESCRP." - ".$item->REGIST_NROFOR." - ".$item->order_item." - ".$item->comentario_individual_voucher,
+              "total"=>$total);
+             $totalValorItems=$totalValorItems+$total;
+          }
 
-      $total=($item->REGIST_IMPORT*$item->REGIST_CANTID)+$item->REGIST_IMPIVA;
-       $arrayVoucher[]=array(
-        "desc"=>$item->pvmprhs->PVMPRH_NOMBRE." - ".$item->grcfors->GRCFOR_DESCRP." - ".$item->REGIST_NROFOR." - ".$item->order_item,
-        "total"=>$total,
-);
-
-       $totalValorItems=$totalValorItems+$total;
-    }
-
-
-             
-    $arrayRubro["items"]=$arrayVoucher;
-    $arrayRubro["rubro"]=$key;
-    $arrayRubro["valortotal"]=$totalValorItems;
-    $arrayRubro["encabezado"]=array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y"));
-               $mpdf->AddPage();
-              $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tabletwo', $arrayRubro, [])->render());
+          $arrayRubro["items"]=$arrayVoucher;
+          $arrayRubro["rubro"]=$key;
+          $arrayRubro["valortotal"]=$totalValorItems;
+          $arrayRubro["encabezado"]=array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y"));
+          $mpdf->AddPage();
+          $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tabletwo', $arrayRubro, [])->render());
 
 
-  }
+        }
 
-}
-return $mpdf->Output('file.pdf','I');
-
-/*
- $arrayVoucher=array("desc"=>$registros->pvmprhs->PVMPRH_NOMBRE." - ".$registros->grcfors->GRCFOR_DESCRP." ".$registros->REGIST_NROFOR);
-                  $arrayRegistrosSegundoPdf[]= $arrayVoucher;
-
-*/
-
-
-die();
-
- return $mpdf->Output('file.pdf','I');
-
-die();
-
-      $data1 = [
-      'data' => $arrayRegistrosPrimerPdf,
-      'totalRendicion' => $totalRendicion
-      ];
-  if($request->get("type")==1){
-    $pdf = PDF::loadView('voucher::admin.registrations.pdf.tableone', $data1);
-
-  }else{
-      $pdf = PDF::loadView('voucher::admin.registrations.pdf.tabletwo', $data);
+      }
+    
+    return $mpdf->Output('file.pdf','I');
 
   }
-  return $pdf->stream('document.pdf');
-    }
 
 function remove_empty_tags_recursive ($str, $repto = NULL)
 {
@@ -490,6 +444,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $arrayEs["REGIST_IMPIVA"]=$request->get("REGIST_IMPIVA");
         $arrayEs["REGIST_CANTID"]=$request->get("REGIST_CANTID");
         $arrayEs["REGIST_IMPORT"]=$request->get("REGIST_IMPORT");
+        $arrayEs["comentario_individual_voucher"]=$request->get("comentario_individual_voucher");
         $arrayEs["REGIST_FECMOV"]=$HeadRegistration->REGIST_FECMOV;
  
 
@@ -740,6 +695,7 @@ public function insertItemVoucher(Request $request){
 
     public function updateRegister($id, Request $request){
  
+ 
           $headerRegistration= new HeadRegistration();
 
             $pvmprhValue=$request->get("PVMPRH_NROCTA");
@@ -788,15 +744,19 @@ public function insertItemVoucher(Request $request){
  
         }
 
-             if($headRegistration->payment_method!=$request->get("payment_method")){
+        if($headRegistration->payment_method!=$request->get("payment_method")){
           $marcador=0;
- 
         }
- 
- 
+
+        if($headRegistration->comentario_voucher!=$request->get("comentario_voucher")){
+          $marcador=0;
+        }
+
+
+  
          if($marcador==0){
 
-          if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"),$request->get("payment_method"))->count()>0){
+          if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"),$request->get("payment_method"),$request->get("comentario_voucher"))->count()>0){
 
             return redirect()
               ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
@@ -808,6 +768,7 @@ public function insertItemVoucher(Request $request){
           $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
           $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
           $headRegistration->payment_method=$request->get("payment_method");
+          $headRegistration->comentario_voucher=$request->get("comentario_voucher");
 
           $headRegistration->save();
         }

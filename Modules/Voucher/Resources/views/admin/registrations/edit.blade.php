@@ -56,8 +56,21 @@ transform: translate3d(0,0,5px);
 </script>
 <div class="row">
         <div class="col-md-12">
-            <div class="nav-tabs-custom">
-                 <div class="tab-content">
+            <div class="nav-tabs-custom box box-success">
+
+
+                <div class="box-header with-border">
+                  <h3 class="box-title">Detalles del voucher</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                   </div>
+                </div>
+
+                 <div class="tab-content box-body ">
+
+
                     <form action="{{ route('admin.voucher.registration.update.individual',array('id'=>$registrationModel->id)) }}" id="formupdate" method="get"  >
 
 
@@ -131,7 +144,14 @@ transform: translate3d(0,0,5px);
                         </div>
                     </div>
 
-                      
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                          {!! Form::label("comentario_voucher", "Comentario Voucher") !!}
+                          <textarea class="form-control" placeholder="Ingresar Comentario" name="comentario_voucher" id="comentario_voucher">{{$registrationModel->comentario_voucher}}</textarea>
+                          </div>
+                        </div>
+                      </div>
                    </form>
                 </div>
             </div>  

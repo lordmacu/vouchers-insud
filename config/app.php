@@ -186,7 +186,7 @@ return [
         App\Providers\EventServiceProvider::class,
 
         Modules\Core\Providers\AsgardServiceProvider::class,
-    Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
+        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
 
         App\Providers\RouteServiceProvider::class,
  

@@ -5,30 +5,54 @@
     <div class="row">
    
       <div class="col-xs-12 col-sm-6  col-lg-6">
-      	{!! Form::label("STMPDH_ARTCOD", "Producto") !!}
+        <div class="form-group">
+          {!! Form::label("STMPDH_ARTCOD", "Producto") !!}
           {!! Form::select("STMPDH_ARTCOD",[],"", ['placeholder' => trans('voucher::registrations.form.STMPDH_ARTCOD')]) !!}
+        </div>
+      	
        </div>
       <div class="col-xs-12 col-sm-6  col-lg-6">
-        {!! Form::label("porcentaje_iva", "Porcentaje Iva") !!}
-        {!! Form::text('porcentaje_iva',21,array("class"=>"form-control","required"=>"true")); !!}
+        <div class="form-group">
+          {!! Form::label("porcentaje_iva", "Porcentaje Iva") !!}
+          {!! Form::text('porcentaje_iva',21,array("class"=>"form-control","required"=>"true")); !!}
+        </div>
+        
        </div>
     </div>
 
     <div class="row">
       <div class="col-xs-12 col-sm-4  col-lg-4">
-     
-         {!! Form::label("REGIST_CANTID", trans('voucher::registrations.form.REGIST_CANTID')) !!}
-        {!! Form::text('REGIST_CANTID', 0,array("class"=>"form-control","required"=>"true")); !!}
+        <div class="form-group">
+          {!! Form::label("REGIST_CANTID", trans('voucher::registrations.form.REGIST_CANTID')) !!}
+          {!! Form::text('REGIST_CANTID', 0,array("class"=>"form-control","required"=>"true")); !!}
+        </div>
+         
 
        </div>
       <div class="col-xs-12 col-sm-4  col-lg-4">
-         {!! Form::label("REGIST_IMPORT", trans('voucher::registrations.form.REGIST_IMPORT')) !!}
-        {!! Form::text('REGIST_IMPORT',0,array("class"=>"form-control","required"=>"true")); !!}
+        <div class="form-group">
+          {!! Form::label("REGIST_IMPORT", "Precio Unitario") !!}
+          {!! Form::text('REGIST_IMPORT',0,array("class"=>"form-control","required"=>"true")); !!}
+        </div>
+         
       </div>
       <div class="col-xs-12 col-sm-4  col-lg-4">
-        {!! Form::label("REGIST_IMPIVA", trans('voucher::registrations.form.REGIST_IMPIVA')) !!}
-        {!! Form::text('REGIST_IMPIVA', 0,array("class"=>"form-control","readonly"=>true)); !!}
+        <div class="form-group">
+          {!! Form::label("REGIST_IMPIVA", "Iva Total") !!}
+          {!! Form::text('REGIST_IMPIVA', 0,array("class"=>"form-control","readonly"=>true)); !!}
+        </div>
+        
       </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+                {!! Form::label("comentario_individual_voucher", "Comentario Comprobante") !!}
+        <textarea class="form-control" placeholder="Ingresar Comentario" name="comentario_individual_voucher" id="comentario_individual_voucher"></textarea>
+        </div>
+
+      </div>
+ 
     </div>
      {!! Form::hidden('REGIST_USERIID',$registrationId) !!}
      {!! Form::hidden('REGIST_CABITM',$REGIST_CABITM) !!}
