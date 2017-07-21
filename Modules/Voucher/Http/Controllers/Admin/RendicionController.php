@@ -57,9 +57,12 @@ class RendicionController extends AdminBaseController
 
          foreach ($getRegistrationsByStatus as $header) {
             foreach ($header->registrations as $key=> $registration ) {
-              $arrayRegistration=$registration->toArray();
-              $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration;
-              $vouchersArray[]=$registration->toArray();
+                $HeadRegistration=HeadRegistration::find($header->id);
+                $HeadRegistration->status=2;
+                $HeadRegistration->save();
+                $arrayRegistration=$registration->toArray();
+                $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration;
+                $vouchersArray[]=$registration->toArray();
             }
          }        
 
@@ -138,12 +141,12 @@ class RendicionController extends AdminBaseController
         }
 
       }
-    $nameOutput='renditions/'.$getRegistrationUser[0]->USERIID.'-'.time().'.pdf';
-    $mpdf->Output($nameOutput,'F');
- 
-    $rendition= new Rendicion();
-    $rendition->url='renditions/'.$getRegistrationUser[0]->USERIID.'-'.time().'.pdf';
-     $rendition->user_id=$getRegistrationUser[0]->USERIID;
+
+        $nameOutput='renditions/'.$getRegistrationUser[0]->USERIID.'-'.time().'.pdf';
+        $mpdf->Output($nameOutput,'F');
+        $rendition= new Rendicion();
+        $rendition->url='renditions/'.$getRegistrationUser[0]->USERIID.'-'.time().'.pdf';
+        $rendition->user_id=$getRegistrationUser[0]->USERIID;
      $rendition->save();
     return $nameOutput;
 

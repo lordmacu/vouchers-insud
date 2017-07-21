@@ -101,7 +101,7 @@
                                 setTimeout(function () {
                                     window.location='';
 
-                                }, 4000);
+                                }, 7000);
 
                         }
                     });

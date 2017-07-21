@@ -14,7 +14,14 @@
       <div class="col-xs-12 col-sm-6  col-lg-6">
         <div class="form-group">
           {!! Form::label("porcentaje_iva", "Porcentaje Iva") !!}
-          {!! Form::text('porcentaje_iva',21,array("class"=>"form-control","required"=>"true")); !!}
+          
+           <select id="porcentaje_iva" class="form-control">
+                <option>0</option>
+                <option>10.5</option>
+                <option>21</option>
+                <option>27</option>
+             </select>
+
         </div>
         
        </div>

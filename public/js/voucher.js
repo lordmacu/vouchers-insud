@@ -400,6 +400,14 @@ $(document).ready(function() {
             $("#GRCFOR_CODFOR").parent().removeClass("bg-danger")
         }
 
+
+
+        if (!$("#payment_method").val()) {
+            $("#payment_method").parent().addClass("bg-danger")
+            return false;
+        } else {
+            $("#payment_method").parent().removeClass("bg-danger")
+        }
         return true;
 
     });

@@ -105,7 +105,7 @@ transform: translate3d(0,0,5px);
 
                             <label for="payment_method">Medio Pago</label>
 
-                            {!! Form::select("payment_method", array(1=>'Tarjeta de credito',2=>"Efectivo"),$registrationModel->payment_method, ['placeholder' => "metodo de pago",'class'=>'selectize']) !!} 
+                            {!! Form::select("payment_method", array(1=>'Tarjeta de credito',2=>"Efectivo"),$registrationModel->payment_method, ['placeholder' => "metodo de pago",'class'=>'selectize','id'=>'payment_method']) !!} 
                         </div>
 
 
