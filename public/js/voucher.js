@@ -183,7 +183,7 @@ $(document).ready(function() {
             $("#REGIST_IMPORT").parent().removeClass("bg-danger")
         }
 
-        sendItemVoucher($("#STMPDH_ARTCOD").val(), $("#porcentaje_iva").val(), $("#REGIST_CANTID").val(), $("#REGIST_IMPORT").val(), $("#REGIST_IMPIVA").val());
+        sendItemVoucher($("#STMPDH_ARTCOD").val(), $("#porcentaje_iva").val(), $("#REGIST_CANTID").val(), $("#REGIST_IMPORT").val(), $("#REGIST_IMPIVA").val(),$("#comentario_individual_voucher").val());
 
         return false;
 
@@ -208,7 +208,7 @@ $(document).ready(function() {
         return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
     }
 
-    function sendItemVoucher(STMPDH_ARTCOD, porcentaje_iva, REGIST_CANTID, REGIST_IMPORT, REGIST_IMPIVA) {
+    function sendItemVoucher(STMPDH_ARTCOD, porcentaje_iva, REGIST_CANTID, REGIST_IMPORT, REGIST_IMPIVA,comentario_individual_voucher) {
         $.ajax({
             data: {
                 STMPDH_ARTCOD: STMPDH_ARTCOD,
@@ -218,7 +218,8 @@ $(document).ready(function() {
                 REGIST_USERIID: REGIST_USERUID,
                 REGIST_CABITM: REGIST_CABITM,
                 CGMSBC_SUBCUE: CGMSBC_SUBCUE,
-                REGIST_IMPIVA: REGIST_IMPIVA
+                REGIST_IMPIVA: REGIST_IMPIVA,
+                comentario_individual_voucher:comentario_individual_voucher
             },
             url: insertItemVoucher,
             success: function(data) {

@@ -62,6 +62,7 @@ transform: translate3d(0,0,5px);
                 <div class="box-header with-border">
                   <h3 class="box-title">Detalles del voucher</h3>
 
+ 
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -128,6 +129,14 @@ transform: translate3d(0,0,5px);
                             {!! Form::label("REGIST_NROFOR", trans('voucher::registrations.form.REGIST_NROFOR')) !!}
                             {!! Form::text('REGIST_NROFOR',$registrationModel->REGIST_NROFOR,array("class"=>"form-control","required"=>"true")); !!}
                         </div>
+
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                          {!! Form::label("comentario_voucher", "Comentario Voucher") !!}
+                          <textarea class="form-control" placeholder="Ingresar Comentario" name="comentario_voucher" id="comentario_voucher">{{$registrationModel->comentario_voucher}}</textarea>
+                          </div>
+                        </div>
+                     
                         <div class="col-xs-12">
                         <br/>
                         @if(!$registrationModel->REGIST_NROFOR)
@@ -144,14 +153,7 @@ transform: translate3d(0,0,5px);
                         </div>
                     </div>
 
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <div class="form-group">
-                          {!! Form::label("comentario_voucher", "Comentario Voucher") !!}
-                          <textarea class="form-control" placeholder="Ingresar Comentario" name="comentario_voucher" id="comentario_voucher">{{$registrationModel->comentario_voucher}}</textarea>
-                          </div>
-                        </div>
-                      </div>
+                     
                    </form>
                 </div>
             </div>  

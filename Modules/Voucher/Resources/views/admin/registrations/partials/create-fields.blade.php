@@ -7,7 +7,7 @@
       <div class="col-xs-12 col-sm-6  col-lg-6">
         <div class="form-group">
           {!! Form::label("STMPDH_ARTCOD", "Producto") !!}
-          {!! Form::select("STMPDH_ARTCOD",[],"", ['placeholder' => trans('voucher::registrations.form.STMPDH_ARTCOD')]) !!}
+          {!! Form::select("STMPDH_ARTCOD",$stmpdh,"", ['placeholder' => trans('voucher::registrations.form.STMPDH_ARTCOD')]) !!}
         </div>
       	
        </div>

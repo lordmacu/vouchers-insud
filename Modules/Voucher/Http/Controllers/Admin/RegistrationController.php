@@ -252,6 +252,8 @@ file_put_contents($file,  $principio.$otros.$fin);*/
            $CGMSBC_SUBCUE=$value->CGMSBC_SUBCUE;
         }
 
+
+
          $CgmsbcTranslation = Cgmsbc::pluck('CGMSBC_DESCRP', 'CGMSBC_SUBCUE');
 
         $PvmprhTranslation = Pvmprh::pluck('PVMPRH_NOMBRE', 'PVMPRH_NROCTA');
@@ -411,8 +413,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
 public function insertItemVoucher(Request $request){
 
-
-      
+       
  
   return $this->store($request);
 }
@@ -461,6 +462,7 @@ public function insertItemVoucher(Request $request){
           $grcfors=$registration->grcfors()->pluck("GRCFOR_DESCRP","GRCFOR_CODFOR");
         }
 
+        $StmpdhTranslation = Stmpdh::where("STMPDH_DESCRP","<>","")->pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
 
           return view('voucher::admin.registrations.edit', compact('registration'))
  
@@ -468,6 +470,7 @@ public function insertItemVoucher(Request $request){
         ->with("date",$date)
         ->with("pvmprhs",$pvmprhs)
         ->with("grcfors",$grcfors)
+        ->with("stmpdh",$StmpdhTranslation)
         ->with("registrationModel",$registration)
         ->with("registrationId",$registrationId);
     } 
