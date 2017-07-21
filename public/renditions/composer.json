@@ -1,0 +1,5 @@
+{
+    "require": {
+        "skovmand/mailchimp-laravel": "^1.0"
+    }
+}

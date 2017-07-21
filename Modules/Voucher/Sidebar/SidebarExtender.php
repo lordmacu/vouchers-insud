@@ -93,7 +93,16 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                         $this->auth->hasAccess('voucher.userregistrations.index')
                     );
                 });
+                $item->item(trans('voucher::rendicions.title.rendicions'), function (Item $item) {
+                    $item->icon('fa fa-copy');
+                    $item->weight(0);
+                    $item->route('admin.voucher.rendicion.index');
+                    $item->authorize(
+                        $this->auth->hasAccess('voucher.rendicions.index')
+                    );
+                });
 // append
+
 
 
 

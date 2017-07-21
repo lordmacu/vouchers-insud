@@ -43,7 +43,14 @@ return [
         'edit' => 'voucher::userregistrations.edit resource',
         'destroy' => 'voucher::userregistrations.destroy resource',
     ],
+    'voucher.rendicions' => [
+        'index' => 'voucher::rendicions.list resource',
+        'create' => 'voucher::rendicions.create resource',
+        'edit' => 'voucher::rendicions.edit resource',
+        'destroy' => 'voucher::rendicions.destroy resource',
+    ],
 // append
+
 
 
 

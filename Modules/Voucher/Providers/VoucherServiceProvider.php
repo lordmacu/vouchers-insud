@@ -126,7 +126,20 @@ class VoucherServiceProvider extends ServiceProvider
                 return new \Modules\Voucher\Repositories\Cache\CacheUserRegistrationDecorator($repository);
             }
         );
+        $this->app->bind(
+            'Modules\Voucher\Repositories\RendicionRepository',
+            function () {
+                $repository = new \Modules\Voucher\Repositories\Eloquent\EloquentRendicionRepository(new \Modules\Voucher\Entities\Rendicion());
+
+                if (! config('app.cache')) {
+                    return $repository;
+                }
+
+                return new \Modules\Voucher\Repositories\Cache\CacheRendicionDecorator($repository);
+            }
+        );
 // add bindings
+
 
 
 

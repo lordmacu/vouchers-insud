@@ -306,7 +306,41 @@ $router->group(['prefix' =>'/voucher'], function (Router $router) {
         'uses' => 'UserRegistrationController@destroy',
         'middleware' => 'can:voucher.userregistrations.destroy'
     ]);
+    $router->bind('rendicion', function ($id) {
+        return app('Modules\Voucher\Repositories\RendicionRepository')->find($id);
+    });
+    $router->get('rendicions', [
+        'as' => 'admin.voucher.rendicion.index',
+        'uses' => 'RendicionController@index',
+        'middleware' => 'can:voucher.rendicions.index'
+    ]);
+    $router->get('rendicions/create', [
+        'as' => 'admin.voucher.rendicion.create',
+        'uses' => 'RendicionController@create',
+        'middleware' => 'can:voucher.rendicions.create'
+    ]);
+    $router->post('rendicions', [
+        'as' => 'admin.voucher.rendicion.store',
+        'uses' => 'RendicionController@store',
+        'middleware' => 'can:voucher.rendicions.create'
+    ]);
+    $router->get('rendicions/{rendicion}/edit', [
+        'as' => 'admin.voucher.rendicion.edit',
+        'uses' => 'RendicionController@edit',
+        'middleware' => 'can:voucher.rendicions.edit'
+    ]);
+    $router->put('rendicions/{rendicion}', [
+        'as' => 'admin.voucher.rendicion.update',
+        'uses' => 'RendicionController@update',
+        'middleware' => 'can:voucher.rendicions.edit'
+    ]);
+    $router->delete('rendicions/{rendicion}', [
+        'as' => 'admin.voucher.rendicion.destroy',
+        'uses' => 'RendicionController@destroy',
+        'middleware' => 'can:voucher.rendicions.destroy'
+    ]);
 // append
+
 
 
 

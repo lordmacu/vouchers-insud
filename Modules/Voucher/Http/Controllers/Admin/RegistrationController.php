@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\DB;
 
 use App;
 use View;
-use PDF;
 
 class RegistrationController extends AdminBaseController
 {
@@ -52,110 +51,7 @@ class RegistrationController extends AdminBaseController
     }
 
 
-  public function generatePdf(Request $request){
-
-      $pdf = PDF::LoadEmpty();
-      $mpdf=$pdf->getMpdf();
-
-      $user = $this->auth->user();
-      $userRegistraion= new UserRegistration();
-      $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
-
-      foreach ($getRegistrationUser as $usuario) {
-      
-        $HeadRegistration= new HeadRegistration();
-        $getRegistrationsByStatus= $HeadRegistration->getRegistrationsByStatus(1,$usuario->USERIID);
  
-        $arrayGroupByAgr=array();
-        $vouchersArray=array();
-
-         foreach ($getRegistrationsByStatus as $header) {
-            foreach ($header->registrations as $key=> $registration ) {
-              $arrayRegistration=$registration->toArray();
-              $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration;
-              $vouchersArray[]=$registration->toArray();
-            }
-         }        
-
-         foreach ($arrayGroupByAgr as $key=> $peliculas) {
-            $Cgmsbc= new Cgmsbc();
-
-            $getNameMovie=$Cgmsbc->getNameMovie($key);
-
-            $totalRendicion=0;
-            $arrayRegistrosPrimerPdf=array();
-            $contador=0;
-
-            foreach ($peliculas as $key=> $agrupados) {
-           
-              $usrAgrp=new UsrAgrp();
-              $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
-              foreach ( $getUsrAgrpByid as $usta ) {
-
-                $total=0;
-                foreach ($agrupados as $registros ) {
-                  $total=$total+(($registros->REGIST_IMPORT*$registros->REGIST_CANTID)+$registros->REGIST_IMPIVA);
-                }
-
-                $arrayRegistrosPrimerPdf[$contador]["rubro"]=$usta->USR_AGRP01_DESCRP;
-                $arrayRegistrosPrimerPdf[$contador]["rubroId"]=$key;
-                $arrayRegistrosPrimerPdf[$contador]["total"]=$total;
-                $totalRendicion=$totalRendicion+$total;
-                $contador++;
-
-              }
-
-              $data1 = [
-               'encabezado' => array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y")),
-              'data' => $arrayRegistrosPrimerPdf,
-              'totalRendicion' => $totalRendicion
-              ];
-            }
-             
-            $mpdf->AddPage();
-            $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tableone', $data1, [])->render());
-
-        }
-
-      }
-
-
-      foreach ($arrayGroupByAgr as $key => $pelicula) {
-           $Cgmsbc= new Cgmsbc();
-
-            $getNameMovie=$Cgmsbc->getNameMovie($key);
-
-        foreach ($pelicula as $key => $rubro) {
-
-          $usrAgrp=new UsrAgrp();
-          $getUsrAgrpByid=$usrAgrp->getUsrAgrpByid($key);
-             $arrayRubro=array();
-             $arrayVoucher=array();
-             $totalValorItems=0;
-          foreach ($rubro as $item) {
-
-            $total=($item->REGIST_IMPORT*$item->REGIST_CANTID)+$item->REGIST_IMPIVA;
-            $arrayVoucher[]=array(
-              "desc"=>$item->pvmprhs->PVMPRH_NOMBRE." - ".$item->grcfors->GRCFOR_DESCRP." - ".$item->REGIST_NROFOR." - ".$item->order_item." - ".$item->comentario_individual_voucher,
-              "total"=>$total);
-             $totalValorItems=$totalValorItems+$total;
-          }
-
-          $arrayRubro["items"]=$arrayVoucher;
-          $arrayRubro["rubro"]=$key;
-          $arrayRubro["valortotal"]=$totalValorItems;
-          $arrayRubro["encabezado"]=array("proyecto"=>strtoupper($getNameMovie[0]->CGMSBC_DESCRP),'area'=> $usuario->areas->name,'nombre_usuario'=> strtoupper($user->first_name." ".$user->last_name),"fecha"=>date("d/m/Y"));
-          $mpdf->AddPage();
-          $mpdf->WriteHTML(View::make('voucher::admin.registrations.pdf.tabletwo', $arrayRubro, [])->render());
-
-
-        }
-
-      }
-    
-    return $mpdf->Output('file.pdf','I');
-
-  }
 
 function remove_empty_tags_recursive ($str, $repto = NULL)
 {
