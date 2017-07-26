@@ -17,7 +17,10 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
-                <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
+            <div class="col-xs-12" style="margin-bottom: 10px">
+              
+               <a class="btn btn-warning" href="{{route('admin.voucher.registration.manual')}}">Manual de Uso <i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                <div class="btn-group pull-right" >
                    
                 @if($CGMSBC_SUBCUE=="0")
                     <a type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal" style="padding: 4px 10px;">
@@ -30,7 +33,8 @@
                 @endif
 
                 </div>
-                
+                            </div>
+
                    </div>
             <div class="box box-primary">
                 <div class="box-header">
@@ -181,7 +185,15 @@
     <script type="text/javascript">
    
   @if(Request::has('new'))
+   @if($CGMSBC_SUBCUE=="0")
     $("#myModal").modal("show")
+
+   @else
+    window.location="{{ route('admin.voucher.registration.create') }}?CGMSBC_SUBCUE={{$CGMSBC_SUBCUE}}";
+
+   @endif
+
+
   @endif
 
  

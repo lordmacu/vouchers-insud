@@ -270,6 +270,10 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         ->with("registrations",$arrayRegistrations) ;
     }
 
+    public function manual(){
+              return view('voucher::admin.registrations.manual');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

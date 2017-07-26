@@ -13,18 +13,18 @@
        </div>
         <div class="col-xs-12 col-sm-6  col-lg-6">
           <div class="form-group">
-            {!! Form::label("porcentaje_iva", "Porcentaje Iva") !!}
-            <select id="porcentaje_iva">
-                <option>0</option>
-                <option>10.5</option>
-                <option>21</option>
-                <option>27</option>
+            {!! Form::label("porcentaje_iva", "Porcentaje Iva") !!} 
+
+
+             <select id="porcentaje_iva">
+                <option value="0" @if(($registration->REGIST_IMPIVA*100)/($registration->REGIST_IMPORT*$registration->REGIST_CANTID) == 0) selected @endif>0</option>
+                <option value="10.5" @if(($registration->REGIST_IMPIVA*100)/($registration->REGIST_IMPORT*$registration->REGIST_CANTID) == 10.5) selected @endif>10.5</option>
+                <option value="21" @if(($registration->REGIST_IMPIVA*100)/($registration->REGIST_IMPORT*$registration->REGIST_CANTID) == 21) selected @endif>21</option>
+                <option value="27" @if(($registration->REGIST_IMPIVA*100)/($registration->REGIST_IMPORT*$registration->REGIST_CANTID) == 27) selected @endif>27</option>
              </select>
-           <
-          </div>
-            
+           
+          </div>            
         </div>
-    
       
      </div>
      <div class="row">

@@ -178,7 +178,11 @@ $router->group(['prefix' =>'/voucher'], function (Router $router) {
         'middleware' => 'can:voucher.registrations.index'
     ]);
 
-
+    $router->get('registrations/manual', [
+        'as' => 'admin.voucher.registration.manual',
+        'uses' => 'RegistrationController@manual',
+        'middleware' => 'can:voucher.registrations.index'
+    ]);
     ////ajax registrations
 
     $router->get('registrations/validateCuit', [
