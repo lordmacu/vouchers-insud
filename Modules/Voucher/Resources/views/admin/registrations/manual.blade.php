@@ -48,80 +48,12 @@
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Creación de Comprobante voucher
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        <p>
-         Después de crear el voucher se despliega una nueva ventana, al principio si no se ha cargado ningún item, aparecerá la ventana emergente de creación de item de voucher, si hay uno o mas voucher creados con anterioridad, el paso para crear un item es oprimir en el botón naranja "Agregar Item" debajo de los detalles del voucher y aparecerá la ventana de creación de item.
-        </p>
-        
-        <p>
-          La ventana de creación de item, tiene los campos de producto, porcentaje iva, cantidad, precio unitario, iva total y comentario del item.
-        </p>
 
-        
-        <p>
-           El total de iva se calcula sobre la cantidad de productos a registrar multiplicada por el precio unitario, ej: 2 productos con precio 200 y 21 de iva (21*400)/100 = 84
-        </p>
-        <p>
-           En el comprobante se puede crear un comentario para clarificar el registro del producto.
-        </p>
-        <p>
-           Para agregar el comprobante se tiene que oprimir el boton de agregar, la ventana de creacion desaparecerá y el comprobante se agregará a la lista de comprobantes
-        </p>
-        <h4>Video Explicativo</h4>
-        <video width="100%" controls>
-         <source src="{{asset('/manuales/creacion-item.mp4')}}" type="video/mp4">
-        </video>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Edición de comprobante voucher
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="panel-body">
-        <p>
-         Para editar un comprobante se tiene que oprimir el boton naranja con el icono de editar por cada item.
-        </p>
-        
-        <p>
-          En la ventana de edición del comprobante se puede hacer la modificación de todos lo valores previamente agregados al comprobante.
-        </p>
-
-        
-        <p>
-           Para guardar se tiene que oprimir el boton de actualizar de lo contrario el botón de atras para volver a la vista general del voucher
-        </p>
-      
-        <h4>Video Explicativo</h4>
-        <video width="100%" controls>
-         <source src="{{asset('/manuales/edicion-item-voucher.mp4')}}" type="video/mp4">
-        </video>
-      </div>
-    </div>
-
-    
-  </div>
-
-
-  <div class="panel panel-default">
+ <div class="panel panel-default">
  <div class="panel-heading" role="tab" id="headingFour">
       <h4 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-          Edición de comprobante voucher
+          Creación de un Voucher con un proveedor que no existe en la lista desplegable.
         </a>
       </h4>
     </div>
@@ -138,7 +70,7 @@
 
         
         <p>
-           Si el cuit ingresado no es correcto apararecerá un mensaje de error, despues de que el sistema valide que el cuit no sea alla ingresado previamente y que sea valido se podrá guardar y una ves guardado se puede seguir completando la creación del voucher.
+           Si el cuit ingresado no es correcto aparecerá un mensaje de error, despues de que el sistema valide que el cuit no sea haya ingresado previamente y que sea valido se podrá guardar y una vez guardado se puede seguir completando la creación del voucher.
         </p>
       
         <h4>Video Explicativo</h4>
@@ -150,6 +82,42 @@
     
   </div>
 
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Ingreso de los ítems de un voucher.
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <p>
+         Después de crear el voucher se despliega una nueva ventana, al principio si no se ha cargado ningún item, aparecerá la ventana emergente de creación de item de voucher, si hay uno o mas ítems creados con anterioridad, el paso para crear un item es oprimir en el botón naranja "Agregar Item" debajo de los detalles del voucher y aparecerá la ventana de creación de item.
+        </p>
+        
+        <p>
+          La ventana de creación de item, tiene los campos de producto, porcentaje IVA, cantidad, precio unitario, IVA total y comentario del item.
+        </p>
+
+        
+        <p>
+           El total de IVA se calcula de modo atomático  sobre la cantidad de productos a registrar multiplicada por el precio unitario, ej: 2 productos con precio 200 y 21 de IVA (21*400)/100 = 84
+        </p>
+        <p>
+           En el ítem se puede crear un comentario para clarificar el registro del producto.
+        </p>
+        <p>
+           Para agregar el ítem se tiene que oprimir el boton de agregar, la ventana de creacion desaparecerá y el comprobante se agregará a la lista de comprobantes
+        </p>
+        <h4>Video Explicativo</h4>
+        <video width="100%" controls>
+         <source src="{{asset('/manuales/creacion-item.mp4')}}" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
 
 
   <div class="panel panel-default">
@@ -179,6 +147,45 @@
     </div>
     
   </div>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Edición de los ítems de un voucher
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <p>
+         Para editar un comprobante se tiene que oprimir el boton naranja con el icono de editar por cada item.
+        </p>
+        
+        <p>
+          En la ventana de edición del comprobante se puede hacer la modificación de todos lo valores previamente agregados al comprobante.
+        </p>
+
+        
+        <p>
+           Para guardar se tiene que oprimir el boton de actualizar de lo contrario el botón de atras para volver a la vista general del voucher
+        </p>
+      
+        <h4>Video Explicativo</h4>
+        <video width="100%" controls>
+         <source src="{{asset('/manuales/edicion-item-voucher.mp4')}}" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    
+  </div>
+
+
+ 
+
+
 
 </div>
 
