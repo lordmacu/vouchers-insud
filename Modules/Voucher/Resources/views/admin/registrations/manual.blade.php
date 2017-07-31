@@ -26,7 +26,7 @@
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <p>
           Para crear un voucher primero hay que oprimir en el boton azul superior derecho, allì se presenta un formulario en donde se completa los campos de proveedor, metodo de pago, fecha de ticket tipo de comprobante y número de comprobante.
