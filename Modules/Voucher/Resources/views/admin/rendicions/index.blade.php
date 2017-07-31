@@ -96,13 +96,17 @@
                  $.ajax({
                         url:"{{ route('admin.voucher.rendicion.create') }}",
                         success:function (data){
-                                 alertify.success('Se ha creado la rendición');
+                            if(data==0){
+                    alertify.error('No hay mas rendiciones para hacer en el momento');
+                            }else{
+                    alertify.success('Se ha creado la rendición');
                                 window.open(urlAssets+"/"+data);
                                 setTimeout(function () {
                                     window.location='';
 
                                 }, 7000);
-
+                            }
+ 
                         }
                     });
                 } 

@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'list resource' => 'List rendicions',
-    'create resource' => 'Create rendicions',
-    'edit resource' => 'Edit rendicions',
+    'list resource' => 'Listar rendiciónes',
+    'create resource' => 'Crear una rendición',
+    'edit resource' => 'Editar rendicion',
     'destroy resource' => 'Destroy rendicions',
     'title' => [
         'rendicions' => 'Rendiciones',
-        'create rendicion' => 'Creater una rendicion',
-        'edit rendicion' => 'Edit a rendicion',
+        'create rendicion' => 'Crear una rendición',
+        'edit rendicion' => 'Editar una rendición',
     ],
     'button' => [
-        'create rendicion' => 'Creater una rendicion',
+        'create rendicion' => 'Crear una rendición',
     ],
     'table' => [
     ],

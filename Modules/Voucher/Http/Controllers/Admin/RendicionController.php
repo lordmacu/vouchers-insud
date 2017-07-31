@@ -142,6 +142,9 @@ class RendicionController extends AdminBaseController
 
       }
 
+      if(count($arrayGroupByAgr)==0){
+        return 0;
+      }
         $nameOutput='renditions/'.$getRegistrationUser[0]->USERIID.'-'.time().'.pdf';
         $mpdf->Output($nameOutput,'F');
         $rendition= new Rendicion();

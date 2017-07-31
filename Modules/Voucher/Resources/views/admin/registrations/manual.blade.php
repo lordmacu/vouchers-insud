@@ -184,7 +184,38 @@
 
 
  
+ <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Rendición de vouchers
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+        <p>
+        Para realizar una rendición hay que ingresar en el link del menu Rendiciones  y una vez alli se oprime en el boton de crear una rendición.
+        </p>
+        
+        <p>
+          Se muestra una confirmación  si se acepta y se realiza la rendición se generará un pdf agrupando los vouchers y sus respectivos resultados de lo contrario no se realiza.
+        </p>
 
+        
+        <p>
+           <b>Importante</b> Una vez se realice la rendición no se podrá volver a realizar con los mismos vouchers ya que estos cambian al estado de rendidos.
+        </p>
+      
+        <h4>Video Explicativo</h4>
+        <video width="100%" controls>
+         <source src="{{asset('/manuales/rendiciones.mp4')}}" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    
+  </div>
 
 
 </div>
