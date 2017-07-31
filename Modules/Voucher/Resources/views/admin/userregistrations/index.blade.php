@@ -35,7 +35,7 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.voucher.userregistration.edit', [$user['id']]) }}">
-                                        {{ $user["first_name"] }}
+                                        {{ $user["first_name"] }} {{ $user["last_name"] }}
                                     </a>
                                 </td>
                                 <td>
