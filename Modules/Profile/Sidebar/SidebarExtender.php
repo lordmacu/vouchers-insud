@@ -32,13 +32,13 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
     public function extendWith(Menu $menu)
     {
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
-            $group->item(trans('profile::profiles.title.profiles'), function (Item $item) {
+            $group->item("Perfil", function (Item $item) {
                 $item->icon('fa fa-copy');
-                $item->weight(10);
+                $item->weight(10); 
                 $item->authorize(
                      /* append */
                 );
-                $item->item(trans('profile::profiles.title.profiles'), function (Item $item) {
+                $item->item("Perfil", function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
                     $item->append('admin.profile.profile.create');

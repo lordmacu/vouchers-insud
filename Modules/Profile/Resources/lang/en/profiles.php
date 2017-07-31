@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'list resource' => 'List profiles',
-    'create resource' => 'Create profiles',
+    'list resource' => 'Listar Perfiles',
+    'create resource' => 'Crear perfiles',
     'edit resource' => 'Edit profiles',
     'destroy resource' => 'Destroy profiles',
     'title' => [
-        'profiles' => 'Profile',
-        'create profile' => 'Create a profile',
-        'edit profile' => 'Edit a profile',
+        'profiles' => 'Perfil',
+        'create profile' => 'Creater un perfil',
+        'edit profile' => 'Editar un perfil',
     ],
     'button' => [
         'create profile' => 'Create a profile',
