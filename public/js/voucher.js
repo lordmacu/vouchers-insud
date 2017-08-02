@@ -456,6 +456,7 @@ $(document).ready(function() {
     $("#porcentaje_iva").ForceNumericOnly();
     $("#REGIST_IMPORT").ForceNumericOnly();
     //$("#REGIST_NROFOR").ForceNumericOnly();
+                $("#PVMPRH_NRODOC_modal").ForceNumericOnly();
 
 });
 

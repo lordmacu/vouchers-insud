@@ -51,8 +51,10 @@ transform: translate3d(0,0,5px);
     var nuevo=false;
 
      @if(app('request')->input('nuevo'))
-                nuevo=true;
+                nuevo=true; 
             @endif
+
+
 </script>
 <div class="row">
         <div class="col-md-12">

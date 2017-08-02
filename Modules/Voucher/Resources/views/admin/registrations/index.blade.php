@@ -64,14 +64,17 @@
                                  <td>
                                     <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}">
                                         {{ $registration->created_at }}
+
                                         
                                      </a>
                                 </td>
                                 <td>
+                                @if($registration->status==1)
                                     <div class="btn-group">
                                         <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.voucher.registration.destroy', [$registration->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                             @endif
