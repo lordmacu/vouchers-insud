@@ -62,11 +62,15 @@
                                  @if($registration->pvmprhs)<td>{{  $registration->pvmprhs->PVMPRH_NOMBRE}}</td> @else <td></td>@endif
                                  <td>{{ $registration->cgmsbcs->CGMSBC_DESCRP}}</td>
                                  <td>
+                                  @if($registration->status==1)
                                     <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}">
                                         {{ $registration->created_at }}
 
                                         
                                      </a>
+                                     @else
+                                      {{ $registration->created_at }}
+                                     @endif
                                 </td>
                                 <td>
                                 @if($registration->status==1)
