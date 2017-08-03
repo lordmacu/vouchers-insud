@@ -284,8 +284,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
 
 
  
-
- 
+  
         $user = $this->auth->user();
         $userRegistraion= new UserRegistration();
         $getRegistrationUser=$userRegistraion->getRegistrationUser($user->id);
@@ -467,6 +466,7 @@ public function insertItemVoucher(Request $request){
         }
 
         $StmpdhTranslation = Stmpdh::where("STMPDH_DESCRP","<>","")->pluck('STMPDH_DESCRP', 'STMPDH_ARTCOD');
+        $grcfors = Grcfor::where("GRCFOR_DESCRP","<>","")->pluck('GRCFOR_DESCRP', 'GRCFOR_CODFOR');
 
           return view('voucher::admin.registrations.edit', compact('registration'))
  
