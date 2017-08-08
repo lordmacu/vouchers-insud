@@ -33,13 +33,17 @@ class HeadRegistration extends Model
     {
         return $this->hasOne("Modules\\Voucher\\Entities\\Grcfor","GRCFOR_CODFOR","GRCFOR_CODFOR");
     }
-
-        public function pvmprhs()
+    public function pvmprhs()
     {
-        return $this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","id_pvmprhs","id_pvmprhs");
+        $result=$this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","id_pvmprhs","id_pvmprhs");
+          if($result->count()==0){
+            return $this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","PVMPRH_NROCTA","PVMPRH_NROCTA");
+        }else{
+            return $result;
+        }
     }
 
-    
+
 
         public function stmpdhs()
     {

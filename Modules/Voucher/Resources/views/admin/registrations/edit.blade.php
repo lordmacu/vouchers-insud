@@ -22,6 +22,13 @@
         <script src="{{ URL::asset('datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
          <script src="{{ URL::asset('js/voucher.js') }}" type="text/javascript"></script>
 
+<script>
+    function clearpvmprh(){
+    $("#PVMPRH_NOMBRE_modal").val("")
+    $("#PVMPRH_NRODOC_modal").val("")
+}
+    
+</script>
 @stop
 
 
@@ -92,7 +99,7 @@ transform: translate3d(0,0,5px);
 
                                 {!! Form::select("PVMPRH_NROCTA", $pvmprhs,$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
                                     <span class="input-group-btn">
-                                        <button class="btn btn-success" data-toggle="modal" data-target="#modalDistribuidor" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        <button class="btn btn-success" data-toggle="modal" onclick="clearpvmprh()" data-target="#modalDistribuidor" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     </span>
                             </div> 
                             <div class="input-group  " style="display: none" id="contenedor_proveedor">
