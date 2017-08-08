@@ -87,6 +87,9 @@ transform: translate3d(0,0,5px);
                         <div class="col-xs-12 col-sm-5  col-lg-5">
                             {!! Form::label("PVMPRH_NROCTA", trans('voucher::registrations.form.PVMPRH_NROCTA')) !!}
                              <div class="input-group" id="contenedor_proveedor_principal">
+
+
+
                                 {!! Form::select("PVMPRH_NROCTA", $pvmprhs,$registrationModel->PVMPRH_NROCTA, ['placeholder' => trans('voucher::registrations.form.PVMPRH_NROCTA')]) !!}
                                     <span class="input-group-btn">
                                         <button class="btn btn-success" data-toggle="modal" data-target="#modalDistribuidor" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -101,6 +104,8 @@ transform: translate3d(0,0,5px);
                                 </span>
                             </div>
 
+
+              {!! Form::hidden('id_pvmprhs',$registrationModel->id_pvmprhs,array("class"=>"form-control","id"=>"id_pvmprhs")); !!} 
                 {!! Form::hidden('temp_PVMPRH_NOMBRE', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NOMBRE")); !!} 
                 {!! Form::hidden('temp_PVMPRH_NRODOC', "",array("class"=>"form-control","id"=>"temp_PVMPRH_NRODOC")); !!}
                         </div>

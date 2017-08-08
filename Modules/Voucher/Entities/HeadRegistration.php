@@ -36,20 +36,22 @@ class HeadRegistration extends Model
 
         public function pvmprhs()
     {
-        return $this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","PVMPRH_NROCTA","PVMPRH_NROCTA");
+        return $this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","id_pvmprhs","id_pvmprhs");
     }
+
+    
 
         public function stmpdhs()
     {
         return $this->hasOne("Modules\\Voucher\\Entities\\Stmpdh","STMPDH_TIPPRO","STMPDH_TIPPRO");
     }
 
-    public function getHeaderExist($pvmprh,$grcfor,$nrofor,$payment_method,$comentario_voucher){
+    public function getHeaderExist($pvmprh,$grcfor,$nrofor,$payment_method,$comentario_voucher,$id_pvmprhs){
         return $this
         ->where("PVMPRH_NROCTA",$pvmprh)
         ->where("GRCFOR_CODFOR",$grcfor)
         ->where("REGIST_NROFOR",$nrofor)
-        ->where("REGIST_NROFOR",$nrofor)
+        ->where("id_pvmprhs",$id_pvmprhs)
         ->where("payment_method",$payment_method)
         ->where("comentario_voucher",$payment_method)
         ->get();

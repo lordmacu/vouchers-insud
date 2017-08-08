@@ -329,6 +329,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $HeadRegistration=HeadRegistration::find($headerId);
         $arrayEs=array();
         $arrayEs["PVMPRH_NROCTA"]=$HeadRegistration->PVMPRH_NROCTA;
+        $arrayEs["id_pvmprhs"]=$HeadRegistration->id_pvmprhs;
         $arrayEs["GRCFOR_CODFOR"]=$HeadRegistration->GRCFOR_CODFOR;
         $arrayEs["CGMSBC_SUBCUE"]=$HeadRegistration->CGMSBC_SUBCUE;
               
@@ -415,9 +416,6 @@ file_put_contents($file,  $principio.$otros.$fin);*/
     }
 
 public function insertItemVoucher(Request $request){
-
-       
- 
   return $this->store($request);
 }
 
@@ -429,8 +427,7 @@ public function insertItemVoucher(Request $request){
      * @return Response
      */
     public function edit($id,Request $request)
-    {
-
+    {   
 
 
         $user = $this->auth->user();
@@ -457,9 +454,10 @@ public function insertItemVoucher(Request $request){
         $registration= HeadRegistration::find($id);
           $date=date('Y-m-d');
          $pvmprhs=array();
-        if( $registration->pvmprhs() !=null){
-          $pvmprhs=$registration->pvmprhs()->pluck("PVMPRH_NOMBRE","PVMPRH_NROCTA");
-        }
+        if( $registration->pvmprhs !=null){
+          //$pvmprhs=$registration->pvmprhs()->pluck("PVMPRH_NOMBRE","PVMPRH_NROCTA");
+          $pvmprhs[$registration->pvmprhs->PVMPRH_NROCTA]=$registration->pvmprhs->PVMPRH_NOMBRE;
+        } 
         $grcfors=array();
         if($registration->grcfors() !=null){
           $grcfors=$registration->grcfors()->pluck("GRCFOR_DESCRP","GRCFOR_CODFOR");
@@ -470,6 +468,8 @@ public function insertItemVoucher(Request $request){
 
           return view('voucher::admin.registrations.edit', compact('registration'))
  
+
+
         ->with("REGIST_CABITM",$id)
         ->with("date",$date)
         ->with("pvmprhs",$pvmprhs)
@@ -505,10 +505,10 @@ public function insertItemVoucher(Request $request){
      * @param  Registration $registration
      * @return Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
  
-         $registrations= HeadRegistration::find($request->get("header"));
+         $registrations= HeadRegistration::find($id);
 
         $contadorRegistros=0;
 
@@ -522,14 +522,15 @@ public function insertItemVoucher(Request $request){
 
         if($contadorRegistros==0){
             $result=DB::table('voucher__registrations')
-            ->where('REGIST_CABITM', $request->get("header"))
+            ->where('REGIST_CABITM', $id)
             ->delete();
  
              $registrations->delete();
 
-            return ["success"=>1,"message"=>"Se han anulado los vouchers con éxito"] ;
+            return redirect()->route("admin.voucher.registration.index")->withSuccess("Se han anulado los vouchers con éxito");
         }
-        return ["success"=>2,"message"=>"Hay un problema eliminando los vouchers, por que ya fueron eliminados"] ;
+            return redirect()->route("admin.voucher.registration.index")->withError("Hay un problema eliminando los vouchers, por que ya fueron eliminados");
+
   
     }
 
@@ -604,7 +605,7 @@ public function insertItemVoucher(Request $request){
             $pvmprhValue=$request->get("PVMPRH_NROCTA");
 
 
-
+            $id_pvmprhs=$request->get("PVMPRH_NROCTA");
           if($request->has("temp_PVMPRH_NOMBRE")){
             $pvmprhValue=99998;
             $pvmprh= new Pvmprh();
@@ -620,10 +621,12 @@ public function insertItemVoucher(Request $request){
             ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
             ->withError("Este cuit ya existe y pertenece a ".$nombreCuit.", ingrese uno diferente");
             }
+            $id_pvmprhs=mt_rand(1111111111,9999999999);
 
             $pvmprh->PVMPRH_NROCTA=$pvmprhValue;
             $pvmprh->PVMPRH_NOMBRE=$request->get("temp_PVMPRH_NOMBRE");
             $pvmprh->PVMPRH_NRODOC=$request->get("temp_PVMPRH_NRODOC");
+            $pvmprh->id_pvmprhs=$id_pvmprhs;
             $pvmprh->new=1;
             $pvmprh->save();
 
@@ -659,7 +662,7 @@ public function insertItemVoucher(Request $request){
   
          if($marcador==0){
 
-          if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"),$request->get("payment_method"),$request->get("comentario_voucher"))->count()>0){
+          if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"),$request->get("payment_method"),$request->get("comentario_voucher"),$request->get("id_pvmprhs") )->count()>0){
 
             return redirect()
               ->route('admin.voucher.registration.edit',array("id"=>$id,"CGMSBC_SUBCUE=".$request->get("CGMSBC_SUBCUE")))
@@ -670,6 +673,8 @@ public function insertItemVoucher(Request $request){
           $headRegistration->REGIST_FECMOV=date("Ymd",strtotime($request->get("REGIST_FECMOV")));
           $headRegistration->GRCFOR_CODFOR=$request->get("GRCFOR_CODFOR");
           $headRegistration->REGIST_NROFOR=$request->get("REGIST_NROFOR");
+          $headRegistration->id_pvmprhs=$id_pvmprhs;
+
           $headRegistration->payment_method=$request->get("payment_method");
           $headRegistration->comentario_voucher=$request->get("comentario_voucher");
 

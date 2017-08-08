@@ -26,9 +26,9 @@ class Registration extends Model
         return $this->hasOne("Modules\\Voucher\\Entities\\Grcfor","GRCFOR_MODFOR","GRCFOR_MODFOR");
     }
 
-        public function pvmprhs()
+        public function pvmprhs() 
     {
-        return $this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","PVMPRH_NROCTA","PVMPRH_NROCTA");
+        return $this->hasOne("Modules\\Voucher\\Entities\\Pvmprh","id_pvmprhs","id_pvmprhs");
     }
 
         public function stmpdhs()
