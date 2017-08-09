@@ -47,7 +47,7 @@ function deleteVoucher(datainput) {
         success: function(data) {
             $("#tr_id_" + $(datainput).data("id")).remove();
 
-            alertify.success("Se ha eliminado el voucher con éxito");
+            alertify.success("Se ha eliminado el item con éxito");
             $("#cantidad_th").html(data.cantidad);
             $("#total_th").html(data.totales);
             $("#iva_th").html(data.iva);
