@@ -226,7 +226,7 @@ $(document).ready(function() {
 
                 $("#tableRegistrations tbody").append('<tr id="tr_id_' + data.id.id + '"><td class="hidden-xs"> ' + STMPDH_ARTCOD + '  </td><td> ' + data.producto[0].STMPDH_DESCRP + '  </td><td> ' + REGIST_CANTID + ' </td><td>' + round(REGIST_IMPORT, 2) + '</td><td> ' + round(REGIST_IMPORT * REGIST_CANTID, 2) + '</td><td> ' + round(REGIST_IMPIVA, 2) + ' </td><td><a class="btn btn-warning btn-flat" href="' + urlAssets + '/' + data.id.id + '/editindividual"><i class="fa fa-edit"></i></a> <button type="button" class="btn btn-danger btn-flat" data-cabitm="' + REGIST_CABITM + '" data-subcue="' + CGMSBC_SUBCUE + '" data-id="' + data.id.id + '" onclick="deleteVoucher(this)"><i class="fa fa-trash"></i></button></td></tr>');
                 $("#modalForm").modal("hide");
-                alertify.success("Se ha creado el voucher con exito");
+                alertify.success("Se ha creado el item con éxito");
                 $("#cantidad_th").html(data.cantidad);
                 $("#total_th").html(data.total);
                 $("#iva_th").html(data.iva);
