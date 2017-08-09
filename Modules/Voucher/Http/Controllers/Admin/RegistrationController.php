@@ -598,14 +598,11 @@ public function insertItemVoucher(Request $request){
     }
 
     public function updateRegister($id, Request $request){
- 
- 
+  
           $headerRegistration= new HeadRegistration();
 
             $pvmprhValue=$request->get("PVMPRH_NROCTA");
-
-
-            $id_pvmprhs=$request->get("PVMPRH_NROCTA");
+            $id_pvmprhs=$request->get("id_pvmprhs");
           if($request->has("temp_PVMPRH_NOMBRE")){
             $pvmprhValue=99998;
             $pvmprh= new Pvmprh();
@@ -657,10 +654,11 @@ public function insertItemVoucher(Request $request){
         if($headRegistration->comentario_voucher!=$request->get("comentario_voucher")){
           $marcador=0;
         }
+        if($headRegistration->id_pvmprhs!=$request->get("id_pvmprhs")){
+          $marcador=0;
+        }
 
-
-  
-         if($marcador==0){
+          if($marcador==0){
 
           if($headerRegistration->getHeaderExist($pvmprhValue,$request->get("GRCFOR_CODFOR"),$request->get("REGIST_NROFOR"),$request->get("payment_method"),$request->get("comentario_voucher"),$request->get("id_pvmprhs") )->count()>0){
 

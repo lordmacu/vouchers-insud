@@ -38,6 +38,8 @@ class Registration extends Model
 
         public function stmpdhs()
     {
+
+        
         return $this->hasOne("Modules\\Voucher\\Entities\\Stmpdh","STMPDH_ARTCOD","STMPDH_ARTCOD");
     }
 

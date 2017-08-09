@@ -20,6 +20,26 @@ class HeadRegistration extends Model
         return $this->hasMany("Modules\\Voucher\\Entities\\Registration","REGIST_CABITM","id");
     }
 
+
+
+    public function registrationsSum($coniva)
+    {
+         $total=0;
+         $iva=0;
+        foreach ($this->registrations as $r) {
+                   $total+=$r->REGIST_IMPORT*$r->REGIST_CANTID;
+                   $iva = $iva+$r->REGIST_IMPIVA;
+
+        }
+        if($coniva==1){
+        return "$".round($total+$iva,2);
+
+        }else{
+                    return "$".round($total,2);
+
+        }
+    }
+
      public function cgmsbcs()
     {
         return $this->hasOne("Modules\\Voucher\\Entities\\Cgmsbc","CGMSBC_SUBCUE","CGMSBC_SUBCUE");

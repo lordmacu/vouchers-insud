@@ -221,8 +221,6 @@ transform: translate3d(0,0,5px);
                             <td> {!! $r->REGIST_IMPORT !!}</td>
                             <td> {!! $r->REGIST_IMPORT*$r->REGIST_CANTID  !!}</td>
                             <td> {!! $r->REGIST_IMPIVA !!}</td>
-
-
                             <td>
                             @if($r->REGIST_TRANSF=="N")
                                 <a class="btn btn-warning btn-flat" href="{{ route('admin.voucher.registration.edit.individual', [$r->id]) }}"  ><i class="fa fa-edit"></i></a>   

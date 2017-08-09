@@ -47,6 +47,9 @@
                             <tr>
                                 <th data-sortable="true">Proveedor</th>
                                 <th data-sortable="true">Película</th>
+                               <th data-sortable="false">Total</th>
+                               <th data-sortable="false">Total + iva</th>
+
                                  <th data-sortable="false">{{ trans('core::core.table.created at') }}</th>
 
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
@@ -61,6 +64,8 @@
 
                                  @if($registration->pvmprhs)<td>{{  $registration->pvmprhs->PVMPRH_NOMBRE}}</td> @else <td></td>@endif
                                  <td>{{ $registration->cgmsbcs->CGMSBC_DESCRP}}</td>
+                                 <td>{{ $registration->registrationsSum(2)}}</td>
+                                 <td>{{ $registration->registrationsSum(1)}}</td>
                                  <td>
                                   @if($registration->status==1)
                                     <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}">
