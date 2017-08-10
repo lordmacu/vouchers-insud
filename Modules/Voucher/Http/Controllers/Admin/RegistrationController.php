@@ -231,7 +231,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
             ->withError("Es necesario que el usuario este vinculado con un id");
         }
 
-        $registrations = HeadRegistration::where("USERIID",$getRegistrationUser[0]->USERIID)->get();
+        $registrations = HeadRegistration::where("user_id",$user->id)->get();
 
         $arrayRegistrations=array();
         foreach ($registrations as $r) {
@@ -299,6 +299,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
         $headRegistration->CGMSBC_SUBCUE=$request->get("CGMSBC_SUBCUE");
  
         $headRegistration->USERIID=$registrationId;
+        $headRegistration->user_id=$user->id;
         $headRegistration->save();
 
 
@@ -338,6 +339,7 @@ file_put_contents($file,  $principio.$otros.$fin);*/
          $arrayEs["STMPDH_TIPPRO"]=$stmpdh->STMPDH_TIPPRO;
         $arrayEs["STMPDH_ARTCOD"]=$request->get("STMPDH_ARTCOD");
         $arrayEs["REGIST_USERIID"]=$request->get("REGIST_USERIID");
+        $arrayEs["user_id"]=$user = $this->auth->user()->id;
         $arrayEs["REGIST_FECALT"]=date('Ymd');
         $arrayEs["REGIST_TIMALT"]=date('Gis');
         $arrayEs["REGIST_TRANSF"]="N";
