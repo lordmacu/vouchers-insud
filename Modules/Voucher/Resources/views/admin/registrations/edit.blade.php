@@ -24,6 +24,8 @@
 
 <script>
     function clearpvmprh(){
+          
+
     $("#PVMPRH_NOMBRE_modal").val("")
     $("#PVMPRH_NRODOC_modal").val("")
 }
@@ -341,7 +343,7 @@ transform: translate3d(0,0,5px);
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="validarButton" disabled="disabled"  onclick="saveProveedor()">Guardar</button>
+        <button type="button" class="btn btn-primary" id="validarButton"  onclick="saveProveedor()">Guardar</button>
       </div>
     </div>
   </div>

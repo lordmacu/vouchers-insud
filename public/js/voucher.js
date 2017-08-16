@@ -1,14 +1,11 @@
 function validateCuit(val) {
 
-    var validateButton = $("#validarButton");
     if (!validaCuit(val)) {
         alertify.error('Verifición de número de cuit erronea');
         $("#PVMPRH_NRODOC_modal").parent().addClass("bg-danger")
-        validateButton.attr('disabled', 'disabled');
         return false;
     } else {
         $("#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
-        validateButton.removeAttr('disabled');
     }
 
     $.ajax({
@@ -21,11 +18,11 @@ function validateCuit(val) {
             if (data.response == 1) {
                 alertify.error(data.message);
                 $("#PVMPRH_NRODOC_modal").parent().addClass("bg-danger")
-                validateButton.attr('disabled', 'disabled');
 
             } else {
                 $("#PVMPRH_NRODOC_modal").parent().removeClass("bg-danger")
-                validateButton.removeAttr('disabled');
+                $("#modalDistribuidor").modal("hide")
+                                validationAndSave();
 
             }
 
@@ -68,7 +65,11 @@ function updateRegistration() {
 }
 
 function saveProveedor() {
+    validateCuit($("#PVMPRH_NRODOC_modal").val())
+    
+}
 
+function validationAndSave(){
     var PVMPRH_NOMBRE = $("#PVMPRH_NOMBRE_modal").val()
     var PVMPRH_NRODOC = $("#PVMPRH_NRODOC_modal").val()
 
@@ -97,6 +98,7 @@ function saveProveedor() {
 
     $("#modalDistribuidor").modal("hide");
 }
+
 
 
 function closeProveedor() {
@@ -241,7 +243,7 @@ $(document).ready(function() {
     }
 
     $("#PVMPRH_NRODOC_modal").change(function() {
-        validateCuit($(this).val())
+      //  validateCuit($(this).val())
     })
 
     if (nuevo) {
