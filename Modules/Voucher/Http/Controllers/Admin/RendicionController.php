@@ -125,7 +125,8 @@ class RendicionController extends AdminBaseController
 
             $total=($item->REGIST_IMPORT*$item->REGIST_CANTID)+$item->REGIST_IMPIVA;
             $arrayVoucher[]=array(
-              "desc"=>$item->pvmprhs->PVMPRH_NOMBRE." - ".$item->grcfors->GRCFOR_DESCRP." - ".$item->REGIST_NROFOR." - ".$item->order_item." - ".$item->comentario_individual_voucher,
+              "desc"=>$item->stmpdhs->STMPDH_DESCRP." ".$item->pvmprhs->PVMPRH_NOMBRE." - ".$item->grcfors->GRCFOR_CODFOR." - ".$item->REGIST_NROFOR." - ".$item->order_item." - ".$item->comentario_individual_voucher,
+              "cod"=>$item->stmpdhs->STMPDH_ARTCOD,
               "total"=>$total);
              $totalValorItems=$totalValorItems+$total;
           }

@@ -128,19 +128,19 @@
 <table style=" width: 100%; margin-top: 10px"  >
 	<tr >
 		<td class="center_text"  width="100px"  style="font-weight: bold;"> 
-		 NRO RUBRO
+		 NRO SUBRUBRO
 		</td>
 		<td class="center_text"   style="font-weight: bold;">
 		 PROVEEDOR + TIPO FACTURA + Nª FACTURA + ITEM
 		</td>
-		<td class="center_text" width="160px"  style="font-weight: bold;">
+		<td class="center_text" width="130px"  style="font-weight: bold;">
          TOTAL
       </td>
    </tr>
 
    @foreach($items as $item)
    <tr class="result_rows">
-   	<td></td>	<td class="center_text">{{$item["desc"]}}</td>	<td class="center_text">${{$item["total"]}}</td>
+   	<td>{{$item["cod"]}}</td>	<td class="center_text">{{$item["desc"]}}</td>	<td class="center_text">${{$item["total"]}}</td>
    </tr>
 
    @endforeach
