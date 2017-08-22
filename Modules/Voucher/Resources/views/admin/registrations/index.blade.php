@@ -106,7 +106,9 @@
                             
                         </table>
                         <!-- /.box-body -->
+                        @if(app('request')->input('old')!=1)
                         <b>Suma de Total + Iva = ${{$totalIva}}</b>
+                        @endif
                     </div>
                 </div>
                 <!-- /.box -->
