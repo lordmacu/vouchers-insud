@@ -64,7 +64,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php if (isset($registrations)): ?>
+                            <?php if (isset($registrations)):
+                            $totalIva=0;
+                             ?>
                             <?php foreach ($registrations as $registration): ?>
 
                               @if($registration->registrations->count()!=0 || $registration->PVMPRH_NROCTA)
@@ -72,8 +74,11 @@
 
                                  @if($registration->pvmprhs)<td>{{  $registration->pvmprhs->PVMPRH_NOMBRE}}</td> @else <td></td>@endif
                                  <td>{{ $registration->cgmsbcs->CGMSBC_DESCRP}}</td>
-                                 <td>{{ $registration->registrationsSum(2)}}</td>
-                                 <td>{{ $registration->registrationsSum(1)}}</td>
+                                 <td>${{ $registration->registrationsSum(2)}}</td>
+                                 <?php
+                                 $totalIva=$registration->registrationsSum(1)+$totalIva;
+                                  ?>
+                                 <td>${{ $registration->registrationsSum(1)}}</td>
                                  <td>
                                   @if($registration->status==1)
                                     <a href="{{ route('admin.voucher.registration.edit', [$registration->id,'CGMSBC_SUBCUE=']) }}{{ $registration->CGMSBC_SUBCUE }}">
@@ -101,6 +106,7 @@
                             
                         </table>
                         <!-- /.box-body -->
+                        <b>Suma de Total + Iva = ${{$totalIva}}</b>
                     </div>
                 </div>
                 <!-- /.box -->

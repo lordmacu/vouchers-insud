@@ -32,10 +32,10 @@ class HeadRegistration extends Model
 
         }
         if($coniva==1){
-        return "$".round($total+$iva,2);
+        return round($total+$iva,2);
 
         }else{
-                    return "$".round($total,2);
+        return round($total,2);
 
         }
     }
