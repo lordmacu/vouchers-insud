@@ -150,7 +150,19 @@ class RendicionController extends AdminBaseController
         $rendition= new Rendicion();
         $rendition->url='renditions/'.$getRegistrationUser[0]->USERIID.'-'.time().'.pdf';
         $rendition->user_id=$getRegistrationUser[0]->USERIID;
-     $rendition->save();
+        $rendition->save();
+
+
+         foreach ($getRegistrationsByStatus as $header) {
+            foreach ($header->registrations as $key=> $registration ) {
+                $HeadRegistration=HeadRegistration::find($header->id);
+                $HeadRegistration->rendition=$rendition->id;
+                $HeadRegistration->save();
+            
+            }
+         } 
+
+
     return $nameOutput;
 
   }
