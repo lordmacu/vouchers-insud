@@ -20,6 +20,14 @@
             <div class="col-xs-12" style="margin-bottom: 10px">
               
                <a class="btn btn-warning" href="{{route('admin.voucher.registration.manual')}}">Manual de Uso <i class="fa fa-question-circle" aria-hidden="true"></i></a>
+              @if(app('request')->input('old')==1)
+                           <a class="btn btn-default" href="{{route('admin.voucher.registration.index')}}">Voucher activos <i class="fa fa-check" aria-hidden="true"></i></a>
+
+              @else
+                    <a class="btn btn-default" href="{{route('admin.voucher.registration.index',array("old"=>true))}}">Voucher Rendidos <i class="fa fa-archive" aria-hidden="true"></i></a>
+
+              @endif
+
                 <div class="btn-group pull-right" >
                    
                 @if($CGMSBC_SUBCUE=="0")
@@ -30,7 +38,7 @@
                     <a type="button" class="btn btn-primary " href="{{ route('admin.voucher.registration.create') }}?CGMSBC_SUBCUE={{$CGMSBC_SUBCUE}}" style="padding: 4px 10px;">
                         <i class="fa fa-pencil"></i> {{ trans('voucher::registrations.button.create registration') }}
                     </a>
-                @endif
+                @endif 
 
                 </div>
                             </div>

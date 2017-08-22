@@ -130,7 +130,7 @@ function extractCommonWords($string){
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
  /*$file="file.xml";
@@ -231,7 +231,11 @@ file_put_contents($file,  $principio.$otros.$fin);*/
             ->withError("Es necesario que el usuario este vinculado con un id");
         }
 
-        $registrations = HeadRegistration::where("user_id",$user->id)->get();
+        if($request->has("old")){
+          $registrations = HeadRegistration::where("user_id",$user->id)->where("status",2)->get();
+        }else{
+          $registrations = HeadRegistration::where("user_id",$user->id)->where("status",1)->get();
+        }
 
         $arrayRegistrations=array();
         foreach ($registrations as $r) {
