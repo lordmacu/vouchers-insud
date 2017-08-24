@@ -233,11 +233,13 @@ $(document).ready(function() {
                 $("#total_th").html(data.total);
                 $("#iva_th").html(data.iva);
                 $("#total_iva_th").html((data.total + data.iva).toFixed(2));
-
+                $("#comentario_individual_voucher").val("");
                 $("#REGIST_CANTID").val(0);
                 $("#REGIST_IMPORT").val(0);
                 $("#REGIST_IMPIVA").val(0);
-
+                var $select = $('#STMPDH_ARTCOD').selectize();
+                 var control = $select[0].selectize;
+                 control.clear();
             }
         })
     }

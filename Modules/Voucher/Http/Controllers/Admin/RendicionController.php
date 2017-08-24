@@ -56,12 +56,16 @@ class RendicionController extends AdminBaseController
         $vouchersArray=array();
 
          foreach ($getRegistrationsByStatus as $header) {
+            $agrupador=null;
             foreach ($header->registrations as $key=> $registration ) {
                 $HeadRegistration=HeadRegistration::find($header->id);
                 $HeadRegistration->status=2;
                 $HeadRegistration->save();
                 $arrayRegistration=$registration->toArray();
-                $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$registration->stmpdhs->USR_STMPDH_AGRP01][]=$registration;
+                if($registration->stmpdhs->USR_STMPDH_AGRP01!="9900"){
+                  $agrupador=$registration->stmpdhs->USR_STMPDH_AGRP01;
+                } 
+                $arrayGroupByAgr[$registration->CGMSBC_SUBCUE][$agrupador][]=$registration;
                 $vouchersArray[]=$registration->toArray();
             }
          }        
