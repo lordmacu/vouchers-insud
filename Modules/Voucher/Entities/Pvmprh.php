@@ -13,9 +13,7 @@ class Pvmprh extends Model
 
 
     public function validateCuit ($nrodoc){
-
     	return $this->where("PVMPRH_NRODOC",$nrodoc)->get();
-
     }
 
 
